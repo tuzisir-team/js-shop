@@ -1,4 +1,4 @@
-package com.shop.common.db;
+package common.db;
 
 import java.io.IOException;
 
@@ -8,7 +8,7 @@ import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
-import com.shop.common.db.database.ConnectDb;
+import common.db.database.ConnectDb;
 
 public class TestServlet extends HttpServlet {
 

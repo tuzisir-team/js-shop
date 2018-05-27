@@ -1,8 +1,9 @@
-package com.shop.common.db.database;
+package common.db.database;
 import java.sql.*;
 
-import com.shop.common.base.inter.db.BaseDatabaseConnectInter;
-import com.shop.config.GetConfig;
+import config.GetConfig;
+
+import common.base.inter.db.BaseDatabaseConnectInter;
 
 public class Mysql implements BaseDatabaseConnectInter{
 	private Connection conn=null;

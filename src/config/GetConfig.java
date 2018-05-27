@@ -1,7 +1,7 @@
-package com.shop.config;
+package config;
 
 import java.util.HashMap;
-import com.shop.common.db.database.*;
+import common.db.database.*;
 public class GetConfig {
 	
 	protected HashMap<String, String> config = new HashMap<String, String>();

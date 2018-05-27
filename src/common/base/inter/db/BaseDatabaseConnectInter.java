@@ -1,4 +1,4 @@
-package com.shop.common.base.inter.db;
+package common.base.inter.db;
 
 import java.sql.Connection;
 

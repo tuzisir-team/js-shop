@@ -1,4 +1,4 @@
-package com.shop.config;
+package config;
 
 import java.util.HashMap;
 
