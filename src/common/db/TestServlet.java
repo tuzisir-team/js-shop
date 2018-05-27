@@ -3,12 +3,10 @@ package common.db;
 import java.io.IOException;
 
 import java.io.PrintWriter;
-import java.sql.Connection;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
-import common.db.database.ConnectDb;
+import admin.controller.UsersController;
 
 public class TestServlet extends HttpServlet {
 
@@ -38,9 +36,12 @@ public class TestServlet extends HttpServlet {
 		 * @throws IOException if an error occurred
 		 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ConnectDb connectDb = new ConnectDb();
-		Connection test = connectDb.databaseFactory();
-		System.out.println(test);
+//		ConnectDb connectDb = new ConnectDb();
+//		Connection test = connectDb.databaseFactory();
+//		System.out.println(test);
+		
+		UsersController usersController = new UsersController();
+		usersController.test();
 		
 	}
 

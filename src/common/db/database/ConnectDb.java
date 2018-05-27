@@ -9,6 +9,15 @@ import common.base.inter.db.BaseDatabaseConnectInter;
 
 public class ConnectDb {
 	protected Connection conn = null;
+	
+	/**
+	 * 为了看起来代码好看
+	 * @return
+	 */
+	public static ConnectDb instance() {
+		return new ConnectDb();
+	}
+	
 	/**
 	 * 工厂模式根据参数选择相应数据库
 	 * @param databaseName
