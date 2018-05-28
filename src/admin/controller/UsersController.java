@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import common.db.model.Model;
-import common.db.model.UsersModel;
+import common.db.model.Users;
 import extend.log.Log;
 
 public class UsersController extends Model{

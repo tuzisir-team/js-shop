@@ -2,7 +2,7 @@ package common.db.model;
 
 import java.util.HashMap;
 
-public class UsersModel {
+public class Users {
 	protected int userId;
 	protected String userName;
 	protected String userPassword;
@@ -17,70 +17,70 @@ public class UsersModel {
 	 * 目的是为了省代码
 	 * @return
 	 */
-	public static UsersModel instantce() {
-		return new UsersModel();
+	public static Users instantce() {
+		return new Users();
 	}
 	
 	public int getUserId() {
 		return userId;
 	}
-	public UsersModel setUserId(int userId) {
+	public Users setUserId(int userId) {
 		this.userId = userId;
 		return this;
 	}
 	public String getUserName() {
 		return userName;
 	}
-	public UsersModel setUserName(String userName) {
+	public Users setUserName(String userName) {
 		this.userName = userName;
 		return this;
 	}
 	public String getUserPassword() {
 		return userPassword;
 	}
-	public UsersModel setUserPassword(String userPassword) {
+	public Users setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
 		return this;
 	}
 	public String getUserEmail() {
 		return userEmail;
 	}
-	public UsersModel setUserEmail(String userEmail) {
+	public Users setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 		return this;
 	}
 	public String getUserPhone() {
 		return userPhone;
 	}
-	public UsersModel setUserPhone(String userPhone) {
+	public Users setUserPhone(String userPhone) {
 		this.userPhone = userPhone;
 		return this;
 	}
 	public int getAddressId() {
 		return addressId;
 	}
-	public UsersModel setAddressId(int addressId) {
+	public Users setAddressId(int addressId) {
 		this.addressId = addressId;
 		return this;
 	}
 	public int getUserStatus() {
 		return userStatus;
 	}
-	public UsersModel setUserStatus(int userStatus) {
+	public Users setUserStatus(int userStatus) {
 		this.userStatus = userStatus;
 		return this;
 	}
 	public int getCreateTime() {
 		return createTime;
 	}
-	public UsersModel setCreateTime(int createTime) {
+	public Users setCreateTime(int createTime) {
 		this.createTime = createTime;
 		return this;
 	}
 	public int getUpdateTime() {
 		return updateTime;
 	}
-	public UsersModel setUpdateTime(int updateTime) {
+	public Users setUpdateTime(int updateTime) {
 		this.updateTime = updateTime;
 		return this;
 	}
