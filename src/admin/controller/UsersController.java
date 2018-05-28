@@ -19,10 +19,9 @@ public class UsersController extends Model{
 //		update(UsersModel.instantce().setUserEmail("123").getData()); // 更新操作
 		
         try {
-            String fileName = logger.log";
-            Log.getLogWriter(fileName).error("haha");
+            Log.instance().error("梦老二");
+
         } catch (Exception e) {
-            e.printStackTrace();
         }
 		
 		

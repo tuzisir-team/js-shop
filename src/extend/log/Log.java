@@ -3,24 +3,18 @@ package extend.log;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Properties;
+
+import config.GetConfig;
   
 /**
- * @author magic282
+ * @author tuzisir
  *
  */
 public class Log {
-	// 日志的配置文件
-    public static final String LOG_CONFIGFILE_NAME = "log.properties";
-    // 日志文件名在配置文件中的标签
-    public static final String LOGFILE_TAG_NAME = "logfile";
- 
-    // 默认的日志文件的路径和文件名称
-    private final String DEFAULT_LOG_FILE_NAME = "./logtext.log";
+	
     // 该类的唯一的实例
     private static Log logWriter;
     // 文件输出流
@@ -35,8 +29,19 @@ public class Log {
         this.init();
     }
  
-    private Log(String fileName) {
-        this.logFileName = fileName;
+    /**
+     * 存放位置
+     * @param fileName
+     */
+    private Log(String... fileName) {
+    	if (fileName.length == 1) {
+    		this.logFileName = fileName[0]; // 自定义日志存放目录
+    	} else if (GetConfig.instance(GetConfig.CONFIG).getStringConfig("logPath") != null){
+    		this.logFileName = GetConfig.instance(GetConfig.CONFIG).getStringConfig("logPath"); // 使用配置文件中的日志目录
+    	} else {
+    		this.logFileName = this.getClass().getClassLoader().getResource("").getPath() + 
+    				"../../runtime/log/" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()).toString() + ".log"; // 默认存放目录
+    	}
         this.init();
     }
  
@@ -45,7 +50,7 @@ public class Log {
      * @param logFileName
      * @return
      */
-    public synchronized static Log getLogWriter(String logFileName) {
+    public synchronized static Log instance(String... logFileName) {
         if (logWriter == null) {
             logWriter = new Log(logFileName);
         }
@@ -91,8 +96,9 @@ public class Log {
     protected String programProcess(int depth) {
     	String programProcess = "";
     	depth += 5;
-		java.util.Map<Thread, StackTraceElement[]> ts = Thread.getAllStackTraces();
-		StackTraceElement[] ste = ts.get(Thread.currentThread());  
+    	// 该方法返回一个映射，从线程到StackTraceElement数组，表示相应的线程的堆栈跟踪。
+		java.util.Map<Thread, StackTraceElement[]> ts = Thread.getAllStackTraces(); 
+		StackTraceElement[] ste = ts.get(Thread.currentThread()); // Thread.currentThread()可以获取当前线程的引用
 		for (int i=5; i<depth; i++) {
 			programProcess += "[ " + (i-4) + " ]" + ste[i].toString() + "\n"; 
 		}
@@ -106,13 +112,6 @@ public class Log {
      */
     private void init() {
         // 如果用户没有在参数中指定日志文件名，则从配置文件中获取。
-        if (this.logFileName == null) {
-            this.logFileName = this.getLogFileNameFromConfigFile();
-            // 如果配置文件不存在或者也没有指定日志文件名，则用默认的日志文件名。
-            if (this.logFileName == null) {
-                this.logFileName = DEFAULT_LOG_FILE_NAME;
-            }
-        }
         File logFile = new File(this.logFileName);
         File fileParent = logFile.getParentFile();  
         if(!fileParent.exists()){  
@@ -128,30 +127,6 @@ public class Log {
             String errmsg = "无法打开日志文件:" + logFile.getAbsolutePath();
              System.out.println(errmsg);
         }
-    }
- 
-    /**
-     * 从配置文件中取日志文件名
-     *
-     * @return
-     */
-    private String getLogFileNameFromConfigFile() {
-        try {
-            Properties pro = new Properties();
-            // 在类的当前位置,查找属性配置文件log.properties
-            InputStream fin = getClass().getResourceAsStream(
-                    LOG_CONFIGFILE_NAME);
-            if (fin != null) {
-                pro.load(fin);// 载入配置文件
-                fin.close();
-                return pro.getProperty(LOGFILE_TAG_NAME);
-            } else {
-                System.err.println("无法打开属性配置文件: log.properties");
-            }
-        } catch (IOException ex) {
-            System.err.println("无法打开属性配置文件: log.properties");
-        }
-        return null;
     }
  
     // 关闭LogWriter

@@ -9,18 +9,22 @@ public class GetConfig {
 	protected static GetConfig myself = null;
 	public static final String MYSQL = "MYSQL"; // mysql数据库配置
 	public static final String COMMON = "COMMON"; // 数据库公共配置
+	public static final String CONFIG = "CONFIG"; // 普通配置
+
 	
 	/**
-	 * 构造函数用来初始化数据库配置
+	 * 构造函数用来初始化配置
 	 * @param databaseType
 	 */
-	public GetConfig(String databaseType) {
-		if (databaseType.equals(GetConfig.MYSQL)) {
+	public GetConfig(String configType) {
+		if (configType.equals(GetConfig.MYSQL)) {
 			this.config = Database.mysqlConfig();
-		} else if (databaseType.equals(GetConfig.COMMON)) {
+		} else if (configType.equals(GetConfig.COMMON)) {
 			this.config = Database.commonConfig();
+		} else if (configType.equals(GetConfig.CONFIG)) {
+			this.config = Config.config();
 		} else {
-			// 其它数据库
+			// 其它配置
 		}
 	}
 	
@@ -29,8 +33,8 @@ public class GetConfig {
 	 * @param databaseType
 	 * @return
 	 */
-	public static GetConfig instance(String databaseType) {
-		GetConfig.myself = new GetConfig(databaseType);
+	public static GetConfig instance(String configType) {
+		GetConfig.myself = new GetConfig(configType);
 		return GetConfig.myself;
 	}
 	
