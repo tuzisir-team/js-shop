@@ -56,6 +56,10 @@ public class Log {
         }
         return logWriter;
     }
+    
+    public synchronized void notice(String logMsg) {
+        this.logInfo("NOTICE", logMsg);
+	}
  
     /**
      * 往日志文件中写一条日志信息 为了防止多线程同时操作(写)日志文件，造成文件”死锁”。使用synchronized关键字

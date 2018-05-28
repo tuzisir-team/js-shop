@@ -59,8 +59,12 @@ public class CommonModel {
 		return sqlTest;
 	}
 	
-	public String getCondition() {
-		return this.IteratorModel(this.condition, "and");
+	public String getCondition(Boolean... orAnd) {
+		String middleStr = "or";
+		if (orAnd.length == 1 && orAnd[0] == true) {
+			middleStr = "and";
+		}
+		return this.IteratorModel(this.condition, middleStr);
 	}
 	
 	public String getFields() {
