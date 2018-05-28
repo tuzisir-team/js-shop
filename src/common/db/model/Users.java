@@ -1,8 +1,10 @@
 package common.db.model;
 
-import java.util.HashMap;
+import common.base.inter.db.TableBeanInter;
 
-public class Users {
+
+public class Users  extends CommonModel implements TableBeanInter{
+
 	protected int userId;
 	protected String userName;
 	protected String userPassword;
@@ -85,49 +87,32 @@ public class Users {
 		return this;
 	}
 	
-	protected HashMap condition()
+	public void condition()
 	 {
-		 HashMap condition = new HashMap();	
 		 if (this.getUserId() > 0) {
-			  condition.put("user_id", this.getUserId());
+			  this.condition.put("user_id", this.getUserId());
 		 }
 		 if(this.getUserName() != null) {
-			 condition.put("user_name", "'"+this.getUserName()+"'");
+			 this.condition.put("user_name", "'"+this.getUserName()+"'");
 		 }
 		 if (this.getAddressId() > 0) {
-			  condition.put("address_id", this.getAddressId());
+			 this.condition.put("address_id", this.getAddressId());
 		 }
 		 if (this.getUserPassword() != null ) {
-			  condition.put("user_password", "'"+this.getUserPassword()+"'");
+			 this.condition.put("user_password", "'"+this.getUserPassword()+"'");
 		 }
 		 if (this.getCreateTime() > 0) {
-			  condition.put("create_time", this.getCreateTime());
+			 this.condition.put("create_time", this.getCreateTime());
 		 }
 		 if (this.getUpdateTime() > 0) {
-			  condition.put("update_time", this.getUpdateTime());
+			 this.condition.put("update_time", this.getUpdateTime());
 		 }
 		 if (this.getUserEmail() != null ) {
-			  condition.put("user_email", "'"+this.getUserEmail()+"'");
+			 this.condition.put("user_email", "'"+this.getUserEmail()+"'");
 		 }
 		 if (this.getUserStatus() > -1) {
-			  condition.put("user_status", this.getUserStatus());
+			 this.condition.put("user_status", this.getUserStatus());
 		 }
-		 return condition;
 	 } 
-	
-	public String getCondition() {
-		HashMap condition = this.condition();
-		return CommonModel.IteratorModel(condition, "and");
-	}
-	
-	public String getFields() {
-		HashMap fields = this.condition();
-		return CommonModel.IteratorFields(fields);
-	}
-	
-	public String getData() {
-		HashMap data = this.condition();
-		return CommonModel.IteratorModel(data, ",");
-	}
 	
 }

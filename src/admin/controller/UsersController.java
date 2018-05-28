@@ -1,7 +1,6 @@
 package admin.controller;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import common.servlet.Controller;
 
 import common.db.model.Model;
 import common.db.model.Users;
