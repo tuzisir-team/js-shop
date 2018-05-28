@@ -1,19 +1,21 @@
-package common.db;
+package common.servlet;
 
 import java.io.IOException;
-
 import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import admin.controller.UsersController;
-
-public class TestServlet extends HttpServlet {
+public class Controller extends HttpServlet {
+	public HttpServletRequest request;
+	public HttpServletResponse response;
 
 	/**
 		 * Constructor of the object.
 		 */
-	public TestServlet() {
+	public Controller() {
 		super();
 	}
 
@@ -36,13 +38,8 @@ public class TestServlet extends HttpServlet {
 		 * @throws IOException if an error occurred
 		 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		ConnectDb connectDb = new ConnectDb();
-//		Connection test = connectDb.databaseFactory();
-//		System.out.println(test);
-		
-		UsersController usersController = new UsersController();
-		usersController.test();
-		
+		this.request = request;
+		this.response = response;
 	}
 
 	/**
@@ -56,20 +53,8 @@ public class TestServlet extends HttpServlet {
 		 * @throws IOException if an error occurred
 		 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-		out.println("<HTML>");
-		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
-		out.println("  <BODY>");
-		out.print("    This is ");
-		out.print(this.getClass());
-		out.println(", using the POST method");
-		out.println("  </BODY>");
-		out.println("</HTML>");
-		out.flush();
-		out.close();
+		this.request = request;
+		this.response = response;
 	}
 
 	/**

@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 public class CommonModel {
-
-	public static String IteratorModel(HashMap conditionTest, String moddile)
+	public HashMap condition = new HashMap();	
+	public String IteratorModel(HashMap conditionTest, String moddile)
 	{
 		String sqlTest = "";
 		Iterator<String> iter = conditionTest.keySet().iterator();
@@ -23,7 +23,7 @@ public class CommonModel {
 		return sqlTest;
 	}
 	
-	public static String IteratorFields(HashMap conditionTest)
+	public String IteratorFields(HashMap conditionTest)
 	{
 		String sqlTest = "";
 		Iterator<String> iter = conditionTest.keySet().iterator();
@@ -41,7 +41,7 @@ public class CommonModel {
 		return sqlTest;
 	}
 	
-	public static String IteratorFieldsValues(HashMap conditionTest)
+	public String IteratorFieldsValues(HashMap conditionTest)
 	{
 		String sqlTest = "";
 		Iterator<String> iter = conditionTest.keySet().iterator();
@@ -57,5 +57,17 @@ public class CommonModel {
 			num ++;
 		}
 		return sqlTest;
+	}
+	
+	public String getCondition() {
+		return this.IteratorModel(this.condition, "and");
+	}
+	
+	public String getFields() {
+		return this.IteratorFields(this.condition);
+	}
+	
+	public String getData() {
+		return this.IteratorModel(this.condition, ",");
 	}
 }
