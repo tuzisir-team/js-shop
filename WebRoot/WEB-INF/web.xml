@@ -5,24 +5,8 @@
     <servlet-name>Servlet</servlet-name>
     <servlet-class>common.servlet.Servlet</servlet-class>
   </servlet>
-<<<<<<< HEAD
-=======
- 
->>>>>>> 3157ff3bcaf66774dd5cc70715454187c65775f1
   <servlet-mapping>
     <servlet-name>Servlet</servlet-name>
     <url-pattern>/test</url-pattern>
   </servlet-mapping>
-<<<<<<< HEAD
-  <servlet>
-  	<servlet-name>UsersController</servlet-name>
-  	<servlet-class>index.controller.user.UsersController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>UsersController</servlet-name>
-  	<url-pattern>/view/index/UserServlet</url-pattern>
-  </servlet-mapping>
-
-=======
->>>>>>> 3157ff3bcaf66774dd5cc70715454187c65775f1
 </web-app>
