@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 
 import common.db.model.*;
+import extend.log.Log;
 
 public class UsersModel extends Model{
 
@@ -23,7 +24,6 @@ public class UsersModel extends Model{
 	 * @return
 	 */
 	public Boolean register(Users users) {
-		
 		ResultSet res = this.table("users").
 				where(Users.instantce().setUserName(users.getUserName()).
 						setUserPassword(users.getUserPassword()).
@@ -31,21 +31,28 @@ public class UsersModel extends Model{
 		int num;
 		try {
 			num = res.getRow();
+			if (num > 0) {
+				Log.instance().error("注册失败,用户名冲突");
+				return false;
+			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.instance().error("查找用户名时异常");
 		}
 		if(this.login()){
-			Users ss = Users.instantce()
+			Users get_fieldvalue = Users.instantce()
 					.setUserName(users.getUserName())
 					.setUserPassword(users.getUserPassword())
 					.setUserPhone(users.getUserPhone())
 					.setUserEmail(users.getUserEmail())
 					.setCreateTime(123)
 					.setUpdateTime(222);
-			int w = this.table("users").add(ss.getFields(), ss.getData()); // 添加操作。getFields得到字段名，getData得到数据
+			int add = this.table("users").add(get_fieldvalue.getFields(), get_fieldvalue.getData()); // 添加操作。getFields得到字段名，getData得到数据
+			if (add > 0) {
+				return true;
+			}
 		}
-		return true;
+		Log.instance().error("注册失败");
+		return false;
 	}
 	
 	/**

@@ -28,11 +28,10 @@
 				<li class="mb_10"><span class="reg_item"><i>*</i>确认密码</span><div class="input_item"><input name="password_again" type="text" class="login_input user_icon"></div></li>
 				<li class="mb_10"><span class="reg_item"><i>*</i>电话</span><div class="input_item"><input name="user_phone" type="text" class="login_input user_icon"></div></li>
 				<li class="mb_10"><span class="reg_item"><i>*</i>邮箱地址</span><div class="input_item"><input name="user_email" type="text" class="login_input user_icon"></div></li>
-				<li class="mb_10"><span class="reg_item"><i>*</i>收货地址</span><div class="input_item"><input name="user_address" type="text" class="login_input user_icon"></div></li>
 				<li class="autoLogin"><span class="reg_item">&nbsp;</span><input type="checkbox" id="t1" class="checked"><label for="t1">我同意协议条款</label></li>
 				<li><span class="reg_item">&nbsp;</span></li>
-				<button class="login_btn">注册</button>
 			</ul>
+			<input type="submit" value="注册" name="register">
 		</form>
 	</div>
 </div>
