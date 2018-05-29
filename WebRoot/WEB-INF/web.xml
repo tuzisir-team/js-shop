@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
   <display-name>test1</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
   <servlet>
-    <servlet-name>TestServlet</servlet-name>
-    <servlet-class>common.db.TestServlet</servlet-class>
+    <servlet-name>Servlet</servlet-name>
+    <servlet-class>common.servlet.Servlet</servlet-class>
   </servlet>
+<<<<<<< HEAD
+=======
+ 
+>>>>>>> 3157ff3bcaf66774dd5cc70715454187c65775f1
   <servlet-mapping>
-    <servlet-name>TestServlet</servlet-name>
+    <servlet-name>Servlet</servlet-name>
     <url-pattern>/test</url-pattern>
   </servlet-mapping>
+<<<<<<< HEAD
   <servlet>
   	<servlet-name>UsersController</servlet-name>
   	<servlet-class>index.controller.user.UsersController</servlet-class>
@@ -26,4 +23,6 @@
   	<url-pattern>/view/index/UserServlet</url-pattern>
   </servlet-mapping>
 
+=======
+>>>>>>> 3157ff3bcaf66774dd5cc70715454187c65775f1
 </web-app>

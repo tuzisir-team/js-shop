@@ -2,20 +2,26 @@ package common.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Method;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class Controller extends HttpServlet {
+import admin.controller.UsersController;
+import common.controller.Controller;
+import config.GetConfig;
+import extend.log.Log;
+
+public class Servlet extends HttpServlet {
 	public HttpServletRequest request;
 	public HttpServletResponse response;
 
 	/**
 		 * Constructor of the object.
 		 */
-	public Controller() {
+	public Servlet() {
 		super();
 	}
 
@@ -38,8 +44,37 @@ public class Controller extends HttpServlet {
 		 * @throws IOException if an error occurred
 		 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.request = request;
-		this.response = response;
+		
+		this.routeSelect(request, response); 
+	}
+	
+	protected void routeSelect(HttpServletRequest request, HttpServletResponse response) {
+		String requestType = null;
+		String route = null;
+		Controller.setRequest(request);
+		Controller.setResponse(response);
+		if (request.getParameter("getType") != null) {
+			requestType = request.getParameter("getType");
+			route = GetConfig.instance(GetConfig.GETROUTES).getStringConfig(requestType);
+			Log.instance().notice("get请求:getType="+requestType+"请求地址:"+route);
+		} else {
+			requestType = request.getParameter("postType");
+			route = GetConfig.instance(GetConfig.POSTROUTES).getStringConfig(requestType);
+			Log.instance().notice("post请求:postType="+requestType+"请求地址:"+route);
+		}
+		if (route == null) {
+			return;
+		}
+		Class getClass = null;
+		try {
+			String [] routeDeal = route.split("@");
+			getClass = Class.forName(routeDeal[0]);
+			 Method clazz = getClass.getMethod(routeDeal[1]);
+	        clazz.invoke(getClass.newInstance());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}   
 	}
 
 	/**
@@ -53,8 +88,7 @@ public class Controller extends HttpServlet {
 		 * @throws IOException if an error occurred
 		 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.request = request;
-		this.response = response;
+		this.routeSelect(request, response); 
 	}
 
 	/**
