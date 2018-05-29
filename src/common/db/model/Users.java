@@ -1,9 +1,6 @@
 package common.db.model;
 
-import common.base.inter.db.TableBeanInter;
-
-
-public class Users  extends CommonModel implements TableBeanInter{
+public class Users  extends CommonModel{
 
 	protected int userId;
 	protected String userName;
@@ -87,7 +84,7 @@ public class Users  extends CommonModel implements TableBeanInter{
 		return this;
 	}
 	
-	public void condition()
+	public Users end()
 	 {
 		 if (this.getUserId() > 0) {
 			  this.condition.put("user_id", this.getUserId());
@@ -101,6 +98,9 @@ public class Users  extends CommonModel implements TableBeanInter{
 		 if (this.getUserPassword() != null ) {
 			 this.condition.put("user_password", "'"+this.getUserPassword()+"'");
 		 }
+		 if (this.getUserPhone() != null ) {
+			 this.condition.put("user_phone", "'"+this.getUserPhone()+"'");
+		 }
 		 if (this.getCreateTime() > 0) {
 			 this.condition.put("create_time", this.getCreateTime());
 		 }
@@ -113,6 +113,7 @@ public class Users  extends CommonModel implements TableBeanInter{
 		 if (this.getUserStatus() > -1) {
 			 this.condition.put("user_status", this.getUserStatus());
 		 }
+		 return this;
 	 } 
 	
 }

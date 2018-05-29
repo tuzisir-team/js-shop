@@ -13,6 +13,7 @@ public class Routes {
 
 	public static HashMap<String, String> postRoutes() {
 		Routes.postRoutes.put("testPost", "admin.controller.UsersController@test");
+		Routes.postRoutes.put("register", "index.controller.UsersController1@register");
 		return Routes.postRoutes;
 	}
 

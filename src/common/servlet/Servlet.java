@@ -69,6 +69,7 @@ public class Servlet extends HttpServlet {
 		try {
 			String [] routeDeal = route.split("@");
 			getClass = Class.forName(routeDeal[0]);
+			Log.instance().notice(routeDeal[0]);
 			 Method clazz = getClass.getMethod(routeDeal[1]);
 	        clazz.invoke(getClass.newInstance());
 		} catch (Exception e) {

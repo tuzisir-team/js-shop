@@ -60,9 +60,9 @@ public class CommonModel {
 	}
 	
 	public String getCondition(Boolean... orAnd) {
-		String middleStr = "or";
+		String middleStr = "and";
 		if (orAnd.length == 1 && orAnd[0] == true) {
-			middleStr = "and";
+			middleStr = "or";
 		}
 		return this.IteratorModel(this.condition, middleStr);
 	}
@@ -72,6 +72,6 @@ public class CommonModel {
 	}
 	
 	public String getData() {
-		return this.IteratorModel(this.condition, ",");
+		return this.IteratorFieldsValues(this.condition);
 	}
 }

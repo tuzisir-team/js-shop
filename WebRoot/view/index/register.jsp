@@ -20,18 +20,17 @@
 </div>
 <div class="regBox clearfix">
 	<div class="login_cont">
-		<form action="UserServlet" method="POST">
+		<form action="route" method="POST">
 			<ul class="login">
 				<input type="hidden" value="register" name="postType">
-				<li class="mb_10"><span class="reg_item"><i>*</i>账户名：</span><div class="input_item"><input name="user_name" type="text" class="login_input user_icon"></div></li>
-				<li class="mb_10"><span class="reg_item"><i>*</i>密码：</span><div class="input_item"><input name="user_password" type="password" class="login_input user_icon"></div></li>
-				<li class="mb_10"><span class="reg_item"><i>*</i>确认密码</span><div class="input_item"><input name="password_again" type="text" class="login_input user_icon"></div></li>
-				<li class="mb_10"><span class="reg_item"><i>*</i>电话</span><div class="input_item"><input name="user_phone" type="text" class="login_input user_icon"></div></li>
-				<li class="mb_10"><span class="reg_item"><i>*</i>邮箱地址</span><div class="input_item"><input name="user_email" type="text" class="login_input user_icon"></div></li>
-				<li class="autoLogin"><span class="reg_item">&nbsp;</span><input type="checkbox" id="t1" class="checked"><label for="t1">我同意协议条款</label></li>
+				<li class="mb_10"><span class="reg_item"><i>*</i>账户名：</span><div class="input_item"><input required name="user_name" type="text" class="login_input user_icon"></div></li>
+				<li class="mb_10"><span class="reg_item"><i>*</i>密码：</span><div class="input_item"><input required name="user_password" type="password" class="login_input user_icon"></div></li>
+				<li class="mb_10"><span class="reg_item"><i>*</i>确认密码</span><div class="input_item"><input required name="password_again" type="text" class="login_input user_icon"></div></li>
+				<li class="mb_10"><span class="reg_item"><i>*</i>电话</span><div class="input_item"><input required name="user_phone" type="text" class="login_input user_icon"></div></li>
+				<li class="mb_10"><span class="reg_item"><i>*</i>邮箱地址</span><div class="input_item"><input required name="user_email" type="text" class="login_input user_icon"></div></li>
 				<li><span class="reg_item">&nbsp;</span></li>
 			</ul>
-			<input type="submit" value="注册" name="register">
+			<button>注册</button>
 		</form>
 	</div>
 </div>

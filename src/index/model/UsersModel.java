@@ -24,10 +24,12 @@ public class UsersModel extends Model{
 	 * @return
 	 */
 	public Boolean register(Users users) {
+		System.out.println(users.getUserName());
+		String where = Users.instantce().setUserName(users.getUserName()).
+				setUserPassword(users.getUserPassword()).end().getCondition();
+		System.out.println(where);
 		ResultSet res = this.table("users").
-				where(Users.instantce().setUserName(users.getUserName()).
-						setUserPassword(users.getUserPassword()).
-						getCondition()).select(); // 查询操作
+				where(where).select(); // 查询操作
 		int num;
 		try {
 			num = res.getRow();
@@ -45,7 +47,7 @@ public class UsersModel extends Model{
 					.setUserPhone(users.getUserPhone())
 					.setUserEmail(users.getUserEmail())
 					.setCreateTime(123)
-					.setUpdateTime(222);
+					.setUpdateTime(222).end();
 			int add = this.table("users").add(get_fieldvalue.getFields(), get_fieldvalue.getData()); // 添加操作。getFields得到字段名，getData得到数据
 			if (add > 0) {
 				return true;
