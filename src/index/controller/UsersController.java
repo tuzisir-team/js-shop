@@ -21,21 +21,6 @@ public class UsersController extends HttpServlet{
 		String postType=request.getParameter("postType");
 		
 		if (postType.equals("register")) {
-<<<<<<< HEAD
-			this.register(Users.instantce()
-					.setUserName(request.getParameter("user_name"))
-					.setUserPassword(request.getParameter("user_password"))
-					.setUserPhone(request.getParameter("user_phone"))
-					.setUserEmail(request.getParameter("user_email"))
-					
-				);
-		//获得session
-		      HttpSession session = request.getSession();
-		//获得session中保留的信息
-		     String sCode = session.getAttribute("saveCode").toString();
-		//给session中存储数据
-		     session.setAttribute("name","JACK");
-=======
 			try {
 				this.register(Users.instantce()
 						.setUserName(request.getParameter("user_name"))
@@ -48,7 +33,12 @@ public class UsersController extends HttpServlet{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
->>>>>>> 8558109cfead70e214ec8a28e6d9b166fdc24c57
+		//获得session
+		      HttpSession session = request.getSession();
+		//获得session中保留的信息
+		     String sCode = session.getAttribute("saveCode").toString();
+		//给session中存储数据
+		     session.setAttribute("name","JACK");
 		}
 	}
 	

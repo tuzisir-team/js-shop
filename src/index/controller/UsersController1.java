@@ -14,28 +14,19 @@ public class UsersController1 extends Controller{
 	 * 注册
 	 * @throws SQLException 
 	 */
-<<<<<<< HEAD
-	public void register() {
-		UsersModel.instance().register(Users.instantce()
-				.setUserName(request.getParameter("user_name"))
-				.setUserPassword(request.getParameter("user_password"))
-				.setUserPhone(request.getParameter("user_phone"))
-				.setUserEmail(request.getParameter("user_email")));
-
-=======
 	public void register() throws SQLException {
 			UsersModel.instance().register(Users.instantce()
 					.setUserName(request.getParameter("user_name"))
 					.setUserPassword(request.getParameter("user_password"))
 					.setUserPhone(request.getParameter("user_phone"))
 					.setUserEmail(request.getParameter("user_email")));
->>>>>>> 8558109cfead70e214ec8a28e6d9b166fdc24c57
 	}
 	
 	/**
 	 * 登录
+	 * @throws SQLException 
 	 */
-	public void login() {
+	public void login() throws SQLException {
 		UsersModel.instance().login(Users.instantce()
 				.setUserName(request.getParameter("user_name"))
 				.setUserPassword(request.getParameter("user_password"))

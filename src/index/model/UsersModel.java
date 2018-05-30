@@ -24,12 +24,9 @@ public class UsersModel extends Model{
 	 * @return
 	 * @throws SQLException 
 	 */
-<<<<<<< HEAD
-	public Boolean register(Users users) {
-=======
+
 	public Boolean register(Users users) throws SQLException {
 		System.out.println(users.getUserName());
->>>>>>> 8558109cfead70e214ec8a28e6d9b166fdc24c57
 		String where = Users.instantce().setUserName(users.getUserName()).
 				end().getCondition();
 		System.out.println(where);
@@ -62,8 +59,9 @@ public class UsersModel extends Model{
 	/**
 	 * 用户登陆
 	 * @return
+	 * @throws SQLException 
 	 */
-	public Boolean login(Users users) {
+	public Boolean login(Users users) throws SQLException {
 		String where = Users.instantce().setUserName(users.getUserName())
 				.setUserPassword(users.getUserPassword())
 				.end().getCondition();
