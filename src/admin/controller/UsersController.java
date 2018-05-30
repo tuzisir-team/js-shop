@@ -25,7 +25,6 @@ public class UsersController extends Controller{
 //        	
 //        }
 		System.out.println(this.request);
-		System.out.println(this.test);
 		
 		
 	}

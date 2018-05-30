@@ -22,8 +22,9 @@ public class UsersModel extends Model{
 	 * 用户注册
 	 * @param name
 	 * @return
+	 * @throws SQLException 
 	 */
-	public Boolean register(Users users) {
+	public Boolean register(Users users) throws SQLException {
 		System.out.println(users.getUserName());
 		String where = Users.instantce().setUserName(users.getUserName()).
 				setUserPassword(users.getUserPassword()).end().getCondition();

@@ -3,6 +3,7 @@ package common.db.model;
 import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import common.db.database.ConnectDb;
 import common.db.database.MysqlApi;
@@ -72,8 +73,9 @@ public class Model {
 	/**
 	 * 添加
 	 * @return 
+	 * @throws SQLException 
 	 */
-	public int add(String fields, String values) {
+	public int add(String fields, String values) throws SQLException {
 		String sql;
 		sql = "insert into " + this.table + "("+ fields +") " +
 				"values(" + values +")";
@@ -83,8 +85,9 @@ public class Model {
 	/**
 	 * 删除记录
 	 * @return
+	 * @throws SQLException 
 	 */
-	public int delete() {
+	public int delete() throws SQLException {
 		String sql;
 		sql = "delete from " + this.table + " where " + this.where;
 		return this.databaseType(sql);
@@ -94,18 +97,29 @@ public class Model {
 	 * 更新数据
 	 * @param data
 	 * @return
+	 * @throws SQLException 
 	 */
-	public int update(String data) {
+	public int update(String data) throws SQLException {
 		String sql;
 		sql = "update "+ this.table + " set " + data + " where " + this.where;
 		return this.databaseType(sql);
 	}
 	
+	public Boolean find() throws SQLException {
+		ResultSet findResult = this.select();
+		findResult.last();
+		if (findResult.getRow() > 0)  {
+			return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * 查询操作
 	 * @return
+	 * @throws SQLException 
 	 */
-	public ResultSet select() {
+	public ResultSet select() throws SQLException {
 		String sql;
 		ResultSet res = null;
 		sql = "select * from " + this.table;
@@ -130,8 +144,9 @@ public class Model {
 	 * @param sql
 	 * @param isSelect
 	 * @return
+	 * @throws SQLException 
 	 */
-	protected int databaseType(String sql, boolean... isSelect) {
+	protected int databaseType(String sql, boolean... isSelect) throws SQLException {
 		System.out.println(sql);
 		int result = 0;
 		if (GetConfig.instance(GetConfig.COMMON).getStringConfig("defaultDatabase").equals(GetConfig.MYSQL)) {

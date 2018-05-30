@@ -2,6 +2,7 @@ package common.db.database;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import com.mysql.jdbc.PreparedStatement;
 
@@ -28,18 +29,14 @@ public class MysqlApi {
 	 * 对数据库的查询操作
 	 * @param sql
 	 * @return
+	 * @throws SQLException 
 	 */
-	public ResultSet selectApi(String sql)
+	public ResultSet selectApi(String sql) throws SQLException
 	{
 		PreparedStatement ptmt = null;
 		ResultSet rs = null;
-		try {
-			ptmt = (PreparedStatement) this.conn.prepareStatement(sql); 
-			rs=ptmt.executeQuery();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ptmt = (PreparedStatement) this.conn.prepareStatement(sql); 
+		rs=ptmt.executeQuery();
 		return rs;
 	}
 	
