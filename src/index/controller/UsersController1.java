@@ -11,17 +11,37 @@ public class UsersController1 extends Controller{
 	 * 注册
 	 */
 	public void register() {
-			UsersModel.instance().register(Users.instantce()
-					.setUserName(request.getParameter("user_name"))
-					.setUserPassword(request.getParameter("user_password"))
-					.setUserPhone(request.getParameter("user_phone"))
-					.setUserEmail(request.getParameter("user_email")));
+		UsersModel.instance().register(Users.instantce()
+				.setUserName(request.getParameter("user_name"))
+				.setUserPassword(request.getParameter("user_password"))
+				.setUserPhone(request.getParameter("user_phone"))
+				.setUserEmail(request.getParameter("user_email")));
+
 	}
 	
 	/**
 	 * 登录
 	 */
 	public void login() {
-		Log.instance().notice("我是登录");
+		UsersModel.instance().login(Users.instantce()
+				.setUserName(request.getParameter("user_name"))
+				.setUserPassword(request.getParameter("user_password"))
+				);
+		String name=request.getParameter("user_name");
+		String psw=request.getParameter("user_password");
+		String Scode=request.getSession().toString();
+		
+	}
+	/**
+	 * 注销
+	 */
+	public void exit(){
+		
+	}
+	/**
+	 * 修改用户信息
+	 */
+	public void updata(){
+		
 	}
 }

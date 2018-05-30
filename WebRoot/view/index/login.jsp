@@ -20,14 +20,16 @@
 </div>
 <div class="loginBox clearfix">
 	<div class="login_cont">
+	<form action="" method="post">
 		<ul class="login">
 			<li class="l_tit">邮箱/用户名/手机号</li>
 			<li class="mb_10"><input type="text" class="login_input user_icon"></li>
 			<li class="l_tit">密码</li>
 			<li class="mb_10"><input type="text" class="login_input user_icon"></li>
 			<li class="autoLogin"><input type="checkbox" id="a1" class="checked"><label for="a1">自动登录</label></li>
-			<li><input type="button" value="" class="login_btn"></li>
 		</ul>
+		<input type="submit"  value="登录" class="login_btn">
+	</form>
 		<div class="login_partners">
 			<p class="l_tit">使用合作方账号登录网站</p>
 			<ul class="login_list clearfix">

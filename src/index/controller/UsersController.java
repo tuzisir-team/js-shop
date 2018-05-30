@@ -27,11 +27,18 @@ public class UsersController extends HttpServlet{
 					.setUserEmail(request.getParameter("user_email"))
 					
 				);
+		//获得session
+		      HttpSession session = request.getSession();
+		//获得session中保留的信息
+		     String sCode = session.getAttribute("saveCode").toString();
+		//给session中存储数据
+		     session.setAttribute("name","JACK");
 		}
 	}
 	
 	protected void register (Users users) {
 		UsersModel.instance().register(users);
+		
 	}
 }
 
