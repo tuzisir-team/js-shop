@@ -64,7 +64,6 @@ public class GetConfig {
 		if (this.config.containsKey(key)) {
 			value = this.config.get(key);
 		}
-		System.out.println(key + value);
 		return value;
 	}
 	

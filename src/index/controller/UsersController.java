@@ -1,6 +1,7 @@
 package index.controller;
 
 import java.io.*;
+import java.sql.SQLException;
 import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -20,6 +21,7 @@ public class UsersController extends HttpServlet{
 		String postType=request.getParameter("postType");
 		
 		if (postType.equals("register")) {
+<<<<<<< HEAD
 			this.register(Users.instantce()
 					.setUserName(request.getParameter("user_name"))
 					.setUserPassword(request.getParameter("user_password"))
@@ -33,10 +35,24 @@ public class UsersController extends HttpServlet{
 		     String sCode = session.getAttribute("saveCode").toString();
 		//给session中存储数据
 		     session.setAttribute("name","JACK");
+=======
+			try {
+				this.register(Users.instantce()
+						.setUserName(request.getParameter("user_name"))
+						.setUserPassword(request.getParameter("user_password"))
+						.setUserPhone(request.getParameter("user_phone"))
+						.setUserEmail(request.getParameter("user_email"))
+						
+					);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+>>>>>>> 8558109cfead70e214ec8a28e6d9b166fdc24c57
 		}
 	}
 	
-	protected void register (Users users) {
+	protected void register (Users users) throws SQLException {
 		UsersModel.instance().register(users);
 		
 	}

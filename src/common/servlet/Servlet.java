@@ -44,24 +44,25 @@ public class Servlet extends HttpServlet {
 		 * @throws IOException if an error occurred
 		 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		this.routeSelect(request, response); 
 	}
 	
-	protected void routeSelect(HttpServletRequest request, HttpServletResponse response) {
+	protected void routeSelect(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String requestType = null;
 		String route = null;
 		Controller.setRequest(request);
 		Controller.setResponse(response);
-		if (request.getParameter("getType") != null) {
-			requestType = request.getParameter("getType");
+		Controller.setServlet(this);
+		if (request.getParameter("get_type") != null) {
+			requestType = request.getParameter("get_type");
 			route = GetConfig.instance(GetConfig.GETROUTES).getStringConfig(requestType);
-			Log.instance().notice("get请求:getType="+requestType+"请求地址:"+route);
+			Log.instance().notice("get请求:get_type="+requestType+"请求地址:"+route);
 		} else {
-			requestType = request.getParameter("postType");
+			requestType = request.getParameter("post_type");
 			route = GetConfig.instance(GetConfig.POSTROUTES).getStringConfig(requestType);
-			Log.instance().notice("post请求:postType="+requestType+"请求地址:"+route);
+			Log.instance().notice("post请求:post_type="+requestType+"请求地址:"+route);
 		}
+		System.out.println(route+"====");
 		if (route == null) {
 			return;
 		}
