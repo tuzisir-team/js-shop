@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.Enumeration;
 
 import javax.imageio.ImageIO;
+import javax.servlet.ServletException;
 
 import admin.model.LoginModel;
 import common.controller.Controller;
@@ -45,18 +46,34 @@ public class LoginController extends Controller{
 	}
 	
 	/**
+	 * 退出登录
+	 * @throws IOException 
+	 * @throws ServletException 
+	 */
+	public void adminUnlogin() throws IOException, ServletException {
+		String checkResult = checkParams("get_type");
+		// 验证参数
+		if (checkResult != null) {
+			getOut().println(returnJson(444, "缺少必要参数"+checkResult));return;
+		}
+		// 销毁session 
+		request.getSession().invalidate();
+		// 跳转到登录页面
+		forward("/view/admin/login/login.jsp");
+	}
+	
+	/**
 	 * 验证码验证
 	 * @return
 	 */
 	private Boolean checkCode() {
 		String clientCheckcode = request.getParameter("captcha");//接收客户端浏览器提交上来的验证码
         String serverCheckcode = (String) request.getSession().getAttribute("checkcode");//从服务器端的session中取出验证码
-        System.out.println(clientCheckcode + "--" + serverCheckcode);
         if (clientCheckcode == null || serverCheckcode == null) {
         	Log.instance().error("验证码为空");
         	return false;
         }
-        if (clientCheckcode.equals(serverCheckcode)) {//将客户端验证码和服务器端验证比较，如果相等，则表示验证通过
+        if (clientCheckcode.toUpperCase().equals(serverCheckcode)) {//将客户端验证码和服务器端验证比较，如果相等，则表示验证通过
         	return true;
         }
     	Log.instance().error("没有通过验证码");
@@ -72,7 +89,6 @@ public class LoginController extends Controller{
         VertifCode vertifCode = new VertifCode(createTypeFlag);
         //7.将随机数存在session中
         request.getSession().setAttribute("checkcode", vertifCode.getRandom());
-        System.out.println((String) request.getSession().getAttribute("checkcode"));
         //8.设置响应头通知浏览器以图片的形式打开
         response.setContentType("image/jpeg");//等同于response.setHeader("Content-Type", "image/jpeg");
         //9.设置响应头控制浏览器不要缓存

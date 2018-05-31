@@ -1,15 +1,5 @@
 <%@ page language="java" import="java.util.*" contentType="text/html; charset=utf-8"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
-<%  
-  if(session.getAttribute("admin_name") == null)  
-  {  
-      out.println("<script>window.location.href='login.jsp'</script>");  
-      return;  
-  }  
-%> 
+<jsp:include   page="../common/base.jsp" flush="true"/>
 <!DOCTYPE html>
 <html>
   <head>
@@ -37,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <li class="header-bar-nav">
           <a href="javascript:;"><i class="icon-font" style="margin-left:5px;">&#xe60c;</i></a>
           <ul class="header-dropdown-menu">
-            <li><a href="${pageContext.request.contextPath}/view/route?get_type=admin_unlogin">退出</a></li>
+            <li><a href="${pageContext.request.contextPath}/route?get_type=admin_unlogin">退出</a></li>
           </ul>
         </li>
 		<li class="header-bar-nav"> 
@@ -89,7 +79,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
   $(function(){
     var menu = [{"id":"1","name":"首页","parentId":"0","url":"","icon":"","order":"1","isHeader":"1","childMenus":[
             {"id":"10","name":"用户管理","parentId":"1","url":"","icon":"&#xe609;","order":"1","isHeader":"0","childMenus":[
-            	{"id":"11","name":"用户列表","parentId":"20","url":"./user/user_list.jsp","icon":"","order":"1","isHeader":"0","childMenus":""},
+            	{"id":"11","name":"用户列表","parentId":"20","url":"${pageContext.request.contextPath}/route?get_type=user_list","icon":"","order":"1","isHeader":"0","childMenus":""},
             ]},
             {"id":"20","name":"商品管理","parentId":"1","url":"","icon":"&#xe609;","order":"1","isHeader":"0","childMenus":[
               {"id":"21","name":"商品类别","parentId":"20","url":"./cate/book_cate.jsp","icon":"","order":"1","isHeader":"0","childMenus":""},
