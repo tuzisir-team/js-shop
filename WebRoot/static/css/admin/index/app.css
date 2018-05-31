@@ -1,0 +1,177 @@
+body{
+    margin: 0;
+    padding:0;
+}
+.middle-div{
+    width:100%;
+    height:91%;
+    position:absolute;
+}
+.left-div{
+    width:11.5%;
+    height:100%;
+    position:fixed;
+}
+.right-div{
+    top:3rem;
+    width:88.5%;
+    left:11.5%;
+    height:100%;
+    position:absolute;
+}
+.title-div{
+    padding-left:1.5%;
+    height:9.5%;
+    text-align: center;
+    line-height:345%;
+    font-family: Microsoft JhengHei;
+    color:#1E9FFF;
+    font-size:24px;
+    position:fixed;
+}
+.label_div{
+    margin-top:37%;
+    height:100%;
+}
+.user-info{
+    width:88.5%;
+    left:11.5%;
+    height:5.21%;
+    position: absolute;
+}
+.concent-div{
+    height:100%;
+    background:#e2e2e2;
+    overflow:scroll;
+    position:absolute;
+    width:100%;
+}
+.foot-title{
+    color:#dddddd;
+    text-align:center;
+    width:100%;
+    height:4%;
+    top:100%;
+    position:relative;
+}
+.bread-crumbs{
+    padding-left:10px;
+    line-height:34px;
+    height:34px;
+    background:white;
+}
+.page-concent-div{
+    margin:1.6% 1.2%;
+}
+h1{
+    color: #555555;
+    font-size: 28px;
+    font-weight: normal;
+    float: none;
+    text-shadow: 0 1px 0 #ffffff;
+    position: relative;
+}
+hr{
+    background: #dddddd;
+}
+.pop-up-style{
+    padding:2% 18% 0 18%;
+}
+.mt0{
+    margin-top:2%;
+}
+.wd0{
+    width: 7rem;
+}
+.wd1{
+    width: 7rem;
+}
+.wd2{
+    width:60rem;
+}
+.wd3{
+    width:25rem;
+}
+.wd4{
+    width: 100%;
+}
+.wd5{
+    width:8rem;
+}
+.wd6{
+  width:210px;
+}
+/* 新分页 */
+.pagination {
+    display:inline-block;
+    padding-left:0;
+    margin:20px 0;
+    border-radius:4px;
+    float: right;
+    margin-right: 15px;
+}
+.pagination>li {
+    display:inline
+}
+.pagination>li>a, .pagination>li>span {
+    position:relative;
+    float:left;
+    padding:6px 12px;
+    margin-left:-1px;
+    line-height:1.42857143;
+    color:#009688;
+    text-decoration:none;
+    background-color:#fff;
+    border:1px solid #ddd
+}
+.pagination>li:first-child>a, .pagination>li:first-child>span {
+    margin-left:0;
+    border-top-left-radius:4px;
+    border-bottom-left-radius:4px
+}
+.pagination>li:last-child>a, .pagination>li:last-child>span {
+    border-top-right-radius:4px;
+    border-bottom-right-radius:4px
+}
+.pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover {
+    color:#009688;
+    background-color:#eee;
+    border-color:#ddd
+}
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    z-index:2;
+    color:#fff;
+    cursor:default;
+    background-color:#009688;
+    border-color:#009688
+}
+.pagination>.disabled>a, .pagination>.disabled>a:focus, .pagination>.disabled>a:hover, .pagination>.disabled>span, .pagination>.disabled>span:focus, .pagination>.disabled>span:hover {
+    color:#777;
+    cursor:not-allowed;
+    background-color:#fff;
+    border-color:#ddd
+}
+
+dl>dd>a{
+    background:black;
+}
+.login-div{
+  width:420px;
+  border: solid 1px #c2c2c2;
+  margin:auto;
+  margin-top:200px;
+  background:white;
+  text-align:center;
+  padding-bottom:30px;
+}
+.login-title{
+    color:black;
+    font-size:1.6rem;
+    margin:7% 7%;
+}
+.layui-center{
+    text-align: center;
+}
+.login-button{
+  width: 100px;
+}
