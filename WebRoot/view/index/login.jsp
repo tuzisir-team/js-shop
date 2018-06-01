@@ -12,7 +12,7 @@
 	<div class="logoBar login_logo">
 		<div class="comWidth">
 			<div class="logo fl">
-				<a href="#"><img src="../../static/img/index/logo.png" alt="慕课网"></a>
+				<a href="#"><img src="../../static/img/index/icon/logo.png" alt="慕课网"></a>
 			</div>
 			<h3 class="welcome_title">欢迎登录</h3>
 		</div>
@@ -50,7 +50,7 @@
 <div class="footer">
 	<p><a href="#">慕课简介</a><i>丨</i><a href="">慕课公告</a><i>丨</i><a href="">招纳贤士</a><i>丨</i><a href="">联系我们</a><i>丨</i>客服热线:400-675-1234</p>
 	<p>Copyright@2006-2014慕课版权所有&nbsp;&nbsp;&nbsp;京ICP备789345号&nbsp;&nbsp;&nbsp;京ICP备789345号 某市公安局XX分局备案编号：112342345245</p>
-	<p class="footer_pic"><a href="#"><img src="./images/banner/footer.png" alt=""></a><a href="#"><img src="./images/banner/footer.png" alt=""></a><a href="#"><img src="./images/banner/footer.png" alt=""></a><a href="#"><img src="./images/banner/footer.png" alt=""></a></p>
+	<p class="footer_pic"><a href="#"><img src="../../static/img/index/banner/footer.png" alt=""></a><a href="#"><img src="../../static/img/index/banner/footer.png" alt=""></a><a href="#"><img src="../../static/img/index/banner/footer.png" alt=""></a><a href="#"><img src="../../static/img/index/banner/footer.png" alt=""></a></p>
 </div>
 </body>
 </html>

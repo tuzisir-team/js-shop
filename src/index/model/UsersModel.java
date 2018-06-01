@@ -2,9 +2,6 @@ package index.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-
-
 import common.db.model.*;
 import extend.log.Log;
 

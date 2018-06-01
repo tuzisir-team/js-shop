@@ -15,7 +15,7 @@ import common.db.model.Users;
 import extend.log.Log;
 import extend.vertifcode.VertifCode;
 
-public class UsersController1 extends Controller{
+public class LoginController extends Controller{
 	
 	/**
 	 * 登录
