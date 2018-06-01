@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include   page="../common/header.jsp" flush="true"/>
 <div class="bread-crumbs">
   <span class="layui-breadcrumb">
@@ -9,8 +10,7 @@
 <div class="page-concent-div">
   <h1>用户管理</h1>
   <hr>
-<!--   <a id="add-event1" class="layui-btn layui-btn-normal" onclick="addStore()">添加门店</a>
- -->  <table class="layui-table mt0">
+<table class="layui-table mt0">
     <thead>
     <tr>
       <th>用户ID</th>
@@ -37,77 +37,44 @@
       </td>
     </tr>
   </table>
-  <div id="page" class="page">
+<div id="page" class="page">
+  <ul class="pagination">
+        <!-- 总页数大于1如果当前页为第一页 上一页无效下一页有效-->
+        <c:if test="${requestScope.viewpage.totalPage > 1 && requestScope.viewpage.currentPage == 1}">
+            <li class="page-item"><a class="page-link" href="" onclick="return false" data-toggle="popover1" data-content="没有了">上一页</a></li>
+            <c:forEach var="i" begin="${requestScope.viewpage.start}" end="${requestScope.viewpage.end}" step="1">
+                <c:if test="${requestScope.viewpage.currentPage == i}"><li class="page-item active"><a class="page-link" href="">${i}</a></li></c:if>
+                <c:if test="${requestScope.viewpage.currentPage != i}"><li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/route?get_type=user_list&currentpage=${i}">${i}</a></li></c:if>
+            </c:forEach>
+            <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/route?get_type=user_list&currentpage=${requestScope.viewpage.currentPage+1}">下一页</a></li>
+        </c:if>
+        <!-- 如果当前页不是第一页也不是最后一页，上一页和下一页都有效 -->
+        <c:if test="${requestScope.viewpage.currentPage > 1 && requestScope.viewpage.currentPage < requestScope.viewpage.totalPage}">
+            <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/route?get_type=user_list&currentpage=${requestScope.viewpage.currentPage-1}">上一页</a></li>
+            <c:forEach var="i" begin="${requestScope.viewpage.start}" end="${requestScope.viewpage.end}" step="1">
+                <c:if test="${requestScope.viewpage.currentPage == i}"><li class="page-item active"><a class="page-link" href="">${i}</a></li></c:if>
+                <c:if test="${requestScope.viewpage.currentPage != i}"><li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/route?get_type=user_list&currentpage=${i}">${i}</a></li></c:if>
+            </c:forEach>
+            <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/route?get_type=user_list&currentpage=${requestScope.viewpage.currentPage+1}">下一页</a></li>
+        </c:if>
+        <!-- 总页数大于1 如果当前页为最后一页 下一页无效-->
+        <c:if test="${requestScope.viewpage.totalPage > 1 && requestScope.viewpage.currentPage == requestScope.viewpage.totalPage}">
+            <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/route?get_type=user_list&currentpage=${requestScope.viewpage.currentPage-1}">上一页</a></li>
+            <c:forEach var="i" begin="${requestScope.viewpage.start}" end="${requestScope.viewpage.end}" step="1">
+                <c:if test="${requestScope.viewpage.currentPage == i}"><li class="page-item active"><a class="page-link" href="">${i}</a></li></c:if>
+                <c:if test="${requestScope.viewpage.currentPage != i}"><li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/route?get_type=user_list&currentpage=${i}">${i}</a></li></c:if>
+            </c:forEach>
+            <li class="page-item"><a class="page-link" href="#" onclick="return false" data-toggle="popover1" data-content="没有了">下一页</a></li>
+        </c:if> 
+        <!-- 总页数==1 -->
+        <c:if test="${requestScope.viewpage.totalPage == 1}">
+            <li class="page-item"><a class="page-link" href="#" onclick="return false" data-toggle="popover1" data-content="没有了">上一页</a></li>
+            <li class="page-item active"><a class="page-link" href="">1</a></li>
+            <li class="page-item"><a class="page-link" href="#" onclick="return false" data-toggle="popover1" data-content="没有了">下一页</a></li>
+        </c:if>
+    </ul>
   </div>
 </div>
-<!--添加门店弹出框-->
-<form action="{:url('/store/add')}" method="post" class="layui-form pop-up-style"  id="form1" hidden>
-  <div class="layui-form-item">
-    <label class="layui-form-label wd0">门店名称</label>
-    <div class="layui-input-inline">
-      <input type="text"  name="store_name" class="layui-input" placeholder="请输入门店名称"/>
-    </div>
-  </div>
-  <div class="layui-form-item">
-    <label class="layui-form-label wd0">门店登录名</label>
-    <div class="layui-input-inline">
-      <input type="text"name="store_username" class="layui-input" placeholder="请输入门店登录名"/>
-    </div>
-  </div>
-  <div class="layui-form-item" hidden>
-    <label class="layui-form-label wd0">商户号</label>
-    <div class="layui-input-inline">
-      <select class="wd0" name="sub_mch_id" lay-verify="">
-      {volist name="all_mch_id" id="mch_id"}
-        <option value="{$mch_id['mch_id']}">{$mch_id['mch_name']}</option>
-      {/volist}
-      </select> 
-    </div>
-  </div>
-</form>
-<!--修改门店-->
-<form action="{:url('/store/edit')}"  method="post" class="layui-form pop-up-style" id="update" hidden >
-  <div class="layui-form-item">
-    <label class="layui-form-label wd0">修改门店</label>
-    <div class="layui-input-inline">
-      <input type="text"  id="modify_name" name="store_name" class="layui-input" placeholder="请输入门店名称"/>
-    </div>
-  </div>
-  <div class="layui-form-item">
-    <label class="layui-form-label wd0">门店登录名</label>
-    <div class="layui-input-inline">
-      <input type="text" id="modify_account"  name="store_username" class="layui-input" placeholder="请输入门店登录名"/>
-    </div>
-  </div>
-  <div hidden="" class="layui-form-item">
-    <label class="layui-form-label wd0">商户号</label>
-    <div class="layui-input-inline">
-      <select class="wd0" name="sub_mch_id" lay-verify="">
-      {volist name="all_mch_id" id="mch_id"}
-        <option value="{$mch_id['mch_id']}">{$mch_id['mch_name']}</option>
-      {/volist}
-      </select> 
-    </div>
-  </div>
-  <input name="store_id" class="store_id" type="hidden" value="">
-</form>
-<!--重置密码-->
-<form action="{:url('/Store/reset')}" method="post" class="layui-form pop-up-style" id="reset_password" hidden>
-  <div class="layui-form-item">
-    <label class="layui-form-label">新的密码</label>
-    <div class="layui-input-inline">
-      <input type="password"  name="store_pwd" class="layui-input" placeholder="新密码不得少于6位"/>
-    </div>
-  </div>
-  <div class="layui-form-item">
-    <label class="layui-form-label">确认密码</label>
-    <div class="layui-input-inline">
-      <input  type="password" placeholder="请再次输入新的密码" class="layui-input" name="re_store_pwd"/>
-      <input name="store_id" class="store_id" type="hidden" value="">
-    </div>
-  </div>
-  </div>
-</form>
 <script>
     $(function(){
       del_alert();
