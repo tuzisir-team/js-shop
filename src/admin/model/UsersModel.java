@@ -45,6 +45,7 @@ public class UsersModel extends Model{
         currentList.addAll(videoList.subList(startIndex, endIndex+1));
         System.out.println("展示数据规模："+currentList.size());
         pg.setList(currentList);//将currentlist设置到page对象的容器
+        pg.setRoute("user_list");
         return pg;
     }
 

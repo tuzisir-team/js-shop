@@ -16,6 +16,7 @@ public class Page {
     private int endIndex;//每页最后一条数据的索引
     private int start;//可点击页的开始页
     private int end;//可点击页的最后一个
+    private String route;
     
     //在构造函数中计算出属性值
     public Page(int currentPage, int pageSize, int totalRecord){
@@ -124,6 +125,14 @@ public class Page {
 
     public void setEnd(int end) {
         this.end = end;
+    }
+    
+    public void setRoute(String route) {
+    	this.route = route;
+    }
+    
+    public String getUrl() {
+    	return this.route;
     }
     
 }
