@@ -18,7 +18,7 @@ public class BaseController extends Controller{
 	 * @throws ServletException 
 	 */
 	private void checkSession() throws ServletException, IOException {
-		if(request.getSession().getAttribute("admin_name") != null)  
+		if(request.getSession().getAttribute("admin_name") == null)  
 		{  
 			forward("/view/admin/common/404.jsp");
 			return;
