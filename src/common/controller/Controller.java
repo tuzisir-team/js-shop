@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Enumeration;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -82,6 +83,30 @@ public class Controller {
 			return "{}";
 		}
 		return myJson.toString();
+	}
+	
+	/**
+	 * 
+	 * @param url
+	 * @throws IOException
+	 * response.sendRedirect(“/index.jsp”);页面的路径是相对路径。sendRedirect可以将页面跳转到任何页面，
+	 * 不一定局限于web应用中，如：response.sendRedirect（”http://www.baidu.com“）； 
+	 * 跳转后浏览器地址发生变化，只能在url总带parameter或者放在session中，无法使用request.setAttribute来传递值。 
+	 */
+	public void redirect(String url) throws IOException {
+		response.sendRedirect(url);
+	}
+	
+	/**
+	 * request.getRequestDispatcher(“/index.jsp”).forward(request,response);页面的路径是对路径。
+	 * forward方式只能跳转到本web应用中的页面上。跳转后地址栏不会发生变化。使用这种方式跳转，
+	 * 传值可以使用三种方法：url中带parameter，session，request.setAttribute
+	 * @param url
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public void forward(String url) throws ServletException, IOException {
+        request.getRequestDispatcher(url).forward(request, response); 
 	}
 	
 }

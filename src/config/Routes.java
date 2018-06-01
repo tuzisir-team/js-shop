@@ -8,6 +8,8 @@ public class Routes {
 	
 	public static HashMap<String, String> getRoutes() {
 		Routes.getRoutes.put("getVertifCode", "admin.controller.LoginController@getVertifCode");
+		Routes.getRoutes.put("admin_unlogin", "admin.controller.LoginController@adminUnlogin");
+		Routes.getRoutes.put("user_list", "admin.controller.UsersController@userList");
 		return Routes.getRoutes;
 	}
 

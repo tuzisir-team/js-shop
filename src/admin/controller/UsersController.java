@@ -1,31 +1,44 @@
 package admin.controller;
 
 import common.servlet.Servlet;
+
+import java.io.IOException;
+import java.sql.SQLException;
+
+import javax.servlet.ServletException;
+
+import admin.model.UsersModel;
 import common.controller.Controller;
 import common.db.model.Model;
 import common.db.model.Users;
 import extend.log.Log;
+import extend.page.Page;
 
-public class UsersController extends Controller{
+public class UsersController extends BaseController{
+
+	/**
+	 * 用户列表
+	 * @throws ServletException
+	 * @throws IOException
+	 * @throws SQLException 
+	 */
+	public void userList() throws ServletException, IOException, SQLException {
+		String strcurpage = request.getParameter("currentpage");//接收当前页面值
+        int currentPage;//通常第一次请求currentpage值为空这时设置默认值为1
+        if(strcurpage!=null) {
+            currentPage = Integer.parseInt(strcurpage);
+        }else{ 
+                currentPage = 1;
+        }
+        int pageSize = 1;//页面大小
+        Page viewPage = new UsersModel().construPage(currentPage, pageSize);//获取请求页面对象
+        request.setAttribute("viewpage", viewPage);//将页面对象放入request中
+		forward("/view/admin/user/user_list.jsp");
+	}
+	public UsersController() throws ServletException, IOException {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	
-	public void test() {
-//		ResultSet res = this.table("users").where(UsersModel.instantce().setUserName("2").getCondition()).select(); // 查询操作
-//		UsersModel usersModel = UsersModel.instantce().setAddressId(123).setUserName("郭玉朝");
-//		int w = this.table("users").add(usersModel.getFields(), usersModel.getData()); // 添加操作
-//		
-//		this.table("users").where(UsersModel.instantce().setUserId(1).getCondition()).delete(); // 删除操作
-//		
-//		this.table("users").where(UsersModel.instantce().setUserId(1).getCondition()).
-//		update(UsersModel.instantce().setUserEmail("123").getData()); // 更新操作
-		
-//        try {
-//            Log.instance().error("梦老二");
-//        } catch (Exception e) {
-//        	
-//        }
-		System.out.println(this.request);
-		
-		
-	}
 }
