@@ -22,35 +22,21 @@ public class UsersModel extends Model{
 	 * @throws SQLException 
 	 */
 
-	public Boolean register(Users users) throws SQLException {
-		System.out.println(users.getUserName());
-		String where = Users.instantce().setUserName(users.getUserName()).
-				end().getCondition();
-		System.out.println(where);
-		ResultSet res = this.table("users").
-				where(where).select(); // 查询操作
-		int num;
-		boolean value=true;
-		try {
-			num = res.getRow();
-			if (num > 0) {
-				Log.instance().error("注册失败,用户名冲突");
-				value=false;
-			}
-			else{
-				Users get_fieldvalue = Users.instantce()
-						.setUserName(users.getUserName())
-						.setUserPassword(users.getUserPassword())
-						.setUserPhone(users.getUserPhone())
-						.setUserEmail(users.getUserEmail())
-						.setCreateTime(123)
-						.setUpdateTime(222).end();
-				int add = this.table("users").add(get_fieldvalue.getFields(), get_fieldvalue.getData()); // 添加操作。getFields得到字段名，getData得到数据
-			}
-		} catch (SQLException e) {
-			Log.instance().error("查找用户名时异常");
+	public int register(Users users) throws SQLException {
+		Boolean res = this.table("users").
+				where(Users.instantce().setUserName(users.getUserName()).end().getCondition()).find(); // 查询操作
+		if (res) {
+			Log.instance().error("注册失败,信息冲突");
+			return -1;
 		}
-		return value;
+		Users get_fieldvalue = Users.instantce()
+				.setUserName(users.getUserName())
+				.setUserPassword(users.getUserPassword())
+				.setUserPhone(users.getUserPhone())
+				.setUserEmail(users.getUserEmail())
+				.setCreateTime(123)
+				.setUpdateTime(222).end();
+		return this.table("users").add(get_fieldvalue.getFields(), get_fieldvalue.getData()); // 添加操作。getFields得到字段名，getData得到数据
 	}
 	
 	/**
@@ -58,26 +44,22 @@ public class UsersModel extends Model{
 	 * @return
 	 * @throws SQLException 
 	 */
-	public Boolean login(Users users) throws SQLException {
-		String where = Users.instantce().setUserName(users.getUserName())
-				.setUserPassword(users.getUserPassword())
-				.end().getCondition();
-		System.out.println(where);
-		ResultSet res = this.table("users").
-				where(where).select(); // 查询操作
-		int num;
-		boolean value=false;
-		try {
-			num = res.getRow();
-			if (num > 0) {
-				value=true;
-			}
-		} catch (SQLException e) {
-			Log.instance().error("用户登录异常");
+	public int login(Users users) throws SQLException {
+		Boolean res = this.table("users").
+				where(Users.instantce().setUserName(users.getUserName()).setUserPassword(users.getUserPassword()).end().getCondition()).find(); // 查询操作
+		if (!res) {
+			Log.instance().error("没有找到该用户");
+			return 0;
 		}
-		return value;
+		return 1;
 	}
+	/**
+	 * 用户注销
+	 * @param users
+	 * @return
+	 */
 	public Boolean exit(Users users){
+		
 		return true;
 	}
 }

@@ -6,6 +6,8 @@
 	<title>登录</title>
 	<link rel="stylesheet" type="text/css"href="../../static/css/index/reset.css">
 	<link rel="stylesheet" type="text/css"href="../../static/css/index/main.css">
+	<script src="${pageContext.request.contextPath}/static/layui/layui.js"></script>
+    <script src="${pageContext.request.contextPath}/static/js/jquery.min.js" charset="utf-8" ></script>
 </head>
 <body>
 <div class="headerBar">
@@ -20,13 +22,13 @@
 </div>
 <div class="loginBox clearfix">
 	<div class="login_cont">
-	<form action="" method="post">
+	<form method="post" onsubmit="return to_login()">
 		<ul class="login">
+			<input type="hidden" value="user_login" name="post_type">
 			<li class="l_tit">邮箱/用户名/手机号</li>
-			<li class="mb_10"><input type="text" class="login_input user_icon"></li>
+			<li class="mb_10"><input required type="text" name="user_name" class="login_input user_icon"></li>
 			<li class="l_tit">密码</li>
-			<li class="mb_10"><input type="text" class="login_input user_icon"></li>
-			<li class="autoLogin"><input type="checkbox" id="a1" class="checked"><label for="a1">自动登录</label></li>
+			<li class="mb_10"><input required type="password" name="user_password" class="login_input user_icon"></li>
 		</ul>
 		<input type="submit"  value="登录" class="login_btn">
 	</form>
@@ -54,3 +56,29 @@
 </div>
 </body>
 </html>
+<script>
+//layui模块的使用
+layui.use(['layer'], function () {
+    var layer = layui.layer,
+        $ = layui.jquery;
+});
+</script>
+<script>
+    function to_login() {
+        $.ajax({
+            type: 'POST',
+            url: '${pageContext.request.contextPath}/route',
+            dataType: 'json',
+            data: $("form").serialize(),
+            success: function (data) {
+            	console.log(data);
+            	if (data.code != 200) {
+            		layer.msg(data.msg);
+            	} else {
+            		window.location.href = "${pageContext.request.contextPath}/route?get_type=user_goods_index";
+            	}
+            }
+        });
+        return false;
+    }
+</script>

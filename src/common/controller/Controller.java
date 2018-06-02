@@ -2,6 +2,7 @@ package common.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Enumeration;
 
@@ -23,8 +24,9 @@ public class Controller {
 		Controller.servlet = servlet;
 	}
 	
-	public static void setRequest(HttpServletRequest request) {
+	public static void setRequest(HttpServletRequest request) throws UnsupportedEncodingException {
 		Controller.request = request;
+		Controller.request.setCharacterEncoding("utf-8");
 	}
 	
 	public static void setResponse(HttpServletResponse response) throws IOException {

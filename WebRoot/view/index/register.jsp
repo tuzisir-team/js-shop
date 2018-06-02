@@ -4,33 +4,36 @@
 <head>
 	<meta charset="UTF-8">
 	<title>注册</title>
-	<link rel="stylesheet" type="text/css"href="../../static/css/index/reset.css">
-	<link rel="stylesheet" type="text/css"href="../../static/css/index/main.css">
+	<link rel="stylesheet" type="text/css"href="${pageContext.request.contextPath}/static/css/index/reset.css">
+	<link rel="stylesheet" type="text/css"href="${pageContext.request.contextPath}/static/css/index/main.css">
+    <script src="${pageContext.request.contextPath}/static/layui/layui.js"></script>
+    <script src="${pageContext.request.contextPath}/static/js/jquery.min.js" charset="utf-8" ></script>
 </head>
 <body>
 <div class="headerBar">
 	<div class="logoBar red_logo">
 		<div class="comWidth">
 			<div class="logo fl">
-				<a href="#"><img src="/static/img/index/icon/logo.png" alt="慕课网"></a>
+				<a href="#"><img src="./static/img/index/icon/logo.png" alt="慕课网"></a>
 			</div>
 			<h3 class="welcome_title">欢迎注册</h3>
 		</div>
 	</div>
 </div>
+
 <div class="regBox clearfix">
 	<div class="login_cont">
-		<form action="login" method="POST">
+		<form action="" method="POST" onsubmit="return to_login()">
 			<ul class="login">
-				<input type="hidden" value="register" name="postType">
+				<input type="hidden" value="user_register" name="post_type">
 				<li class="mb_10"><span class="reg_item"><i>*</i>账户名：</span><div class="input_item"><input required name="user_name" type="text" class="login_input user_icon"></div></li>
 				<li class="mb_10"><span class="reg_item"><i>*</i>密码：</span><div class="input_item"><input required name="user_password" type="password" class="login_input user_icon"></div></li>
 				<li class="mb_10"><span class="reg_item"><i>*</i>确认密码</span><div class="input_item"><input required name="password_again" type="password" class="login_input user_icon"></div></li>
-				<li class="mb_10"><span class="reg_item"><i>*</i>电话</span><div class="input_item"><input required name="user_phone" type="text" class="login_input user_icon"></div></li>
-				<li class="mb_10"><span class="reg_item"><i>*</i>邮箱地址</span><div class="input_item"><input required name="user_email" type="text" class="login_input user_icon"></div></li>
+				<li class="mb_10"><span class="reg_item"><i>*</i>电话</span><div class="input_item"><input required name="user_phone" type="tel" class="login_input user_icon"></div></li>
+				<li class="mb_10"><span class="reg_item"><i>*</i>邮箱地址</span><div class="input_item"><input required name="user_email" type="email" class="login_input user_icon"></div></li>
 				<li><span class="reg_item">&nbsp;</span></li>
 			</ul>
-			<button>注册</button>
+			<input type="submit" value="注册">
 		</form>
 	</div>
 </div>
@@ -42,3 +45,37 @@
 </div>
 </body>
 </html>
+<script>
+//layui模块的使用
+layui.use(['layer'], function () {
+    var layer = layui.layer,
+        $ = layui.jquery;
+});
+</script>
+<script>
+    function to_login() {
+        $.ajax({
+            type: 'POST',
+            url: '${pageContext.request.contextPath}/route',
+            dataType: 'json',
+            data: $("form").serialize(),
+            success: function (data) {
+            	console.log(data);
+            	if (data.code != 200) {
+            		layer.msg(data.msg);
+            	} else {
+            		window.location.href = "${pageContext.request.contextPath}/view/index/login.jsp";
+            	}
+            }
+        });
+        return false;
+    }
+/*    function yz(v){ 
+		var a = /^((//(//d{3}//))|(//d{3}//-))?13//d{9}|15[89]//d{8}$/ ; 
+		if( v.length!=11||!v.match(a) ){ 
+		alert("请输入正确的手机号码"); 
+		}else{ 
+		; 
+	} 
+	} */
+</script>

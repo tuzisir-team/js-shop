@@ -10,12 +10,15 @@ public class Routes {
 		Routes.getRoutes.put("getVertifCode", "admin.controller.LoginController@getVertifCode");
 		Routes.getRoutes.put("admin_unlogin", "admin.controller.LoginController@adminUnlogin");
 		Routes.getRoutes.put("user_list", "admin.controller.UsersController@userList");
+		Routes.getRoutes.put("user_unlogin", "index.controller.LoginController@unlogin");
+		Routes.getRoutes.put("user_goods_index", "index.controller.GoodsController@goodsIndex");
 		return Routes.getRoutes;
 	}
 
 	public static HashMap<String, String> postRoutes() {
 		Routes.postRoutes.put("admin_login", "admin.controller.LoginController@login");
-		Routes.postRoutes.put("register", "index.controller.UsersController1@register");
+		Routes.postRoutes.put("user_register", "index.controller.LoginController@register");
+		Routes.postRoutes.put("user_login", "index.controller.LoginController@login");
 		return Routes.postRoutes;
 	}
 

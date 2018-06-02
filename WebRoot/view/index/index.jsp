@@ -1,28 +1,38 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!doctype html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>产品分类</title>
-	<link rel="stylesheet" type="text/css"href="style/reset.css">
-	<link rel="stylesheet" type="text/css"href="style/main.css">
+	<link rel="stylesheet" type="text/css"href="${pageContext.request.contextPath}/static/css/index/reset.css">
+	<link rel="stylesheet" type="text/css"href="${pageContext.request.contextPath}/static/css/index/main.css">
 </head>
 <body>
 	<div class="headerBar">
 		<div class="topBar">
 			<div class="comWidth">
 				<div class="leftArea">
-					<a href="" class="collection">收藏慕课</a>
+					<a href="" class="collection">收藏本页</a>
 				</div>
 				<div class="rightArea">
-					欢迎来到慕课网！<a href="login.jsp">[登录]</a><a href="register.jsp">[免费注册]</a>
+					欢迎来到跨洋购物！${sessionScope.user_name}
+					<c:if test="${empty sessionScope.user_name}">
+				   		<a href="${pageContext.request.contextPath}/view/index/login.jsp">[登录]</a>
+					</c:if>
+					<a href="${pageContext.request.contextPath}/view/index/register.jsp">[免费注册]</a>
+					<a href="${pageContext.request.contextPath}/route?get_type=user_unlogin">[退出]</a>
 				</div>
 			</div>
 		</div>
 		<div class="logoBar">
 			<div class="comWidth">
 				<div class="logo fl">
-					<a href="#"><img src="./images/icon/logo.png" alt="慕课网"></a>
+					<a href="#"><img src="./static/img/index/icon/logo.png" alt="慕课网"></a>
 				</div>
 				<div class="search_box fl">
 					<input type="text" class="search_text fl">
@@ -62,12 +72,9 @@
 					</div>			
 				</div>
 				<ul class="nav fl">
-					<li><a href="#" class="active">数码城</a></li>
-					<li><a href="#">天黑黑</a></li>
-					<li><a href="#">团购</a></li>
-					<li><a href="#">发现</a></li>
-					<li><a href="#">二手特卖</a></li>
-					<li><a href="#">名品会</a></li>
+					<c:forEach items="${requestScope.goodsCategoryList}" var="GoodsCategory">
+					   <li><a href="#">${GoodsCategory.goodscategoryname}</a></li>
+					</c:forEach>
 				</ul>
 			</div>
 		</div>
@@ -138,8 +145,8 @@
 		<div class="rightArea">
 			<div class="banner_bar banner_big">
 				<ul class="imgBox">
-					<li><a href="#"><img src="./images/banner/banner.01.png" alt="banner"></a></li>
-					<li><a href="#"><img src="./images/banner/banner.02.png" alt="banner"></a></li>
+					<li><a href="#"><img src="./static/img/index/banner/banner.01.png" alt="banner"></a></li>
+					<li><a href="#"><img src="./static/img/index/banner/banner.02.png" alt="banner"></a></li>
 				</ul>
 				<div class="imgNum">
 					<a href="#" class="active"></a> <a href="#"></a> <a href="#"></a> <a href="#"></a>
@@ -153,7 +160,7 @@
 				<div class="item">
 					<div class="item_cont">
 						<div class="img_item">
-						<a href="#"><img src="./images/banner/bottom_sm1.png" alt=""></a>
+						<a href="#"><img src="./static/img/index/banner/bottom_sm1.png" alt=""></a>
 						</div>
 						<p><a href="#">文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍</a></p>
 						<p class="money">￥888</p>
@@ -163,7 +170,7 @@
 					<div class="item">
 					<div class="item_cont">
 						<div class="img_item">
-						<a href="#"><img src="./images/banner/bottom_sm1.png" alt=""></a>
+						<a href="#"><img src="./static/img/index/banner/bottom_sm1.png" alt=""></a>
 						</div>
 						<p><a href="#">文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍</a></p>
 						<p class="money">￥888</p>
@@ -173,7 +180,7 @@
 					<div class="item">
 					<div class="item_cont">
 						<div class="img_item">
-						<a href="#"><img src="./images/banner/bottom_sm1.png" alt=""></a>
+						<a href="#"><img src="./static/img/index/banner/bottom_sm1.png" alt=""></a>
 						</div>
 						<p><a href="#">文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍</a></p>
 						<p class="money">￥888</p>
@@ -183,7 +190,7 @@
 					<div class="item">
 					<div class="item_cont">
 						<div class="img_item">
-						<a href="#"><img src="./images/banner/bottom_sm1.png" alt=""></a>
+						<a href="#"><img src="./static/img/index/banner/bottom_sm1.png" alt=""></a>
 						</div>
 						<p><a href="#">文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍</a></p>
 						<p class="money">￥888</p>
@@ -193,7 +200,7 @@
 					<div class="item">
 					<div class="item_cont">
 						<div class="img_item">
-						<a href="#"><img src="./images/banner/bottom_sm1.png" alt=""></a>
+						<a href="#"><img src="./static/img/index/banner/bottom_sm1.png" alt=""></a>
 						</div>
 						<p><a href="#">文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍</a></p>
 						<p class="money">￥888</p>
@@ -203,7 +210,7 @@
 					<div class="item">
 					<div class="item_cont">
 						<div class="img_item">
-						<a href="#"><img src="./images/banner/bottom_sm1.png" alt=""></a>
+						<a href="#"><img src="./static/img/index/banner/bottom_sm1.png" alt=""></a>
 						</div>
 						<p><a href="#">文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍</a></p>
 						<p class="money">￥888</p>
@@ -213,7 +220,7 @@
 					<div class="item">
 					<div class="item_cont">
 						<div class="img_item">
-						<a href="#"><img src="./images/banner/bottom_sm1.png" alt=""></a>
+						<a href="#"><img src="./static/img/index/banner/bottom_sm1.png" alt=""></a>
 						</div>
 						<p><a href="#">文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍</a></p>
 						<p class="money">￥888</p>
@@ -223,7 +230,7 @@
 					<div class="item">
 					<div class="item_cont">
 						<div class="img_item">
-						<a href="#"><img src="./images/banner/bottom_sm1.png" alt=""></a>
+						<a href="#"><img src="./static/img/index/banner/bottom_sm1.png" alt=""></a>
 						</div>
 						<p><a href="#">文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍</a></p>
 						<p class="money">￥888</p>
@@ -239,7 +246,7 @@
 				<div class="item">
 					<div class="item_cont">
 						<div class="img_item">
-						<a href="#"><img src="./images/banner/bottom_sm1.png" alt=""></a>
+						<a href="#"><img src="./static/img/index/banner/bottom_sm1.png" alt=""></a>
 						</div>
 						<p><a href="#">文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍</a></p>
 						<p class="money">￥888</p>
@@ -249,7 +256,7 @@
 					<div class="item">
 					<div class="item_cont">
 						<div class="img_item">
-						<a href="#"><img src="./images/banner/bottom_sm1.png" alt=""></a>
+						<a href="#"><img src="./static/img/index/banner/bottom_sm1.png" alt=""></a>
 						</div>
 						<p><a href="#">文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍</a></p>
 						<p class="money">￥888</p>
@@ -259,7 +266,7 @@
 					<div class="item">
 					<div class="item_cont">
 						<div class="img_item">
-						<a href="#"><img src="./images/banner/bottom_sm1.png" alt=""></a>
+						<a href="#"><img src="./static/img/index/banner/bottom_sm1.png" alt=""></a>
 						</div>
 						<p><a href="#">文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍</a></p>
 						<p class="money">￥888</p>
@@ -269,7 +276,7 @@
 					<div class="item">
 					<div class="item_cont">
 						<div class="img_item">
-						<a href="#"><img src="./images/banner/bottom_sm1.png" alt=""></a>
+						<a href="#"><img src="./static/img/index/banner/bottom_sm1.png" alt=""></a>
 						</div>
 						<p><a href="#">文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍</a></p>
 						<p class="money">￥888</p>
@@ -279,7 +286,7 @@
 					<div class="item">
 					<div class="item_cont">
 						<div class="img_item">
-						<a href="#"><img src="./images/banner/bottom_sm1.png" alt=""></a>
+						<a href="#"><img src="./static/img/index/banner/bottom_sm1.png" alt=""></a>
 						</div>
 						<p><a href="#">文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍</a></p>
 						<p class="money">￥888</p>
@@ -289,7 +296,7 @@
 					<div class="item">
 					<div class="item_cont">
 						<div class="img_item">
-						<a href="#"><img src="./images/banner/bottom_sm1.png" alt=""></a>
+						<a href="#"><img src="./static/img/index/banner/bottom_sm1.png" alt=""></a>
 						</div>
 						<p><a href="#">文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍</a></p>
 						<p class="money">￥888</p>
@@ -299,7 +306,7 @@
 					<div class="item">
 					<div class="item_cont">
 						<div class="img_item">
-						<a href="#"><img src="./images/banner/bottom_sm1.png" alt=""></a>
+						<a href="#"><img src="./static/img/index/banner/bottom_sm1.png" alt=""></a>
 						</div>
 						<p><a href="#">文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍</a></p>
 						<p class="money">￥888</p>
@@ -309,7 +316,7 @@
 					<div class="item">
 					<div class="item_cont">
 						<div class="img_item">
-						<a href="#"><img src="./images/banner/bottom_sm1.png" alt=""></a>
+						<a href="#"><img src="./static/img/index/banner/bottom_sm1.png" alt=""></a>
 						</div>
 						<p><a href="#">文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍</a></p>
 						<p class="money">￥888</p>
@@ -323,7 +330,26 @@
 <div class="footer">
 	<p><a href="#">慕课简介</a><i>丨</i><a href="">慕课公告</a><i>丨</i><a href="">招纳贤士</a><i>丨</i><a href="">联系我们</a><i>丨</i>客服热线:400-675-1234</p>
 	<p>Copyright@2006-2014慕课版权所有&nbsp;&nbsp;&nbsp;京ICP备789345号&nbsp;&nbsp;&nbsp;京ICP备789345号 某市公安局XX分局备案编号：112342345245</p>
-	<p class="footer_pic"><a href="#"><img src="./images/banner/footer.png" alt=""></a><a href="#"><img src="./images/banner/footer.png" alt=""></a><a href="#"><img src="./images/banner/footer.png" alt=""></a><a href="#"><img src="./images/banner/footer.png" alt=""></a></p>
+	<p class="footer_pic"><a href="#"><img src="./static/img/index/banner/footer.png" alt=""></a><a href="#"><img src="./static/img/index/banner/footer.png" alt=""></a><a href="#"><img src="./static/img/index/banner/footer.png" alt=""></a><a href="#"><img src="./static/img/index/banner/footer.png" alt=""></a></p>
 </div>
 </body>
 </html>
+<script>
+    function to_login() {
+        $.ajax({
+            type: 'POST',
+            url: '${pageContext.request.contextPath}/route',
+            dataType: 'json',
+            data: $("form").serialize(),
+            success: function (data) {
+            	console.log(data);
+            	if (data.code != 200) {
+            		layer.msg(data.msg);
+            	} else {
+            		window.location.href = "${pageContext.request.contextPath}/route?get_type=user_unlogin";
+            	}
+            }
+        });
+        return false;
+    }
+</script>

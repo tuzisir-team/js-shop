@@ -26,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="login-div">
     <h1 class="login-title">超市后台管理系统</h1>
     <div class="web_login">
-        <form class="layui-form" onsubmit="return to_login()">
+        <form  class="layui-form" onsubmit="return to_login()">
         	<input type="hidden" name="post_type" value="admin_login">
             <div class="layui-form-item layui-center">
                 <label class="layui-form-label">用户名</label>

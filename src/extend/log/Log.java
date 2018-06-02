@@ -1,8 +1,10 @@
 package extend.log;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -125,7 +127,9 @@ public class Log {
             logFile.createNewFile();
             // 其中的FileWriter()中的第二个参数的含义是:是否在文件中追加内容
             // PrintWriter()中的第二个参数的含义是：自动将数据flush到文件中
-            writer = new PrintWriter(new FileWriter(logFile, true), true);
+            writer = new PrintWriter(new OutputStreamWriter(  
+                    new FileOutputStream(logFile, true),  
+                    "UTF-8"));
             System.out.println("日志文件的位置：" + logFile.getAbsolutePath());
         } catch (IOException ex) {
             String errmsg = "无法打开日志文件:" + logFile.getAbsolutePath();
