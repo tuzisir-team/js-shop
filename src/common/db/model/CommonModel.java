@@ -67,6 +67,10 @@ public class CommonModel {
 		return this.IteratorModel(this.condition, middleStr);
 	}
 	
+	public String updateData() {
+		return this.IteratorModel(this.condition, ",");
+	}
+	
 	public String getFields() {
 		return this.IteratorFields(this.condition);
 	}
@@ -74,4 +78,5 @@ public class CommonModel {
 	public String getData() {
 		return this.IteratorFieldsValues(this.condition);
 	}
+	
 }

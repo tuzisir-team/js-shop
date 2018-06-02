@@ -17,8 +17,10 @@ public class Model {
 	protected String having;
 	protected ResultSet selectResult;
 	protected int limit = 0;
+	private String hasOne;
 	public static final String USERS = "USERS";
 	public final String USERSMODEL = "common.db.model.UsersModel";
+	private String fields; // 需要展示的字段
 	
 	/**
 	 * 设置表
@@ -30,6 +32,23 @@ public class Model {
 		return this;
 	}
 	
+	/**
+	 * 一对一关系
+	 * @param otherTables 关联表
+	 * @param primaryKey 主键
+	 * @param foreignKey 外键
+	 * @return
+	 */
+	public Model hasOne(String otherTables, String primaryKey, String foreignKey) {
+		this.hasOne = " join " + otherTables + " on " + this.table + "." + primaryKey + "=" + otherTables + "." + foreignKey + "";
+		return this;
+	}
+	
+	public Model fields(String fields) {
+		this.fields = " "+fields;
+		return this;
+	}
+
 	/**
 	 * 设置sql条件
 	 * @param tableModel
@@ -122,7 +141,16 @@ public class Model {
 	public ResultSet select() throws SQLException {
 		String sql;
 		ResultSet res = null;
-		sql = "select * from " + this.table;
+		sql = "select";
+		if (this.fields != null) {
+			sql += this.fields;
+		} else {
+			sql += " *";
+		}
+		sql += " from " + this.table;
+		if (this.hasOne != null) {
+			sql += this.hasOne;
+		}
 		if (this.where != null) {
 			sql +=  " where " + this.where;
 		}

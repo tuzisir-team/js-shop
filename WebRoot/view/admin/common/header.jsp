@@ -12,6 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin/index/app.css">
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/myself.js"></script>
 	<script src="${pageContext.request.contextPath}/static/layui/layui.js" charset="utf-8"></script>
 </head>
 <body>

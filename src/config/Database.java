@@ -23,6 +23,7 @@ public class Database {
 	 */
 	public static HashMap<String, String> commonConfig() {
 		Database.commonConfig.put("defaultDatabase", "MYSQL");
+		Database.commonConfig.put("pageSize", "10");
 		return Database.commonConfig;
 	}
 
