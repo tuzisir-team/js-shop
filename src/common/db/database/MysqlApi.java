@@ -33,7 +33,6 @@ public class MysqlApi {
 	 */
 	public ResultSet selectApi(String sql) throws SQLException
 	{
-		System.out.println(this.conn+"123");
 		PreparedStatement ptmt = null;
 		ResultSet rs = null;
 		ptmt = (PreparedStatement) this.conn.prepareStatement(sql); 

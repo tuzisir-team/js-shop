@@ -1,5 +1,6 @@
 package extend.page;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 //每一页的模型
@@ -17,6 +18,27 @@ public class Page {
     private int start;//可点击页的开始页
     private int end;//可点击页的最后一个
     private String route;
+    
+ // 构建Page模型
+    public static Page createPage(ArrayList userList, String strcurpage) throws SQLException{
+    	int currentPage;//通常第一次请求currentpage值为空这时设置默认值为1
+        if(strcurpage!=null) {
+            currentPage = Integer.parseInt(strcurpage);
+        }else{ 
+                currentPage = 1;
+        }
+        int pageSize = 1;//页面大小
+        // 构建page模型
+        int totalRecord = userList.size();
+        Page pg = new Page(currentPage,pageSize,totalRecord); // 构建page对象
+        ArrayList currentList = new ArrayList(); // 每页显现的那九条数据的容器
+        int startIndex = pg.getStartIndex(); // 每一页的起始索引
+        int endIndex = pg.getEndIndex(); // 每一页的终止索引
+        // 根据每页的起始数据和最后一条数据的索引选出那九条数据并复制到currentlist
+        currentList.addAll(userList.subList(startIndex, endIndex+1));
+        pg.setList(currentList);// 将currentlist设置到page对象的容器
+        return pg;
+    }
     
     //在构造函数中计算出属性值
     public Page(int currentPage, int pageSize, int totalRecord){
@@ -127,11 +149,12 @@ public class Page {
         this.end = end;
     }
     
-    public void setRoute(String route) {
+    public Page setRoute(String route) {
     	this.route = route;
+    	return this;
     }
     
-    public String getUrl() {
+    public String getRoute() {
     	return this.route;
     }
     

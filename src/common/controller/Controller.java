@@ -57,14 +57,21 @@ public class Controller {
 		String [] params = checkParams.split(",");
 		String resultCheck = null;
 		Enumeration<String> res = request.getParameterNames();
+		String getParamsStr = "";
+		String[] getParams;
 		for(Enumeration e=res;e.hasMoreElements();){
-		       String thisName=e.nextElement().toString();
-		       if (!Arrays.asList(params).contains(thisName)) {
-		    	   resultCheck = thisName;
-		    	   Log.instance().error("管理员登录时缺少必要参数:" + thisName);
-		    	   break;
-		       }
+			String thisName=e.nextElement().toString();
+			System.out.println(thisName);
+			getParamsStr += thisName + ",";
 		}
+		getParams = getParamsStr.substring(0, getParamsStr.length()-1).split(",");
+        for(String param: params){
+        	if (!Arrays.asList(getParams).contains(param)) {
+ 	    	   resultCheck = param;
+ 	    	   Log.instance().error("管理员登录时缺少必要参数:" + param);
+ 	    	   break;
+ 	        }
+        }
 		return resultCheck;
 	}
 	

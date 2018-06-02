@@ -5,12 +5,72 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import common.db.model.GoodsOrders;
 import common.db.model.Model;
 import common.db.model.Users;
+import common.db.model.UserAddress;
 import extend.page.Page;
 
 public class UsersModel extends Model{
 	
+	public static ArrayList shoppingCart(String user_id) throws SQLException {
+		UsersModel usersModel = new UsersModel();
+		ResultSet rs = usersModel.table("goods_orders").
+				fields("goods_name, goods_orders.*").
+				hasOne("goods", "goods_id", "goods_id").where("goods_orders.order_id="+user_id).select();
+		ArrayList shoppingCartList = new ArrayList();
+		while(rs.next()){
+			GoodsOrders v = new GoodsOrders();
+            v.setGoodsName(rs.getString(1)).setGoodsOrderId(rs.getInt(2)).setGoodsNum(rs.getInt(5)).
+            		setGoodsPrice(rs.getInt(6)).setCreateTime(rs.getInt(8)).setUpdateTime(rs.getInt(9));
+            shoppingCartList.add(v);
+        }
+		return shoppingCartList;
+	}
+	/**
+	 * 用户地址列表
+	 * @param userAddress
+	 * @return
+	 * @throws SQLException
+	 */
+	public static ArrayList userAddressList(UserAddress userAddress) throws SQLException {
+		UsersModel usersModel = new UsersModel();
+		ResultSet rs = usersModel.table("user_address").where(userAddress.end().getCondition()).select();
+		ArrayList usersAddressList = new ArrayList();
+		while(rs.next()){
+			UserAddress v = new UserAddress();
+            v.setUserAddressId(rs.getInt(1)).setUserAddressName(rs.getString(2)).
+            	setCreateTime(rs.getInt(3)).setUpdateTime(rs.getInt(4)).setUserAddressStatus(rs.getInt(5));
+            usersAddressList.add(v);
+        }
+		return usersAddressList;
+	}
+	
+	/**
+	 * 改变用户状态
+	 * @param users
+	 * @return
+	 * @throws SQLException
+	 */
+	public static int changeUserStatus(Users users) throws SQLException {
+		int status;
+		UsersModel usersModel = new UsersModel();
+		if (users.getUserStatus() == 1) {
+			status = 0;
+		} else if (users.getUserStatus() == 0) {
+			status = 1;
+		} else {
+			return 0;
+		}
+		return usersModel.table("users").where(Users.instantce().setUserId(users.getUserId()).end().getCondition()).
+						update(Users.instantce().setUserStatus(status).end().updateData());
+	}
+	
+	/**
+	 * 获取所有用户信息
+	 * @return
+	 * @throws SQLException
+	 */
 	public static ArrayList userList() throws SQLException {
 		UsersModel usersModel = new UsersModel();
 		ResultSet rs = usersModel.table("users").select();
@@ -18,7 +78,9 @@ public class UsersModel extends Model{
         try {//将查询结果放进容器中
             while(rs.next()){
                 Users v = new Users();
-                v.setUserId(rs.getInt(1));
+                v.setUserId(rs.getInt(1)).setUserName(rs.getString(2))
+                	.setUserEmail(rs.getString(4)).setUserPhone(rs.getString(5)).
+                	setCreateTime(rs.getInt(6)).setUpdateTime(rs.getInt(7)).setUserStatus(rs.getInt(8));
                 videoList.add(v);
             }
         } catch (SQLException e) {
@@ -26,27 +88,4 @@ public class UsersModel extends Model{
         }
         return videoList;
 	}
-	
-	//构建Page模型
-    public static Page construPage(int currentPage, int pageSize) throws SQLException{
-        //获取数据库查询结果集
-        ArrayList videoList = new ArrayList();
-        videoList = userList();
-        //构建page模型
-        int totalRecord = videoList.size();
-        System.out.println("数据规模："+totalRecord);//调试可忽略
-        Page pg = new Page(currentPage,pageSize,totalRecord);//构建page对象
-        ArrayList currentList = new ArrayList();//每页显现的那九条数据的容器
-        int startIndex = pg.getStartIndex();//每一页的起始索引
-        int endIndex = pg.getEndIndex();//每一页的终止索引
-        System.out.println("起始数据索引："+startIndex);//调试可忽略
-        System.out.println("最后数据索引："+endIndex);//调试可忽略
-        //根据每页的起始数据和最后一条数据的索引选出那九条数据并复制到currentlist
-        currentList.addAll(videoList.subList(startIndex, endIndex+1));
-        System.out.println("展示数据规模："+currentList.size());
-        pg.setList(currentList);//将currentlist设置到page对象的容器
-        pg.setRoute("user_list");
-        return pg;
-    }
-
 }

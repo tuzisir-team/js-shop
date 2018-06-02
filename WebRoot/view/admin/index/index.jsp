@@ -23,7 +23,7 @@
       <span class="header-logo">超市后台管理系统</span> 
       <a class="header-menu-btn" href="javascript:;"><i class="icon-font">&#xe600;</i></a>
       <ul class="header-bar">
-        <li class="header-bar-role"><a href="javascript:;">您好:<% out.println((String)session.getAttribute( "admin_name")); %></a></li>
+        <li class="header-bar-role"><a href="javascript:;">您好:<% out.println((String)session.getAttribute("admin_name")); %></a></li>
         <li class="header-bar-nav">
           <a href="javascript:;"><i class="icon-font" style="margin-left:5px;">&#xe60c;</i></a>
           <ul class="header-dropdown-menu">
