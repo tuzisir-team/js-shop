@@ -19,6 +19,12 @@ import extend.page.Page;
 
 public class UsersController extends BaseController{
 
+	/**
+	 * 用户购物车
+	 * @throws IOException
+	 * @throws SQLException
+	 * @throws ServletException
+	 */
 	public void shoppingCart() throws IOException, SQLException, ServletException {
 		String checkResult = checkParams("user_id,get_type");
 		// 验证参数

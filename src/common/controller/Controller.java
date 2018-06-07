@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,23 +18,51 @@ import extend.myjson.MyJson;
 public class Controller {
 	public static HttpServletRequest request;
 	public static HttpServletResponse response;
+	public static HashMap<String, String> parameters;
 	public PrintWriter out = null;
 	protected static HttpServlet servlet;
 	
+	/**
+	 * 设置servlet
+	 * @param servlet
+	 */
 	public static void setServlet(HttpServlet servlet) {
 		Controller.servlet = servlet;
 	}
 	
+	/**
+	 * 设置原始请求数据
+	 * @param parameters
+	 */
+	public static void setParameters(HashMap<String, String> parameters) {
+		Controller.parameters = parameters;
+	}
+	
+	/**
+	 * 设置原始request对象
+	 * @param request
+	 * @throws UnsupportedEncodingException
+	 */
 	public static void setRequest(HttpServletRequest request) throws UnsupportedEncodingException {
 		Controller.request = request;
 		Controller.request.setCharacterEncoding("utf-8");
 	}
 	
+	/**
+	 * 设置原始response对象
+	 * @param response
+	 * @throws IOException
+	 */
 	public static void setResponse(HttpServletResponse response) throws IOException {
 		response.setCharacterEncoding("utf-8");
 		Controller.response = response;
 	}
 	
+	/**
+	 * 获得out对象
+	 * @return
+	 * @throws IOException
+	 */
 	public PrintWriter getOut() throws IOException {
 		if (this.out == null) {
 			this.out = response.getWriter();

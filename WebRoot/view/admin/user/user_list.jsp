@@ -76,13 +76,7 @@
 	    $(".create-time").html(timestampToTime($(".create-time").html()));
 	    $(".update-time").html(timestampToTime($(".update-time").html()));
     }    
-    var brand;
-    var regionId;
-    var form;
-    layui.use(['form','layer'],function(){
-        var layer = layui.layer;
-        form = layui.form();
-    });
+
     layui.use('layer', function(){
       var layer = layui.layer;      
     });  

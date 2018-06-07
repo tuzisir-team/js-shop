@@ -3,6 +3,8 @@ package extend.page;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import config.GetConfig;
 //每一页的模型
 public class Page {
     //已知数据
@@ -27,7 +29,7 @@ public class Page {
         }else{ 
                 currentPage = 1;
         }
-        int pageSize = 1;//页面大小
+        int pageSize = GetConfig.instance(GetConfig.COMMON).getIntConfig("pageSize"); //页面大小
         // 构建page模型
         int totalRecord = userList.size();
         Page pg = new Page(currentPage,pageSize,totalRecord); // 构建page对象

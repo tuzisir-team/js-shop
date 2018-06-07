@@ -2,30 +2,39 @@ package common.db.model;
 
 public class GoodsCategory extends CommonModel{
 
-	protected int goodscategoryid;
-	protected String goodscategoryname;
-	protected int goodscategorystatus = -1;
+	protected int goodsCategoryId;
+	protected String goodsCategoryName;
+	protected int goodsCategoryStatus = -1;
 	protected int createTime;
 	protected int updateTime;
-	public int getGoodscategoryid() {
-		return goodscategoryid;
+	
+	/**
+	 * 目的是为了省代码
+	 * @return
+	 */
+	public static GoodsCategory instantce() {
+		return new GoodsCategory();
 	}
-	public GoodsCategory setGoodscategoryid(int goodscategoryid) {
-		this.goodscategoryid = goodscategoryid;
+	
+	public int getGoodsCategoryId() {
+		return goodsCategoryId;
+	}
+	public GoodsCategory setGoodsCategoryId(int goodsCategoryId) {
+		this.goodsCategoryId = goodsCategoryId;
 		return this;
 	}
-	public String getGoodscategoryname() {
-		return goodscategoryname;
+	public String getGoodsCategoryName() {
+		return goodsCategoryName;
 	}
-	public GoodsCategory setGoodscategoryname(String goodscategoryname) {
-		this.goodscategoryname = goodscategoryname;
+	public GoodsCategory setGoodsCategoryName(String goodsCategoryName) {
+		this.goodsCategoryName = goodsCategoryName;
 		return this;
 	}
-	public int getGoodscategorystatus() {
-		return goodscategorystatus;
+	public int getGoodsCategoryStatus() {
+		return goodsCategoryStatus;
 	}
-	public GoodsCategory setGoodscategorystatus(int goodscategorystatus) {
-		this.goodscategorystatus = goodscategorystatus;
+	public GoodsCategory setGoodsCategoryStatus(int goodsCategoryStatus) {
+		this.goodsCategoryStatus = goodsCategoryStatus;
 		return this;
 	}
 	public int getCreateTime() {
@@ -43,10 +52,22 @@ public class GoodsCategory extends CommonModel{
 		return this;
 	}
 	public GoodsCategory end()
-	 {
-		 if (this.getGoodscategoryid() > 0) {
-			  this.condition.put("goodscategory_id", this.getGoodscategoryid());
+	{
+		 if (this.getGoodsCategoryId() > 0) {
+			  this.condition.put("goods_category_id", this.getGoodsCategoryId());
+		 }
+		 if (this.getGoodsCategoryStatus() > -1) {
+			 this.condition.put("goods_category_status", this.getGoodsCategoryStatus());
+		 }
+		 if (this.getGoodsCategoryName() != null) {
+			 this.condition.put("goods_category_name", this.getGoodsCategoryName());
+		 }
+		 if (this.getCreateTime() > 0) {
+			 this.condition.put("create_time", this.getCreateTime());
+		 }
+		 if (this.getUpdateTime() > 0) {
+			 this.condition.put("update_time", this.getUpdateTime());
 		 }
 		 return this;
-	 } 
+	} 
 }

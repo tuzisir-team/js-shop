@@ -45,6 +45,22 @@ function newView(url, title="", area=['50%', '50%'], type=2) {
     }); 
 }
 
+
+function layerOpen(title, formId, callBack, btn, area, params) {
+    layer.open({
+        title: title,
+        type: 1,
+        content: $(formId),
+        btn: btn,
+        area: area,
+        yes: function (index, layero) {
+            var addFormData = $(formId).serializeArray();
+            callBack(addFormData, params);
+            layer.close(index);
+        }
+    });
+}
+
 /**
  * 时间戳转日期
  */

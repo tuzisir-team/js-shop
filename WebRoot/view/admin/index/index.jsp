@@ -59,7 +59,7 @@
                 <button class="tab-btn btn-right"><i class="icon-font">&#xe60f;</i></button>
       </div>
       <div class="layout-main-body">
-        <iframe class="body-iframe" name="iframe0" width="100%" height="99%" src="home.jsp" frameborder="0" data-id="" seamless></iframe>
+        <iframe class="body-iframe" name="iframe0" width="100%" height="99%" src="main.jsp" frameborder="0" data-id="" seamless></iframe>
       </div>
     </section>
     <div class="layout-footer">2018 &copy; tuzisir</div>
@@ -77,13 +77,13 @@ layui.use(['form', 'layedit', 'laydate'], function(){
   ,laydate = layui.laydate;
 });
   $(function(){
-    var menu = [{"id":"1","name":"首页","parentId":"0","url":"","icon":"","order":"1","isHeader":"1","childMenus":[
+    var menu = [{"id":"1","name":"首页","parentId":"0","url":"${pageContext.request.contextPath}/view/admin/index/main.jsp","icon":"","order":"1","isHeader":"1","childMenus":[
             {"id":"10","name":"用户管理","parentId":"1","url":"","icon":"&#xe609;","order":"1","isHeader":"0","childMenus":[
             	{"id":"11","name":"用户列表","parentId":"20","url":"${pageContext.request.contextPath}/route?get_type=user_list","icon":"","order":"1","isHeader":"0","childMenus":""},
             ]},
             {"id":"20","name":"商品管理","parentId":"1","url":"","icon":"&#xe609;","order":"1","isHeader":"0","childMenus":[
-              {"id":"21","name":"商品类别","parentId":"20","url":"./cate/book_cate.jsp","icon":"","order":"1","isHeader":"0","childMenus":""},
-              {"id":"22","name":"商品列表","parentId":"20","url":"./book/book_list.jsp","icon":"","order":"1","isHeader":"0","childMenus":""},
+              {"id":"21","name":"商品类别","parentId":"20","url":"${pageContext.request.contextPath}/route?get_type=admin_goods_category_list","icon":"","order":"1","isHeader":"0","childMenus":""},
+              {"id":"22","name":"商品列表","parentId":"20","url":"${pageContext.request.contextPath}/route?get_type=admin_goods_list","icon":"","order":"1","isHeader":"0","childMenus":""},
             ]},
             {"id":"30","name":"订单管理","parentId":"1","url":"","icon":"&#xe609;","order":"1","isHeader":"0","childMenus":[
               {"id":"31","name":"订单列表","parentId":"20","url":"./cate/book_cate.jsp","icon":"","order":"1","isHeader":"0","childMenus":""},
