@@ -17,6 +17,8 @@ public class Routes {
 		// 老二
 		Routes.getRoutes.put("user_unlogin", "index.controller.LoginController@unlogin");
 		Routes.getRoutes.put("user_goods_index", "index.controller.GoodsController@goodsIndex");
+		Routes.getRoutes.put("index_category_goods", "index.controller.GoodsController@categoryGoods");
+		Routes.getRoutes.put("goods_info", "index.controller.GoodsController@goodsIntroduce");
 		return Routes.getRoutes;
 	}
 

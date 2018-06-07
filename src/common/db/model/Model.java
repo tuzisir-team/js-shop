@@ -186,4 +186,25 @@ public class Model {
 		}
 		return result;
 	}
+	
+	/**
+	 * 原生sql查询
+	 * @param sql
+	 * @return 
+	 * @throws SQLException
+	 */
+	public ResultSet querySelect(String sql) throws SQLException {
+		this.databaseType(sql, true);
+		return this.selectResult;
+	}
+	
+	/**
+	 * 原生sql更新操作
+	 * @param sql
+	 * @return
+	 * @throws SQLException
+	 */
+	public int queryUpdate(String sql) throws SQLException {
+		return this.databaseType(sql);
+	}
 }

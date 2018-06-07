@@ -87,6 +87,6 @@ public class LoginController extends Controller{
 //			getOut().println(returnJson(444, "缺少必要参数"+checkResult));return;
 //		}
 		request.getSession().invalidate();
-		forward("/view/index/index.jsp");
+		forward("/route?get_type=user_goods_index");
 	}
 }
