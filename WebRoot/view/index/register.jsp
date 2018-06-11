@@ -64,18 +64,10 @@ layui.use(['layer'], function () {
             	if (data.code != 200) {
             		layer.msg(data.msg);
             	} else {
-            		window.location.href = "${pageContext.request.contextPath}/view/index/login.jsp";
+            		window.location.href = "${pageContext.request.contextPath}/route?get_type=user_login&user_login_status=0";
             	}
             }
         });
         return false;
     }
-/*    function yz(v){ 
-		var a = /^((//(//d{3}//))|(//d{3}//-))?13//d{9}|15[89]//d{8}$/ ; 
-		if( v.length!=11||!v.match(a) ){ 
-		alert("请输入正确的手机号码"); 
-		}else{ 
-		; 
-	} 
-	} */
 </script>

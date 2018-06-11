@@ -3,3 +3,11 @@
 	out-line: none;
 	color: #fff;
 }
+.num_box{width:100%;float:left;}  
+.num_box a{width:20px;text-align:center;cursor:pointer;}  
+.num_box a:hover{background:#f0f0f0;}  
+.num_box a:active{background:#E3E3E3;}  
+.goodsnum,.num,.num_box a{height:20px;line-height:20px;border-color:#ccc;border-style:solid;color:#333;float:left;}  
+.num{border-width:1px;text-align:left;text-indent:5px;line-height:15px9;padding:0;margin:0;width:100px;}  
+.J_jia{border-width:1px 0 1px 1px;border-radius:3px 0 0 3px;}  
+.J_jian{border-width:1px 1px 1px 0;border-radius:0 3px 3px 0;}

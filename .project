@@ -39,4 +39,16 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>WebRoot/WEB-INF/lib/commons-fileupload-1.2.2.jar</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/%E6%A1%8C%E9%9D%A2/%E6%88%91%E6%89%80%E9%9C%80%E8%A6%81%E7%9A%84jar%E5%8C%85/commons-fileupload-1.2.2.jar</locationURI>
+		</link>
+		<link>
+			<name>WebRoot/WEB-INF/lib/commons-io-1.4.jar</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/%E6%A1%8C%E9%9D%A2/%E6%88%91%E6%89%80%E9%9C%80%E8%A6%81%E7%9A%84jar%E5%8C%85/commons-io-1.4.jar</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>

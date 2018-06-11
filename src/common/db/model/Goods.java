@@ -11,6 +11,7 @@ public class Goods extends CommonModel{
 	protected int goodsStatus = -1;
 	protected int createTime;
 	protected int updateTime;
+	protected int goodsBid;
 	
 	/**
 	 * 目的是为了省代码
@@ -90,6 +91,13 @@ public class Goods extends CommonModel{
 		this.updateTime = updateTime;
 		return this;
 	}
+	public int getGoodsBid() {
+		return goodsBid;
+	}
+	public Goods setGoodsBid(int goodsBid) {
+		this.goodsBid = goodsBid;
+		return this;
+	}
 	
 	public Goods end()
 	 {
@@ -99,7 +107,33 @@ public class Goods extends CommonModel{
 		 if (this.getGoodsCategoryId() > 0) {
 			 this.condition.put("goods_category_id", this.getGoodsCategoryId());
 		 }
-		 
+		 if (this.getCreateTime() > 0) {
+			 this.condition.put("create_time", this.getCreateTime());
+		 }
+		 if (this.getUpdateTime() > 0) {
+			 this.condition.put("update_time", this.getUpdateTime());
+		 }
+		 if (this.getGoodsBid() > 0) {
+			 this.condition.put("goods_bid", this.getGoodsBid());
+		 }
+		 if (this.getGoodsPrice() > 0) {
+			 this.condition.put("goods_price", this.getGoodsPrice());
+		 }
+		 if (this.getGoodsNum() > 0) {
+			 this.condition.put("goods_num", this.getGoodsNum());
+		 }
+		 if (this.getGoodsStatus() > -1) {
+			 this.condition.put("goods_status", this.getGoodsStatus());
+		 }
+		 if (this.getGoodsDescribe() != null) {
+			 this.condition.put("goods_describe", "'"+this.getGoodsDescribe()+"'");
+		 }
+		 if (this.getGoodsName() != null) {
+			 this.condition.put("goods_name", "'"+this.getGoodsName()+"'");
+		 }
+		 if (this.getGoodsPic() != null) {
+			 this.condition.put("goods_pic", "'"+this.getGoodsPic()+"'");
+		 } 
 		 return this;
 	 } 
 	

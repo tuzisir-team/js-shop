@@ -45,15 +45,15 @@ public class UsersModel extends Model{
 	 * @throws SQLException 
 	 */
 	public int login(Users users) throws SQLException {
-		Boolean res = this.table("users").
+		ResultSet res = this.table("users").
 				where(Users.instantce().setUserName(users.getUserName()).setUserPassword(users.getUserPassword())
 						.setUserStatus(1)
-						.end().getCondition()).find(); // 查询操作
-		if (!res) {
-			Log.instance().error("没有找到该用户");
+						.end().getCondition()).select(); // 查询操作
+		
+		if (!res.next()) {
 			return 0;
 		}
-		return 1;
+			return res.getInt(1);
 	}
 	/**
 	 * 用户注销
@@ -61,7 +61,6 @@ public class UsersModel extends Model{
 	 * @return
 	 */
 	public Boolean exit(Users users){
-		
 		return true;
 	}
 }

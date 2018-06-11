@@ -4,6 +4,7 @@ import index.model.UsersModel;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
@@ -11,13 +12,12 @@ import javax.servlet.ServletException;
 import admin.model.LoginModel;
 
 import common.controller.Controller;
-import common.db.model.Admin;
 import common.db.model.Users;
 import extend.log.Log;
 import extend.vertifcode.VertifCode;
 
 public class LoginController extends Controller{
-
+	private String userLoginStatus;//拿到登录状态
 	/**
 	 * 登录
 	 * @throws IOException 
@@ -25,11 +25,6 @@ public class LoginController extends Controller{
 	 * @throws ServletException 
 	 */
 	public void login() throws IOException, SQLException, ServletException {
-//		String checkResult = checkParams("user_name,user_password");
-//		// 验证参数
-//		if (checkResult != null) {
-//			getOut().println(returnJson(444, "缺少必要参数"+checkResult));return;
-//		}
 		// 登录逻辑处理
 		String returnJson = "{}";
 		int resultCode = UsersModel.instance().login(Users.instantce()
@@ -40,11 +35,19 @@ public class LoginController extends Controller{
 		}
 		else{
 			request.getSession().setAttribute("user_name", request.getParameter("user_name"));
-			returnJson = this.returnJson(200, "登录成功");
+			request.getSession().setAttribute("user_id",resultCode);
+			returnJson = this.returnJson(200, "登录成功",userLoginStatus);
 		}
 		getOut().println(returnJson);
 	}
-	
+	/**
+	 * 登录状态
+	 */
+	public void loginStatus() throws IOException, SQLException, ServletException {
+		userLoginStatus=request.getParameter("user_login_status");
+		request.setAttribute("user_login_status", userLoginStatus);
+		forward("/view/index/login.jsp");
+	}
 	/**
 	 * 用户注册
 	 * @throws IOException 
@@ -82,10 +85,6 @@ public class LoginController extends Controller{
 	 * @throws ServletException 
 	 */
 	public void unlogin() throws IOException, ServletException {
-//		String checkResult = checkParams("get_type");
-//		if (checkResult != null) {
-//			getOut().println(returnJson(444, "缺少必要参数"+checkResult));return;
-//		}
 		request.getSession().invalidate();
 		forward("/route?get_type=user_goods_index");
 	}

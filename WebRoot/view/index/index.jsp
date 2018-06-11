@@ -23,10 +23,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="rightArea">
 					欢迎来到跨洋购物！${sessionScope.user_name}
 					<c:if test="${empty sessionScope.user_name}">
-				   		<a href="${pageContext.request.contextPath}/view/index/login.jsp">[登录]</a>
+				   		<a href="${pageContext.request.contextPath}/route?get_type=user_login&user_login_status=0">[登录]</a>
 					</c:if>
 					<a href="${pageContext.request.contextPath}/view/index/register.jsp">[免费注册]</a>
-					<a href="${pageContext.request.contextPath}/route?get_type=user_unlogin">[退出]</a>
+					<c:if test="${!empty sessionScope.user_name}">
+						<a href="${pageContext.request.contextPath}/route?get_type=user_unlogin">[退出]</a>					
+					</c:if>
 				</div>
 			</div>
 		</div>
@@ -48,33 +50,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="navBox">
 			<div class="comWidth">
 				<div class="shopClass fl">
-					<h3>全部商品分类<i></i></h3>
-					<div class="shopClass_show" hidden>
-							<dl class="shopClass_item">
-							<dt class="b"><a href="#">手机</a> <a href="#">数码</a> <a href="#" class="alink">合约机</a></dt>
-							<dd><a href="#">荣耀3X</a> <a href="#">单反</a> <a href="#">智能设备</a></dd>
-							</dl>
-							<dl class="shopClass_item">
-							<dt class="b"><a href="#">手机</a> <a href="#">数码</a> <a href="#" class="alink">合约机</a></dt>
-							<dd><a href="#">荣耀3X</a> <a href="#">单反</a> <a href="#">智能设备</a></dd>
-							</dl>
-							<dl class="shopClass_item">
-							<dt class="b"><a href="#">手机</a> <a href="#">数码</a> <a href="#" class="alink">合约机</a></dt>
-							<dd><a href="#">荣耀3X</a> <a href="#">单反</a> <a href="#">智能设备</a></dd>
-							</dl>
-							<dl class="shopClass_item">
-							<dt class="b"><a href="#">手机</a> <a href="#">数码</a> <a href="#" class="alink">合约机</a></dt>
-							<dd><a href="#">荣耀3X</a> <a href="#">单反</a> <a href="#">智能设备</a></dd>
-							</dl>
-							<dl class="shopClass_item">
-							<dt class="b"><a href="#">手机</a> <a href="#">数码</a> <a href="#" class="alink">合约机</a></dt>
-							<dd><a href="#">荣耀3X</a> <a href="#">单反</a> <a href="#">智能设备</a></dd>
-							</dl>
-					</div>			
+					<h3>全部商品分类<i></i></h3>		
 				</div>
 				<ul class="nav fl">
 					<c:forEach items="${requestScope.goodsCategoryList}" var="GoodsCategory">
-					   <li><a href="${pageContext.request.contextPath}/route?get_type=index_category_goods&goods_catecory_id=${GoodsCategory.goodsCategoryId}">
+					   <li><a href="${pageContext.request.contextPath}/route?get_type=index_category_goods&goods_catecory_id=${GoodsCategory.goodsCategoryId}&goods_catecory_name=${GoodsCategory.goodsCategoryName}">
 					   ${GoodsCategory.goodsCategoryName}</a></li>
 					</c:forEach>
 				</ul>
@@ -85,76 +65,49 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="leftArea">
 			<c:forEach items="${requestScope.goodsCategoryList}" var="GoodsCategory">
 				<div class="leftNav">
-					
-						<a class="remove-a-style" href="${pageContext.request.contextPath}/route?get_type=index_category_goods&goods_catecory_id=${GoodsCategory.goodsCategoryId}">
+						<a class="remove-a-style" href="${pageContext.request.contextPath}/route?get_type=index_category_goods&goods_catecory_id=${GoodsCategory.goodsCategoryId}&goods_catecory_name=${GoodsCategory.goodsCategoryName}">
 							<h3 class="nav_title">
 								${GoodsCategory.goodsCategoryName}
 							</h3>
 						</a>
-				
 				</div>
 			</c:forEach>
-			<div class="leftNav">
-				<h3 class="nav_title">
-						<a href="#">123456</a>
-
-				</h3>
-			</div>
-			<div class="leftNav">
-				<h3 class="nav_title">手机、数码</h3>
-			</div>
-			<div class="leftNav">
-				<h3 class="nav_title">手机、数码</h3>
-				<div class="nav_cont">
-					<h3>手机通讯</h3>
-					<ul class="navCont_list clear_list">
-						<li><a href="#">全部手机</a></li>
-						<li><a href="#">全部手机</a></li>
-						<li><a href="#">全部手机</a></li>
-						<li><a href="#">全部手机</a></li>
-						<li><a href="#">全部手机</a></li>
-						<li><a href="#">全部手机</a></li>
-						<li><a href="#">全部手机</a></li>
-					</ul>
-				</div>
-			</div>
-			
 		</div>
-		<div class="rightArea">
-			<div class="banner_bar banner_big">
-				<ul class="imgBox">
-					<li><a href="#"><img src="./static/img/index/banner/banner.01.png" alt="banner"></a></li>
-					<li><a href="#"><img src="./static/img/index/banner/banner.02.png" alt="banner"></a></li>
-				</ul>
-				<div class="imgNum">
-					<a href="#" class="active"></a> <a href="#"></a> <a href="#"></a> <a href="#"></a>
-				</div>
+	<div class="rightArea">
+		<div class="banner_bar banner_big">
+			<ul class="imgBox">
+				<li><a href="#"><img src="./static/img/index/banner/banner.01.png" alt="banner"></a></li>
+				<li><a href="#"><img src="./static/img/index/banner/banner.02.png" alt="banner"></a></li>
+			</ul>
+			<div class="imgNum">
+				<a href="#" class="active"></a> <a href="#"></a> <a href="#"></a> <a href="#"></a>
 			</div>
-			<div class="hr_7"></div>
-				<c:forEach items="${requestScope.goodsCategory}" var="GoodsCategory">
-					<div class="products_title">
-						<h3><a href="#">${GoodsCategory.goodsCategoryName}</a></h3>
-					</div>
-					<div class="products_list clearfix">
-					<c:forEach items="${requestScope.goodsList}" var="Goods">
-						<c:if test="${GoodsCategory.goodsCategoryId==Goods.goodsCategoryId}">
-							<a href="${pageContext.request.contextPath}/route?get_type=goods_info&goods_id=${Goods.goodsId}">
-							<div class="item">
-								<div class="item_cont">
-									<div class="img_item">
-										<img src="${Goods.goodsPic}" alt="">
-									</div>
-									<p>商品简介：${Goods.goodsDescribe}</p>
-									<p class="money">零售价：${Goods.goodsPrice}</p>
-									<p class="money">剩余数量：${Goods.goodsNum}</p>
-								</div>
+		</div>
+		<div class="hr_7"></div>
+		<c:forEach items="${requestScope.goodsCategory}" var="GoodsCategory">
+			<div class="products_title">
+				<h3>${GoodsCategory.goodsCategoryName}</h3>
+			</div>
+			<div class="products_list clearfix">
+			<c:forEach items="${requestScope.goodsList}" var="Goods">
+				<c:if test="${GoodsCategory.goodsCategoryId==Goods.goodsCategoryId}">
+					<a href="${pageContext.request.contextPath}/route?get_type=goods_info&goods_catecory_id=${GoodsCategory.goodsCategoryId}&goods_id=${Goods.goodsId}">
+					<div class="item">
+						<div class="item_cont">
+							<div class="img_item">
+								<img src="${Goods.goodsPic}" alt="">
 							</div>
-							</a>
-						</c:if>
-					</c:forEach>
+							<p>商品简介：${Goods.goodsDescribe}</p>
+							<p class="money">零售价：${Goods.goodsPrice}</p>
+							<p class="money">剩余数量：${Goods.goodsNum}</p>
+						</div>
 					</div>
-				</c:forEach>
-		</div>
+					</a>
+				</c:if>
+			</c:forEach>
+			</div>
+		</c:forEach>
+	</div>
 </div>
 <div class="hr_25"></div>
 <div class="footer">

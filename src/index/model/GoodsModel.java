@@ -30,6 +30,11 @@ public class GoodsModel extends Model{
         }
 		return goodsCategoryList;
 	}
+	/**
+	 * 商品详情列表
+	 * @return
+	 * @throws SQLException
+	 */
 	public static ArrayList goodsList() throws SQLException{
 		GoodsModel goodsmodel=new GoodsModel();
 		ResultSet rs = goodsmodel.
@@ -49,14 +54,23 @@ public class GoodsModel extends Model{
 		}
 		return goodsList;
 	}
-	public static ArrayList chooseGoodsCategory(int goodsCategoryId) throws SQLException{
+	/**
+	 * 某类商品下商品
+	 * @param goodsCategoryId
+	 * @param limit
+	 * @return
+	 * @throws SQLException
+	 */
+	public static ArrayList chooseGoodsCategory(int goodsCategoryId,int... limit) throws SQLException{
 		GoodsModel goodsmodel=new GoodsModel();
-		ResultSet rs=goodsmodel.table("goods")
-				.where("goods_category_id=" + goodsCategoryId +" and goods_status=1")
-				.select();
+		Model sqlModel = goodsmodel.table("goods")
+				.where("goods_category_id=" + goodsCategoryId +" and goods_status=1");
+		if (limit.length == 1){
+			sqlModel = sqlModel.limit(limit[0]);
+		}
+		ResultSet rs = sqlModel.select();
 		ArrayList chooseGoodsCategory=new ArrayList();
 		while (rs.next()){
-			System.out.print(rs.getString(2));
 			Goods v=new Goods();
 			v.setGoodsId(rs.getInt(1)).setGoodsName(rs.getString(2))
 			.setGoodsPic(rs.getString(3)).setGoodsDescribe(rs.getString(5))
@@ -65,5 +79,28 @@ public class GoodsModel extends Model{
 			chooseGoodsCategory.add(v);
 		}
 		return chooseGoodsCategory;
+	}
+	/**
+	 * 某类商品下的某个商品，即商品详情
+	 * @param goodsId
+	 * @param goodsCategoryId
+	 * @return
+	 * @throws SQLException
+	 */
+	public static ArrayList goodsInfo(int goodsId,int goodsCategoryId) throws SQLException {
+		GoodsModel usersModel = new GoodsModel();
+		ResultSet rs = usersModel.table("goods")
+				.where("goods_id=" + goodsId +" and goods_category_id=" + goodsCategoryId +" and goods_status=1 and goods_num > 0")
+				.select();
+		ArrayList goodsInfo = new ArrayList();
+		while (rs.next()){
+			Goods v=new Goods();
+			v.setGoodsId(rs.getInt(1)).setGoodsName(rs.getString(2))
+			.setGoodsPic(rs.getString(3)).setGoodsDescribe(rs.getString(5))
+			.setGoodsNum(rs.getInt(7)).setGoodsCategoryId(rs.getInt(9))
+			.setGoodsPrice(rs.getInt(10));
+			goodsInfo.add(v);
+		}
+		return goodsInfo;
 	}
 }

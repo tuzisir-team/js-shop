@@ -1,11 +1,13 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>登录</title>
-	<link rel="stylesheet" type="text/css"href="../../static/css/index/reset.css">
-	<link rel="stylesheet" type="text/css"href="../../static/css/index/main.css">
+	<link rel="stylesheet" type="text/css"href="${pageContext.request.contextPath}/static/css/index/reset.css">
+	<link rel="stylesheet" type="text/css"href="${pageContext.request.contextPath}/static/css/index/main.css">
 	<script src="${pageContext.request.contextPath}/static/layui/layui.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/jquery.min.js" charset="utf-8" ></script>
 </head>
@@ -72,10 +74,16 @@ layui.use(['layer'], function () {
             data: $("form").serialize(),
             success: function (data) {
             	console.log(data);
-            	if (data.code != 200) {
-            		layer.msg(data.msg);
+            	if (data.code == 200) {
+	            	if(${requestScope.user_login_status} == 0){
+	            		window.location.href = "${pageContext.request.contextPath}/route?get_type=user_goods_index";
+	            	}
+	            	else{
+	            		window.close();
+	            		window.opener.location.reload();
+	            	}
             	} else {
-            		window.location.href = "${pageContext.request.contextPath}/route?get_type=user_goods_index";
+            		layer.msg(data.msg);
             	}
             }
         });

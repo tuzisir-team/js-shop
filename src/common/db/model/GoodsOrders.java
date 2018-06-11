@@ -1,6 +1,6 @@
 package common.db.model;
 
-public class GoodsOrders {
+public class GoodsOrders extends CommonModel{
 	
 	private int goodsOrderId;
 	private int goodsId;
@@ -12,6 +12,10 @@ public class GoodsOrders {
 	private int createTime;
 	private int updateTime;
 	private int goodsOrderStatus;
+	
+	public static GoodsOrders instantce() {
+		return new GoodsOrders();
+	}
 	
 	public int getGoodsOrderStatus() {
 		return goodsOrderStatus;
@@ -83,7 +87,32 @@ public class GoodsOrders {
 		this.updateTime = updateTime;
 		return this;
 	}
-	
-	
-	
+	public GoodsOrders end()
+	 {
+		 if (this.getGoodsId() > 0) {
+			  this.condition.put("goods_id", this.getGoodsId());
+		 }
+		 if (this.getGoodsNum() > 0) {
+			 this.condition.put("goods_num", this.getGoodsNum());
+		 }
+		 if (this.getGoodsPrice() > 0) {
+			 this.condition.put("goods_price", this.getGoodsPrice());
+		 }
+		 if (this.getUserId() > 0) {
+			 this.condition.put("user_id", this.getUserId());
+		 }
+		 if (this.getCreateTime() > 0) {
+			 this.condition.put("create_time", this.getCreateTime());
+		 }
+		 if (this.getUpdateTime() > 0) {
+			 this.condition.put("update_time", this.getUpdateTime());
+		 }
+//		 if (this.getUserEmail() != null ) {
+//			 this.condition.put("user_email", "'"+this.getUserEmail()+"'");
+//		 }
+		 if (this.getGoodsOrderStatus() > -1) {
+			 this.condition.put("goods_order_status", this.getGoodsOrderStatus());
+		 }
+		 return this;
+	 }
 }

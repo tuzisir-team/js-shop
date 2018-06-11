@@ -182,7 +182,7 @@ url("../images/icon/jiantou.png") center center no-repeat;}
 .description .leftArea{width:309px;}
 .description .rightArea{width:688px; border-left:#CCC solid 1px}
 /* 图片展示 */
-.description_imgs .big{height:340px; text-align:center;}
+.description_imgs .big{height:280px; text-align:center;}
 .des_smimg{margin-left:1px; width:265px; margin:0 auto;}
 .des_smimg li{float:left; margin-left:-1px;}
 .des_smimg img{border:#CCC solid 1px;}
@@ -192,6 +192,7 @@ url("../images/icon/jiantou.png") center center no-repeat;}
 .des_content .dl{margin-bottom:10px;}
 .des_content .dt{width:75px; float:left; color:#666; text-indent:17px; line-height:23px;}
 .des_content .dd{padding-left:75px; *padding-left:0;}
+#des_money{font-size:18px; color:#F30; font-family:Verdana;}
 .des_money{font-size:18px; color:#F30; font-family:Verdana;}
 .des_money em{font-style:normal; font-size:12px;}
 /* 换购 */
@@ -199,7 +200,7 @@ url("../images/icon/jiantou.png") center center no-repeat;}
 .hg_icon{width:55px; height:18px; display:inline-block; background:url("../images/icon/mang.png")
 left center no-repeat; color:#FFF; font-style:normal; text-indent:16px; line-height:18px; margin-right:10px;}
 /* 送货 */
-.des_position{background-color:#F2F2F2; padding:15px 0; margin}
+.des_position{ padding:15px 0; margin}
 .theGoods{line-height:24px; padding-left:10px;}
 .des_content .colorSelect{line-height:35px;}
 .des_item{color:#666; padding:9px 10px; border:1px solid #CCC; float:left; background-color:#FFF;
@@ -230,7 +231,7 @@ padding:0 4px;}
 .shop_buy{text-align:center;}
 .notes{color:#CCC; text-indent:17px;}
  /* 产品介绍 */
-.des_info .leftArea{width:190px;}
+.des_info .leftArea{width:190px;height:280px;}
 .des_info .rightArea{width:790px;}
 .recommend{border:#CCC solid 1px; background-color:#FFF; padding-bottom:15px;}
 .recommend .tit{height:39px; border-bottom:solid 1px #CCC; line-height:39px;
@@ -241,7 +242,8 @@ text-indent:15px; font-size:14px; background-color:#F3F3F3;}
 .des_infoContent{border:#CCC solid 1px; background-color:#FFF;}
 .des_tit{height:39px; border-bottom:#CCC solid 1px; background:url("../images/icon/beijing.png") left top repeat-x;}
 .des_tit li{float:left; width:50%; font:14px/39px "宋体"; text-align:center; border-left:solid 1px #CCC; margin-left:-1px;}
-.des_tit .active{background-color:#0479CA; font-weight:bold; color:#FFF; position:relative;}
+.des_tit {background-color:#0479CA; font-weight:bold; color:#FFF; position:relative;}
+.active{background-color:#0479CA; font-weight:bold; color:#FFF;}
 .des_tit span{background:url("../images/icon/des_title_icon.png") left center no-repeat; padding-left:35px; 
 display:inline-block; line-height:39px;}
 .ad{padding:30px 0; text-align:center;}
@@ -320,7 +322,7 @@ font-weight:bold;}
 .cart_tel,.input{vertical-align:middle;}
 .shopping_list li{height:24px; margin-bottom:10px;}
 .shopping_list span em{color:#F30; font-style:normal; margin-right:5px;}
-.input{height:22px; line-height:22px\9; border:#CCC solid 1px; padding:0 6px; width:110px;}
+.input{color:#CCC;height:22px; line-height:22px\9; border:#CCC solid 1px; padding:0 6px; width:110px;}
 .input_b{width:392px;}
 .input_s{width:64px;}
 .input_s2{width:84px;}

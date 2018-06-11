@@ -22,6 +22,7 @@ public class Routes {
 		Routes.getRoutes.put("user_goods_index", "index.controller.GoodsController@goodsIndex");
 		Routes.getRoutes.put("index_category_goods", "index.controller.GoodsController@categoryGoods");
 		Routes.getRoutes.put("goods_info", "index.controller.GoodsController@goodsIntroduce");
+		Routes.getRoutes.put("user_login", "index.controller.LoginController@loginStatus");
 		return Routes.getRoutes;
 	}
 
@@ -37,6 +38,7 @@ public class Routes {
 		// 老二
 		Routes.postRoutes.put("user_register", "index.controller.LoginController@register");
 		Routes.postRoutes.put("user_login", "index.controller.LoginController@login");
+		Routes.postRoutes.put("index_shopping_cart", "index.controller.OrderController@shoppingCart");
 		return Routes.postRoutes;
 	}
 
