@@ -106,7 +106,7 @@
  	  	is_ok("${pageContext.request.contextPath}/route", data, 'delGoodsCategoryReturn');
     }
  
-    // 删除商品类别状态
+    // 删除商品类别
     function delGoodsCategory(){
     	$(".del-goods-category").click(function() {
     		var goodsCategoryId = $(this).data('goodscategoryid');
@@ -139,7 +139,7 @@
     	});
     }
     
-    // 更改商品类别价格状态的回调函数
+    // 更改商品类别状态的回调函数
     function categoryStatusReturn(returnData) {
     	console.log(returnData);
         if (returnData.code != 200) {
@@ -155,6 +155,6 @@
         if (returnData.code != 200) {
         	layer.msg(returnData.msg);
         }
-    	location.reload();
+        window.location.href = "${pageContext.request.contextPath}/route?get_type=admin_goods_category_list";
     }
 </script>

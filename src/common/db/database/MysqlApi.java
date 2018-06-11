@@ -25,6 +25,15 @@ public class MysqlApi {
 		}
 		return myself;
 	}
+	
+	/**
+	 * 获取数据库连接
+	 * @return
+	 */
+	public Connection getConn() {
+		return this.conn;
+	}
+	
 	/**
 	 * 对数据库的查询操作
 	 * @param sql
@@ -58,4 +67,5 @@ public class MysqlApi {
 		}
 		return rs;
 	}
+	
 }

@@ -15,8 +15,18 @@ public class Routes {
 		Routes.getRoutes.put("admin_shopping_cart", "admin.controller.UsersController@shoppingCart"); // 显示用户购物车信息
 		Routes.getRoutes.put("admin_goods_category_list", "admin.controller.GoodsController@goodsCategoryList"); // 商品类别列表
 		Routes.getRoutes.put("admin_goods_list", "admin.controller.GoodsController@goodsList"); // 商品列表
-		Routes.getRoutes.put("admin_add_goods", "admin.controller.GoodsController@addGoods"); // 添加商品
-		
+		Routes.getRoutes.put("admin_add_goods_view", "admin.controller.GoodsController@addGoodsView"); // 添加商品页面
+		Routes.getRoutes.put("admin_edit_goods_view", "admin.controller.GoodsController@editGoodsView"); // 修改商品页面
+		Routes.getRoutes.put("admin_orders_list", "admin.controller.OrdersController@ordersList"); // 订单列表页面
+		Routes.getRoutes.put("admin_order_details", "admin.controller.OrdersController@orderDetails"); // 商品详情
+		Routes.getRoutes.put("admin_main", "admin.controller.OrdersController@weekCount"); // 周统计
+		Routes.getRoutes.put("send_email", "admin.controller.EmailController@sendEmail"); // 周统计
+		Routes.getRoutes.put("admin_set_email", "admin.controller.EmailController@setEmail"); // 设置邮件基本信息
+		Routes.getRoutes.put("admin_email_template_list", "admin.controller.EmailController@emailTemplateList"); // 邮件模板里诶博爱
+		Routes.getRoutes.put("admin_add_email_template_view", "admin.controller.EmailController@addEmailTemplateView"); // 添加邮件模板页面
+		Routes.getRoutes.put("admin_edit_email_template_view", "admin.controller.EmailController@editEmailTemplateView"); // 添加邮件模板页面
+		Routes.getRoutes.put("admin_email_list", "admin.controller.EmailController@emailList"); // 发送过的邮件列表
+
 		// 老二
 		Routes.getRoutes.put("user_unlogin", "index.controller.LoginController@unlogin");
 		Routes.getRoutes.put("user_goods_index", "index.controller.GoodsController@goodsIndex");
@@ -34,6 +44,19 @@ public class Routes {
 		Routes.postRoutes.put("admin_del_goods_category", "admin.controller.GoodsController@delGoodsCategory"); // 删除商品分类
 		Routes.postRoutes.put("admin_add_goods_category", "admin.controller.GoodsController@addGoodsCategory"); // 添加商品分类
 		Routes.postRoutes.put("admin_add_goods_pic", "admin.controller.GoodsController@addGoodsPic"); // 添加图片
+		Routes.postRoutes.put("admin_add_goods", "admin.controller.GoodsController@addGoods"); // 添加商品
+		Routes.postRoutes.put("admin_edit_goods", "admin.controller.GoodsController@editGoods"); // 添加商品
+		Routes.postRoutes.put("admin_is_goods_category", "admin.controller.GoodsController@isGoodsCategory"); // 检测商品类别是否存在
+		Routes.postRoutes.put("admin_change_goods_status", "admin.controller.GoodsController@changeGoodsStatus"); // 更改商品状态
+		Routes.postRoutes.put("admin_del_goods", "admin.controller.GoodsController@delGoods"); // 删除商品
+		Routes.postRoutes.put("admin_order_find", "admin.controller.OrdersController@orderFind"); // 根据订单号查询订单
+		Routes.postRoutes.put("admin_edit_admin_password", "admin.controller.AdminController@editAdminPassword"); // 修改管理员密码
+		Routes.postRoutes.put("admin_edit_email_info", "admin.controller.EmailController@editEmailInfo"); // 修改邮件基本信息
+		Routes.postRoutes.put("admin_add_email_template", "admin.controller.EmailController@addEmailTemplate"); // 添加邮件模板
+		Routes.postRoutes.put("admin_edit_email_template", "admin.controller.EmailController@editEmailTemplate"); // 修改邮件模板
+		Routes.postRoutes.put("admin_change_email_template_status", "admin.controller.EmailController@chagneEmailTemplateStatus"); // 修改邮件模板状态
+		Routes.postRoutes.put("admin_del_email_template", "admin.controller.EmailController@delEmailTemplate"); // 删除邮件模板
+		Routes.postRoutes.put("admin_find_email", "admin.controller.EmailController@findEmail"); // 查找邮件根据用户id
 
 		// 老二
 		Routes.postRoutes.put("user_register", "index.controller.LoginController@register");

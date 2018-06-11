@@ -59,7 +59,7 @@
                 <button class="tab-btn btn-right"><i class="icon-font">&#xe60f;</i></button>
       </div>
       <div class="layout-main-body">
-        <iframe class="body-iframe" name="iframe0" width="100%" height="99%" src="main.jsp" frameborder="0" data-id="" seamless></iframe>
+        <iframe class="body-iframe" name="iframe0" width="100%" height="99%" src="${pageContext.request.contextPath}/route?get_type=admin_main" frameborder="0" data-id="" seamless></iframe>
       </div>
     </section>
     <div class="layout-footer">2018 &copy; tuzisir</div>
@@ -86,21 +86,30 @@ layui.use(['form', 'layedit', 'laydate'], function(){
               {"id":"22","name":"商品列表","parentId":"20","url":"${pageContext.request.contextPath}/route?get_type=admin_goods_list","icon":"","order":"1","isHeader":"0","childMenus":""},
             ]},
             {"id":"30","name":"订单管理","parentId":"1","url":"","icon":"&#xe609;","order":"1","isHeader":"0","childMenus":[
-              {"id":"31","name":"订单列表","parentId":"20","url":"./cate/book_cate.jsp","icon":"","order":"1","isHeader":"0","childMenus":""},
+              {"id":"31","name":"订单列表","parentId":"20","url":"${pageContext.request.contextPath}/route?get_type=admin_orders_list","icon":"","order":"1","isHeader":"0","childMenus":""},
             ]},
-            {"id":"40","name":"统计管理","parentId":"1","url":"","icon":"&#xe609;","order":"1","isHeader":"0","childMenus":[
-              {"id":"41","name":"订单统计","parentId":"20","url":"./cate/book_cate.jsp","icon":"","order":"1","isHeader":"0","childMenus":""},
-              {"id":"42","name":"商品销售统计","parentId":"20","url":"./cate/book_cate.jsp","icon":"","order":"1","isHeader":"0","childMenus":""},
+            {"id":"40","name":"邮件管理","parentId":"1","url":"","icon":"&#xe609;","order":"1","isHeader":"0","childMenus":[
+              {"id":"41","name":"邮件设置","parentId":"40","url":"${pageContext.request.contextPath}/route?get_type=admin_set_email","icon":"","order":"1","isHeader":"0","childMenus":""},
+              {"id":"42","name":"邮件模板","parentId":"40","url":"${pageContext.request.contextPath}/route?get_type=admin_email_template_list","icon":"","order":"1","isHeader":"0","childMenus":""},
+              {"id":"43","name":"已发邮件","parentId":"40","url":"${pageContext.request.contextPath}/route?get_type=admin_email_list","icon":"","order":"1","isHeader":"0","childMenus":""},
             ]},
-            {"id":"50","name":"<span style='margin:0;padding:0;' class='edit_password'>修改密码</span>","parentId":"1","url":"","icon":"&#xe609;","order":"1","isHeader":"0","childMenus":[
-         
+            {"id":"50","name":"统计管理","parentId":"1","url":"","icon":"&#xe609;","order":"1","isHeader":"0","childMenus":[
+              {"id":"51","name":"订单统计","parentId":"20","url":"./cate/book_cate.jsp","icon":"","order":"1","isHeader":"0","childMenus":""},
+            ]},
+            {"id":"60","name":"权限管理","parentId":"1","url":"","icon":"&#xe609;","order":"1","isHeader":"0","childMenus":[
+              {"id":"61","name":"功能管理","parentId":"20","url":"./cate/book_cate.jsp","icon":"","order":"1","isHeader":"0","childMenus":""},
+              {"id":"62","name":"角色管理","parentId":"20","url":"./cate/book_cate.jsp","icon":"","order":"1","isHeader":"0","childMenus":""},
+              {"id":"63","name":"管理员管理","parentId":"20","url":"./cate/book_cate.jsp","icon":"","order":"1","isHeader":"0","childMenus":""},
+            ]},
+            {"id":"70","name":"<div style='display:inline-block;width:80%;height:100%;' class='edit_password'>修改密码</div>","parentId":"1","url":"","icon":"&#xe609;","order":"1","isHeader":"0","childMenus":[
             ]},
           ]},
         ]
-    init_menu(menu);//初始化菜单
-    edit_password();//修改管理员密码
+    init_menu(menu); // 初始化菜单
+    edit_password(); // 修改管理员密码
   });
-  //修改管理员密码
+  
+  // 修改管理员密码
   function edit_password(){
   	$(".edit_password").click(function(){
 		layer.open({
@@ -108,8 +117,8 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 		  title: '修改管理员密码',
 		  shadeClose: true,
 		  shade: 0.8,
-		  area: ['33%', '40%'],
-		  content: './common/edit_password.jsp'
+		  area: ['50%', '45%'],
+		  content: '${pageContext.request.contextPath}/view/admin/admin/edit_password.jsp'
 		});
 	});
   }

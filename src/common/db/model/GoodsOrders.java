@@ -12,11 +12,24 @@ public class GoodsOrders extends CommonModel{
 	private int createTime;
 	private int updateTime;
 	private int goodsOrderStatus;
+	private String userName;
+	public String getUserName() {
+		return userName;
+	}
+	public GoodsOrders setUserName(String userName) {
+		this.userName = userName;
+		return this;
+	}
 	
+	/**
+	 * 写代码好看
+	 * @return
+	 */
 	public static GoodsOrders instantce() {
 		return new GoodsOrders();
 	}
 	
+
 	public int getGoodsOrderStatus() {
 		return goodsOrderStatus;
 	}
@@ -115,4 +128,5 @@ public class GoodsOrders extends CommonModel{
 		 }
 		 return this;
 	 }
+
 }

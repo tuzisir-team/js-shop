@@ -95,5 +95,20 @@ public class MyselfFile {
 		return this.isWriter;
 	}
 	
+	/**
+	 * 删除文件
+	 * @param path
+	 * @param fileName
+	 * @return
+	 */
+	public static Boolean delFile(String path, String fileName) {
+		Log.instance().debug(fileName);
+		File file=new File(path+"/"+fileName);
+        if(file.exists()&&file.isFile()) {
+            file.delete();return true;
+        }
+        return false;
+	}
+	
 
 }

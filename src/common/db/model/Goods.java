@@ -12,6 +12,7 @@ public class Goods extends CommonModel{
 	protected int createTime;
 	protected int updateTime;
 	protected int goodsBid;
+	protected String goodsCategoryName;
 	
 	/**
 	 * 目的是为了省代码
@@ -96,6 +97,14 @@ public class Goods extends CommonModel{
 	}
 	public Goods setGoodsBid(int goodsBid) {
 		this.goodsBid = goodsBid;
+		return this;
+	}
+
+	public String getGoodsCategoryName() {
+		return goodsCategoryName;
+	}
+	public Goods setGoodsCategoryName(String goodsCategoryName) {
+		this.goodsCategoryName = goodsCategoryName;
 		return this;
 	}
 	

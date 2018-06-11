@@ -69,7 +69,6 @@ public class Servlet extends HttpServlet {
 		Controller.setRequest(request);
 		Controller.setResponse(response);
 		Controller.setServlet(this);
-		
 		if (request.getParameter("get_type") != null) { // 当get请求时
 			Route.instance().selectGet(request.getParameter("get_type")).go();
 		} else if (request.getParameter("post_type") != null){ // post请求
@@ -103,6 +102,7 @@ public class Servlet extends HttpServlet {
 	        while (i.hasNext()) {  
 	            FileItem fi = (FileItem) i.next();  
 	            if (!fi.isFormField()) { // 判断是文件还是 value值  
+	            	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/";
 	            	// 放入
    	        		if (MyselfFile.instance(fi).checkImage().getIsWriter()) {
    	        			// 先删除此文件
@@ -110,7 +110,7 @@ public class Servlet extends HttpServlet {
 	                            + "static/img/goods/";
    	        			String fileName = Integer.toString(Time.getDateTime()) + ".png";
 	        			if (MyselfFile.instance(fi).setFilePath(filePath).setFileName(fileName).createFile()) {
-	        				parameters.put("imgFile", filePath + fileName);
+	        				parameters.put("imgFile",  basePath + "static/img/goods/" + fileName);
 	        			}
 	        		}
 	            } else {  
