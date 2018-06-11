@@ -1,6 +1,6 @@
 package common.db.model;
 
-public class GoodsOrders {
+public class GoodsOrders extends CommonModel{
 	
 	private int goodsOrderId;
 	private int goodsId;
@@ -12,6 +12,22 @@ public class GoodsOrders {
 	private int createTime;
 	private int updateTime;
 	private int goodsOrderStatus;
+	private String userName;
+	public String getUserName() {
+		return userName;
+	}
+	public GoodsOrders setUserName(String userName) {
+		this.userName = userName;
+		return this;
+	}
+	
+	/**
+	 * 写代码好看
+	 * @return
+	 */
+	public static GoodsOrders instantce() {
+		return new GoodsOrders();
+	}
 	
 	public int getGoodsOrderStatus() {
 		return goodsOrderStatus;
@@ -83,6 +99,12 @@ public class GoodsOrders {
 		this.updateTime = updateTime;
 		return this;
 	}
+	public GoodsOrders end () {
+		if (this.getOrderId() > 0) {
+			  this.condition.put("order_id", this.getOrderId());
+		}
+		return this;
+	} 
 	
 	
 	

@@ -26,7 +26,7 @@ public class GoodsController extends Controller{
 	
 	public void categoryGoods() throws ServletException, IOException, SQLException{
 		this.goodsCategoryList();	
-		request.setAttribute("goodsCategory",request.getParameter("goods_catecory_id")));
+		request.setAttribute("goodsCategory",request.getParameter("goods_catecory_id"));
 		ArrayList chooseGoodsCategory=GoodsModel.chooseGoodsCategory( Integer.parseInt(request.getParameter("goods_catecory_id")));
 		request.setAttribute("goodsList", chooseGoodsCategory);
 		forward("/view/index/index.jsp");

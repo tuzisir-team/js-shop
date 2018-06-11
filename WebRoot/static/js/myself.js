@@ -18,6 +18,7 @@ function is_ok(url="", data="", call_back="result", type="POST", async=true, dat
         dataType:data_type,
         data: data,//也可以是字符串链接"name=张三&sex=1"，建议用对象
         success: function(data){
+        	console.log(data);
         	layer.closeAll('loading');            
             if(call_back != null){
                 var call_back_func = eval(call_back);

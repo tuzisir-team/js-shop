@@ -15,5 +15,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/myself.js"></script>
 	<script src="${pageContext.request.contextPath}/static/layui/layui.js" charset="utf-8"></script>
+	<script src="${pageContext.request.contextPath}/static/chart/Chart.js" charset="utf-8"></script>
 </head>
 <body>

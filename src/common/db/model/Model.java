@@ -207,4 +207,38 @@ public class Model {
 	public int queryUpdate(String sql) throws SQLException {
 		return this.databaseType(sql);
 	}
+	
+	/**
+	 * 开启事务
+	 * @throws SQLException
+	 */
+	public void startTrans() throws SQLException {
+		MysqlApi.instance().getConn().setAutoCommit(false);
+	}
+	
+	/**
+	 * 关闭事务
+	 * @throws SQLException
+	 */
+	public Model endTrans() throws SQLException {
+		MysqlApi.instance().getConn().setAutoCommit(true);
+		return this;
+	}
+	
+	/**
+	 * 提交事务
+	 * @throws SQLException
+	 */
+	public void commit() throws SQLException {
+		MysqlApi.instance().getConn().commit();
+	}
+	
+	/**
+	 * 回滚事务
+	 * @throws SQLException
+	 */
+	public Model rollback() throws SQLException {
+		MysqlApi.instance().getConn().rollback();
+		return this;
+	}
 }
