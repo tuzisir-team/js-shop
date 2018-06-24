@@ -3,6 +3,7 @@ package admin.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import common.db.model.GoodsOrders;
 import common.db.model.Model;
@@ -12,6 +13,41 @@ import extend.time.Time;
 public class OrdersModel extends Model {
 	
 	private static int[] days;
+	
+	/**
+	 * 订单统计
+	 * @return 
+	 * @throws SQLException 
+	 */
+	public static HashMap<String, String> orderCount() throws SQLException {
+		HashMap<String, String> orderCountData = new HashMap<String, String>(); // 订单统计数据
+		OrdersModel ordersModel = new OrdersModel();
+		orderCountData.put("order_num", "0");
+		orderCountData.put("ok_order_num", "0");
+		orderCountData.put("ok_order_total", "0");
+		orderCountData.put("refund_order_num", "0");
+		orderCountData.put("refund_order_total", "0");
+		// 订单总量,只统计订单成功和退款的，其它状态没意义
+		ResultSet count1 = ordersModel.table("orders")
+				.fields("count(*) as order_num").where("order_status in (1,3)").select();
+		if (count1.next()) {
+			orderCountData.put("order_num", Integer.toString(count1.getInt("order_num")));
+		}
+		// 成功数量，失败数量
+		ResultSet count2 = ordersModel.table("orders")
+				.fields("order_status,count(*) as order_status_num,sum('order_total') as order_total_status")
+				.group("order_status").where("order_status in (1,3)").select();
+		while (count2.next()) {
+			if (count2.getInt("order_status") == 1) {
+				orderCountData.put("ok_order_num", Integer.toString(count2.getInt("order_status_num")));
+				orderCountData.put("ok_order_total", Integer.toString(count2.getInt("order_total_status")));
+			} else if (count2.getInt("order_status") == 3) {
+				orderCountData.put("refund_order_num", Integer.toString(count2.getInt("order_status_num")));
+				orderCountData.put("refund_order_total", Integer.toString(count2.getInt("order_total_status")));
+			}
+		}
+		return orderCountData;
+	}
 
 	/**
 	 * 本周统计

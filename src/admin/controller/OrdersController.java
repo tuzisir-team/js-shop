@@ -3,6 +3,7 @@ package admin.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 
@@ -11,6 +12,18 @@ import common.controller.Controller;
 import extend.page.Page;
 
 public class OrdersController extends Controller{
+	
+	/**
+	 * 订单统计
+	 * @throws IOException 
+	 * @throws ServletException 
+	 * @throws SQLException 
+	 */
+	public void orderCount() throws ServletException, IOException, SQLException {
+		HashMap<String, String> orderCountData = OrdersModel.orderCount();
+		request.setAttribute("orderCountData", orderCountData);
+		forward("/view/admin/order/order_count.jsp");
+	}
 	
 	/**
 	 * 本周订单统计

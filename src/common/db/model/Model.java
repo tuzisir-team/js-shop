@@ -155,7 +155,7 @@ public class Model {
 			sql +=  " where " + this.where;
 		}
 		if (this.group != null) {
-			sql += " group " + this.group;
+			sql += " group by " + this.group;
 		}
 		if (this.having != null) {
 			sql += " having " + this.having;

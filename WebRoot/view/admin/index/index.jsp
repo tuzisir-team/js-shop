@@ -94,12 +94,12 @@ layui.use(['form', 'layedit', 'laydate'], function(){
               {"id":"43","name":"已发邮件","parentId":"40","url":"${pageContext.request.contextPath}/route?get_type=admin_email_list","icon":"","order":"1","isHeader":"0","childMenus":""},
             ]},
             {"id":"50","name":"统计管理","parentId":"1","url":"","icon":"&#xe609;","order":"1","isHeader":"0","childMenus":[
-              {"id":"51","name":"订单统计","parentId":"20","url":"./cate/book_cate.jsp","icon":"","order":"1","isHeader":"0","childMenus":""},
+              {"id":"51","name":"订单统计","parentId":"20","url":"${pageContext.request.contextPath}/route?get_type=admin_order_count","icon":"","order":"1","isHeader":"0","childMenus":""},
             ]},
             {"id":"60","name":"权限管理","parentId":"1","url":"","icon":"&#xe609;","order":"1","isHeader":"0","childMenus":[
-              {"id":"61","name":"功能管理","parentId":"20","url":"./cate/book_cate.jsp","icon":"","order":"1","isHeader":"0","childMenus":""},
-              {"id":"62","name":"角色管理","parentId":"20","url":"./cate/book_cate.jsp","icon":"","order":"1","isHeader":"0","childMenus":""},
-              {"id":"63","name":"管理员管理","parentId":"20","url":"./cate/book_cate.jsp","icon":"","order":"1","isHeader":"0","childMenus":""},
+              {"id":"61","name":"功能列表","parentId":"20","url":"${pageContext.request.contextPath}/route?get_type=admin_function_list","icon":"","order":"1","isHeader":"0","childMenus":""},
+              {"id":"62","name":"角色列表","parentId":"20","url":"${pageContext.request.contextPath}/route?get_type=admin_rote_list","icon":"","order":"1","isHeader":"0","childMenus":""},
+              {"id":"63","name":"管理员列表","parentId":"20","url":"./cate/book_cate.jsp","icon":"","order":"1","isHeader":"0","childMenus":""},
             ]},
             {"id":"70","name":"<div style='display:inline-block;width:80%;height:100%;' class='edit_password'>修改密码</div>","parentId":"1","url":"","icon":"&#xe609;","order":"1","isHeader":"0","childMenus":[
             ]},
