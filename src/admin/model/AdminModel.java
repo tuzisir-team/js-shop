@@ -9,8 +9,124 @@ import common.db.model.AdminFunction;
 import common.db.model.AdminRole;
 import common.db.model.Goods;
 import common.db.model.Model;
+import extend.log.Log;
+import extend.time.Time;
 
 public class AdminModel extends Model{
+	
+	public static int changeAdminRoleStatus (int adminRoleId, int adminRoleStatus) throws SQLException {
+		AdminModel adminModel = new AdminModel();
+		if (adminRoleStatus == 1) {
+			adminRoleStatus = 0;
+		} else if (adminRoleStatus == 0) {
+			adminRoleStatus = 1;
+		} else {
+			return 0;
+		}
+		try {
+			// 开启事务
+			adminModel.startTrans();
+			// 把状态全部设置为0
+			adminModel.table("admin")
+					.where("admin_role_id="+adminRoleId)
+					.update(Admin.instantce().setAdminStatus(0).end().updateData());
+//			// 更改角色状态
+//			if (adminModel.table("admin_role").
+//					where(AdminRole.instance().setAdminRoleId(adminRoleId).end().getCondition()).
+//					update(AdminRole.instance().setAdminRoleStatus(adminRoleStatus).end().updateData()) != 1) throw new Exception();
+			// 提交事务
+			adminModel.commit();
+			return 1;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			// 关闭并且事务，回滚
+			adminModel.rollback().endTrans();
+			Log.instance().error("删除管理员角色出现异常，角色ID:"+adminRoleId);
+			return 2;
+		}		
+	}
+	
+	/**
+	 * 删除管理员角色
+	 * @return
+	 * @throws SQLException 
+	 * @throws java.lang.Exception 
+	 */
+	public static int delAdminRole(int adminRoleId) throws SQLException{
+		AdminModel adminModel = new AdminModel();
+		try {
+			// 开启事务
+			adminModel.startTrans();
+			// 清空管理员分配的角色
+			adminModel.table("admin")
+					.where("admin_role_id="+adminRoleId)
+					.update(Admin.instantce().setAdminRoleId(0).setAdminStatus(0).end().updateData());
+			// 删除角色
+			if (!(adminModel.table("admin_role").where("admin_role_id="+adminRoleId).delete() <= 1)) throw new Exception();
+			// 提交事务
+			adminModel.commit();
+			return 1;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			// 关闭并且事务，回滚
+			adminModel.rollback().endTrans();
+			Log.instance().error("删除管理员角色出现异常，角色ID:"+adminRoleId);
+			return 2;
+		}		
+	}
+	
+	/**
+	 * 修改管理员角色
+	 * @param adminRoleName
+	 * @param adminRoleId
+	 * @param adminRoleJurisdiction
+	 * @return
+	 * @throws SQLException
+	 */
+	public static int editAdminRole(String adminRoleName, int adminRoleId, String adminRoleJurisdiction) throws SQLException {
+		AdminModel adminModel = new AdminModel();
+		// 检查有没有相同的角色名称
+		if (adminModel.table("admin_role").where(
+				"admin_role_name='"+adminRoleName+"' and admin_role_id<>"+adminRoleId
+				).find()) {
+			return 2;
+		}
+		// 更新角色信息
+		return adminModel.table("admin_role").where(AdminRole.instance().setAdminRoleId(adminRoleId).end().getCondition())
+				.update(AdminRole.instance().setAdminRoleName(adminRoleName).setAdminRoleJurisdiction(adminRoleJurisdiction).end().updateData());
+	}
+	
+	/**
+	 * 获取角色功能
+	 * @return
+	 * @throws SQLException 
+	 */
+	public static ResultSet getAdminRoleJurisdiction(int adminRoleId) throws SQLException {
+		AdminModel adminModel = new AdminModel();
+		ResultSet adminRoleInfo = adminModel.table("admin_role").where(AdminRole.instance().setAdminRoleId(adminRoleId).end().getCondition()).select();
+		if (!adminRoleInfo.next()) return null;
+		return adminRoleInfo;
+	}
+	/**
+	 * 添加角色
+	 * @param roleName
+	 * @param adminRoleJurisdiction
+	 * @return
+	 * @throws SQLException
+	 */
+	public static int addRole(String adminRoteName, String adminRoleJurisdiction) throws SQLException {
+		AdminModel adminModel = new AdminModel();
+		// 检查有没有相同的角色名称
+		if (adminModel.table("admin_role").where(
+				AdminRole.instance().setAdminRoleName(adminRoteName).end().getCondition()
+				).find()) {
+			return 2;
+		}
+		// 添加入库
+		AdminRole adminRole = AdminRole.instance().setAdminRoleJurisdiction(adminRoleJurisdiction)
+		.setAdminRoleName(adminRoteName).setCreateTime(Time.getDateTime()).setUpdateTime(Time.getDateTime()).end();
+		return adminModel.table("admin_role").add(adminRole.getFields(), adminRole.getData());
+	}
 	
 	/**
 	 * 添加角色页面，需要的信息

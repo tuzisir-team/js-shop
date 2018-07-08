@@ -30,6 +30,7 @@ public class Routes {
 		Routes.getRoutes.put("admin_function_list", "admin.controller.AdminController@functionList"); // 管理员功能列表
 		Routes.getRoutes.put("admin_rote_list", "admin.controller.AdminController@roteList"); // 管理员角色列表
 		Routes.getRoutes.put("admin_add_rote_view", "admin.controller.AdminController@addRoteView"); // 添加管理员角色
+		Routes.getRoutes.put("admin_edit_rote_view", "admin.controller.AdminController@editRoteView"); // 修改管理员角色
 
 		// 老二
 		Routes.getRoutes.put("user_unlogin", "index.controller.LoginController@unlogin");
@@ -62,6 +63,9 @@ public class Routes {
 		Routes.postRoutes.put("admin_del_email_template", "admin.controller.EmailController@delEmailTemplate"); // 删除邮件模板
 		Routes.postRoutes.put("admin_find_email", "admin.controller.EmailController@findEmail"); // 查找邮件根据用户id
 		Routes.postRoutes.put("admin_add_role", "admin.controller.AdminController@addRole"); // 添加角色
+		Routes.postRoutes.put("admin_edit_role", "admin.controller.AdminController@editAdminRole"); // 修改角色
+		Routes.postRoutes.put("admin_del_admin_role", "admin.controller.AdminController@delAdminRole"); // 删除角色
+		Routes.postRoutes.put("admin_change_admin_role_status", "admin.controller.AdminController@changeAdminRoleStatus"); // 改变角色状态
 
 		// 老二
 		Routes.postRoutes.put("user_register", "index.controller.LoginController@register");

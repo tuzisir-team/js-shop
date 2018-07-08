@@ -98,6 +98,7 @@ public class Model {
 		String sql;
 		sql = "insert into " + this.table + "("+ fields +") " +
 				"values(" + values +")";
+		System.out.println(sql);
 		return this.databaseType(sql);
 	}
 	

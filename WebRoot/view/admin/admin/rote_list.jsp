@@ -29,7 +29,7 @@
     </tr>
     </thead>
     <tbody>
-    	<c:forEach items="${requestScope.adminRoleList}" var="adminRole">
+    	<c:forEach items="${requestScope.viewpage.list}" var="adminRole">
 			<tr>
 				<td>${adminRole.adminRoleId}</td>
 				<td>${adminRole.adminRoleName}</td>
@@ -48,18 +48,18 @@
 		    	<td class="update-time">${adminRole.updateTime}</td>
 		    	<td>
 					<div class="layui-btn-group" >
-						<button class="layui-btn layui-btn-sm edit-Role" 
-				  			data-adminroteid="${adminRole.adminRoleId}" >修改信息</button>
-						<button class="layui-btn layui-btn-sm layui-btn-danger del-Role" 
+						<a href="${pageContext.request.contextPath}/route?get_type=admin_edit_rote_view&admin_role_id=${adminRole.adminRoleId}" ><button class="layui-btn layui-btn-sm edit-role" 
+				  			data-adminroteid="${adminRole.adminRoleId}" >修改信息</button></a>
+						<button class="layui-btn layui-btn-sm layui-btn-danger del-admin-role" 
 						    data-adminroteid="${adminRole.adminRoleId}">删除</button>	
 					    <c:choose>
 						  <c:when test="${adminRole.adminRoleStatus == 1}">
-						    <button class="layui-btn layui-btn-sm layui-btn-danger Role-status" 
-						    data-adminroteid="${adminRole.adminRoleId}" data-adminrotestatus="${adminRole.adminRoleStatus}">禁用</button>
+						    <button class="layui-btn layui-btn-sm layui-btn-danger role-status" 
+						    data-adminroleid="${adminRole.adminRoleId}" data-adminrolestatus="${adminRole.adminRoleStatus}">禁用</button>
 						  </c:when>
 						  <c:when test="${adminRole.adminRoleStatus == 0}">
-				  			<button class="layui-btn layui-btn-sm Role-status" 
-				  			data-adminroteid="${adminRole.adminRoleId}" data-adminrotestatus="${adminRole.adminRoleStatus}" >启用</button>
+				  			<button class="layui-btn layui-btn-sm role-status" 
+				  			data-adminroleid="${adminRole.adminRoleId}" data-adminrolestatus="${adminRole.adminRoleStatus}" >启用</button>
 						  </c:when>
 						</c:choose>
 					</div>
@@ -69,16 +69,62 @@
     </tbody>
   </table>
 </div>
+  <jsp:include page="../common/page.jsp" flush="true"/>
 <script>
 	layui.use('layer', function(){
       var layer = layui.layer;      
     });
 	$(function(){
 		timeConversion(); // 时间转换
+  	    delAdminRole(); // 删除角色
+  	    changeAdminRoleChange(); // 改变角色状态
 	});
+	var changeAdminRoleChange = function () {
+		$(".role-status").click(function() {
+    		var adminRoleId = $(this).data('adminroleid');
+	        var adminRoleStatus = $(this).data("adminrolestatus");
+	        var data = {admin_role_id: adminRoleId, admin_role_status: adminRoleStatus, post_type: 'admin_change_admin_role_status'};
+	        console.log(data);
+	        layer.confirm('是否确认更改状态?', {
+	          btn: ['确定','取消'] //按钮
+	        }, function(){
+	       		is_ok("${pageContext.request.contextPath}/route", data, 'roleStatusReturn');
+	        }, function(){
+	        }); 
+    	});
+	}
+	
+	var roleStatusReturn = function (returnData) {
+		console.log(returnData);
+        if (returnData.code != 200) {
+        	layer.msg(returnData.msg);
+        } else {
+	        location.reload();
+        }
+	}
+	
 	var timeConversion = function() {
 	  $(".create-time").html(timestampToTime($(".create-time").html()));
 	  $(".update-time").html(timestampToTime($(".update-time").html()));
 	 }
-	
+	var delAdminRole = function() {
+		$(".del-admin-role").click(function() {
+    		var adminRoteId = $(this).data('adminroteid');
+	        var data = {admin_role_id: adminRoteId, post_type: 'admin_del_admin_role'};
+	        console.log(data);
+	        layer.confirm('是否确认删除?', {
+	          btn: ['确定','取消'] //按钮
+	        }, function(){
+	       		is_ok("${pageContext.request.contextPath}/route", data, 'delAdminRoleReturn');
+	        }, function(){
+	        });
+    	});
+	}
+	var delAdminRoleReturn = function(returnData) {
+		console.log(returnData);
+        if (returnData.code != 200) {
+        	layer.msg(returnData.msg);
+        }
+        window.location.href = "${pageContext.request.contextPath}/route?get_type=admin_rote_list";
+	}
 </script>

@@ -60,14 +60,21 @@ layui.use(['form', 'layedit', 'laydate'], function(){
   
   //监听提交
   form.on('submit(demo1)', function(data){
-  	var admin_role_jurisdiction;
+  	var admin_role_jurisdiction="";
   	$.each($('.admin-function'),function(){
         if(this.checked){
         	admin_role_jurisdiction+=$(this).val()+",";
         }
     });
+    if (admin_role_jurisdiction.length > 0) {
+    	admin_role_jurisdiction = admin_role_jurisdiction.substr(0, admin_role_jurisdiction.length - 1);
+    } else {
+    	layer.msg("请选择角色功能。", {},function () {
+    		return false;
+       	});
+       	return false;
+    }
     data.field.admin_role_jurisdiction = admin_role_jurisdiction;
-    console.log(admin_role_jurisdiction);
    	is_ok("${pageContext.request.contextPath}/route", data.field, 'addRoleReturn');
     return false;
   });
@@ -78,8 +85,11 @@ $(function() {
 });
 // 添加角色回调函数
 addRoleReturn = function (returnData) {
+	console.log(returnData);
 	if (returnData.code == 200) {
-		location.reload();
+			layer.msg(returnData.msg, {icon: 1}, function () {
+            	window.location.href = "${pageContext.request.contextPath}/route?get_type=admin_rote_list";
+		    });	
 	} else {
  		layer.msg(returnData.msg, function () {
        	});

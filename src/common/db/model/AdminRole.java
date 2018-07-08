@@ -6,7 +6,7 @@ public class AdminRole extends CommonModel{
 	private String adminRoleJurisdiction;
 	private int createTime;
 	private int updateTime;
-	private int adminRoleStatus;
+	private int adminRoleStatus = -1;
 	public static AdminRole instance() {
 		return new AdminRole();
 	}
@@ -69,7 +69,7 @@ public class AdminRole extends CommonModel{
 		if (this.getAdminRoleId() > 0) {
 			this.condition.put("admin_role_id", this.getAdminRoleId());
 		}
-		if (this.getAdminRoleStatus() > 0) {
+		if (this.getAdminRoleStatus() > -1) {
 			this.condition.put("admin_role_status", this.getAdminRoleStatus());
 		}
 		return this;

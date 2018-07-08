@@ -7,7 +7,17 @@ public class Admin extends CommonModel{
 	protected int adminStatus = 1;
 	protected int createTime;
 	protected int updateTime;
+	private int adminRoleId = -1;
 	
+	public int getAdminRoleId() {
+		return adminRoleId;
+	}
+
+	public Admin setAdminRoleId(int adminRoleId) {
+		this.adminRoleId = adminRoleId;
+		return this;
+	}
+
 	/**
 	 * 目的是为了省代码
 	 * @return
@@ -62,6 +72,9 @@ public class Admin extends CommonModel{
 	 {
 		 if (this.getAdminId() > 0) {
 			  this.condition.put("admin_id", this.getAdminId());
+		 }
+		 if (this.getAdminRoleId() > -1) {
+			  this.condition.put("admin_role_id", this.getAdminRoleId());
 		 }
 		 if(this.getAdminName() != null) {
 			 this.condition.put("admin_name", "'"+this.getAdminName()+"'");
