@@ -4,11 +4,21 @@ public class Admin extends CommonModel{
 	protected int adminId;
 	protected String adminName;
 	protected String adminPassword;
-	protected int adminStatus = 1;
+	protected int adminStatus = -1;
 	protected int createTime;
 	protected int updateTime;
 	private int adminRoleId = -1;
+	private String adminRoleName;
 	
+	public String getAdminRoleName() {
+		return adminRoleName;
+	}
+
+	public Admin setAdminRoleName(String adminRoleName) {
+		this.adminRoleName = adminRoleName;
+		return this;
+	}
+
 	public int getAdminRoleId() {
 		return adminRoleId;
 	}

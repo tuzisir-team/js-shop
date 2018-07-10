@@ -31,6 +31,10 @@ public class Routes {
 		Routes.getRoutes.put("admin_rote_list", "admin.controller.AdminController@roteList"); // 管理员角色列表
 		Routes.getRoutes.put("admin_add_rote_view", "admin.controller.AdminController@addRoteView"); // 添加管理员角色
 		Routes.getRoutes.put("admin_edit_rote_view", "admin.controller.AdminController@editRoteView"); // 修改管理员角色
+		Routes.getRoutes.put("admin_admin_list", "admin.controller.AdminController@adminList"); // 管理员列表
+		Routes.getRoutes.put("admin_add_admin_view", "admin.controller.AdminController@addAdminView"); // 添加管理员页面
+		Routes.getRoutes.put("admin_edit_admin_view", "admin.controller.AdminController@editAdminView"); // 修改管理员页面
+		Routes.getRoutes.put("admin_main_view", "admin.controller.LoginController@mainView"); // 主页面
 
 		// 老二
 		Routes.getRoutes.put("user_unlogin", "index.controller.LoginController@unlogin");
@@ -66,6 +70,11 @@ public class Routes {
 		Routes.postRoutes.put("admin_edit_role", "admin.controller.AdminController@editAdminRole"); // 修改角色
 		Routes.postRoutes.put("admin_del_admin_role", "admin.controller.AdminController@delAdminRole"); // 删除角色
 		Routes.postRoutes.put("admin_change_admin_role_status", "admin.controller.AdminController@changeAdminRoleStatus"); // 改变角色状态
+		Routes.postRoutes.put("admin_add_admin", "admin.controller.AdminController@addAdmin"); // 添加管理员
+		Routes.postRoutes.put("admin_edit_admin", "admin.controller.AdminController@editAdmin"); // 修改管理员
+		Routes.postRoutes.put("admin_reset_admin_password", "admin.controller.AdminController@resetAdminPassword"); // 重置管理员密码
+		Routes.postRoutes.put("admin_del_admin", "admin.controller.AdminController@delAdmin"); // 删除管理员
+		Routes.postRoutes.put("admin_change_admin_status", "admin.controller.AdminController@changeAdminStatus"); // 改变管理员的状态
 
 		// 老二
 		Routes.postRoutes.put("user_register", "index.controller.LoginController@register");

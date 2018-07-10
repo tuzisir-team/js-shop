@@ -4,19 +4,45 @@ import java.awt.Graphics2D;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 
+import admin.model.AdminModel;
 import admin.model.LoginModel;
 import common.controller.Controller;
 import common.db.model.Admin;
+import extend.encryption.EncryptionTool;
 import extend.log.Log;
 import extend.myjson.MyJson;
 import extend.vertifcode.VertifCode;
 
 public class LoginController extends Controller{
+	
+	/**
+	 * 主页面
+	 * @throws IOException
+	 * @throws ServletException 
+	 * @throws SQLException 
+	 */
+	public void mainView() throws IOException, ServletException, SQLException {
+		String checkResult = checkParams("get_type");
+		// 验证参数
+		if (checkResult != null) {
+			getOut().println(returnJson(444, "缺少必要参数"+checkResult));return;
+		}
+		// 获取此管理员的功能列表
+		LoginModel loginModel = new LoginModel(null);
+		int adminId = Integer.parseInt(request.getSession().getAttribute("admin_id").toString());
+		String functionsJson = loginModel.getFunctions(adminId);
+		// 获取所有一级菜单
+		String onemenuJson = AdminModel.getOnemenuJson();
+		request.setAttribute("onemenuJson", onemenuJson);
+		request.setAttribute("functionsJson", functionsJson);
+		forward("./view/admin/index/index.jsp");
+	}
 	
 	/**
 	 * 登录
@@ -34,12 +60,14 @@ public class LoginController extends Controller{
 			getOut().println(returnJson(445, "验证码错误"));return;
 		}
 		// 登录逻辑处理
-		if (!LoginModel.instance(Admin.instantce().setAdminName(request.getParameter("admin_name"))
-				.setAdminPassword(request.getParameter("admin_password"))).login()) {
+		int adminId = LoginModel.instance(Admin.instantce().setAdminName(request.getParameter("admin_name"))
+				.setAdminPassword(EncryptionTool.md5(request.getParameter("admin_password"))).setAdminStatus(1)).login();
+		if (adminId <1) {
 			getOut().println(returnJson(400, "账号或密码错误"));return;
 		} else {
 			// 存储session
 	        request.getSession().setAttribute("admin_name", request.getParameter("admin_name"));
+	        request.getSession().setAttribute("admin_id", adminId);
 			getOut().println(returnJson(200, "登录成功"));
 		}
 		return;

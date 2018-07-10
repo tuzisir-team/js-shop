@@ -9,11 +9,155 @@ import common.db.model.AdminFunction;
 import common.db.model.AdminRole;
 import common.db.model.Goods;
 import common.db.model.Model;
+import extend.encryption.EncryptionTool;
 import extend.log.Log;
 import extend.time.Time;
 
 public class AdminModel extends Model{
 	
+	/**
+	 * 获取一级菜单以json格式
+	 * @return
+	 * @throws SQLException 
+	 */
+	public static String getOnemenuJson() throws SQLException {
+		AdminModel adminModel = new AdminModel();
+		// 获取一级菜单
+		ResultSet functions = adminModel.table("admin_function")
+			.where(AdminFunction.instance().setPid(0).setAdminFunctionStatus(1).end().getCondition()).select();
+		String functionsJson = "[";
+		while (functions.next()) {
+			functionsJson += "{\"admin_function_name\":\"" + functions.getString(3) + 
+					"\",\"admin_function_url\":\"" + functions.getString(2) + "\",\"admin_function_id\":\"" + functions.getInt(1) + "\"},";
+		}
+		if (functionsJson.length() > 1) {
+			functionsJson = functionsJson.substring(0,functionsJson.length()-1);
+		}
+		functionsJson += "]";
+		return functionsJson;
+	}
+	
+	/**
+	 * 改变管理员状态
+	 * @param adminId
+	 * @param adminStatus
+	 * @return
+	 * @throws SQLException 
+	 */
+	public static int changeAdminStatus(int adminId, int adminStatus) throws SQLException {
+		AdminModel adminModel = new AdminModel();
+		if (adminStatus == 1) {
+			adminStatus = 0;
+		} else if (adminStatus == 0) {
+			adminStatus = 1;
+		} else {
+			return 0;
+		}
+		adminModel.table("admin")
+				.where("admin_id="+adminId)
+				.update(Admin.instantce().setAdminStatus(adminStatus).end().updateData());
+		return 1;
+	}
+	
+	/**
+	 * 删除管理员
+	 * @param adminId
+	 * @return
+	 * @throws SQLException
+	 */
+	public static int delAdmin(int adminId) throws SQLException {
+		AdminModel adminModel = new AdminModel();
+		return adminModel.table("admin").where("admin_id="+adminId).delete();
+	}
+	
+	/**
+	 * 重置管理员密码
+	 * @param adminId
+	 * @return
+	 * @throws SQLException
+	 */
+	public static int resetAdminPassword(int adminId) throws SQLException {
+		AdminModel adminModel = new AdminModel();
+		// 修改管理员
+		Admin admin = Admin.instantce().setAdminPassword(EncryptionTool.md5("123456")).setUpdateTime(Time.getDateTime()).end();
+		return adminModel.table("admin").where("admin_id="+adminId).update(admin.updateData());
+	}
+	/**
+	 * 修改管理员
+	 * @return
+	 * @throws SQLException 
+	 */
+	public static int editAdmin(String adminName, int adminRoleId, int adminId) throws SQLException {
+		AdminModel adminModel = new AdminModel();
+		// 查看有没有相同的管理员名称
+		if (adminModel.table("admin").where("admin_name='"+adminName+"' and admin_id<>"+adminId).find()) return 2;
+		// 修改管理员
+		Admin admin = Admin.instantce().setAdminName(adminName).setAdminRoleId(adminRoleId)
+			.setAdminStatus(1).setUpdateTime(Time.getDateTime()).end();
+		return adminModel.table("admin").where("admin_id="+adminId).update(admin.updateData());
+	}
+	
+	/**
+	 * 获取管理员信息
+	 * @param adminId
+	 * @return
+	 * @throws SQLException 
+	 */
+	public static Admin getAdminInfo(int adminId) throws SQLException {
+		AdminModel adminModel = new AdminModel();
+		ResultSet adminInfo = adminModel.table("admin").where(Admin.instantce().setAdminId(adminId).end().getCondition()).select();
+		adminInfo.next();
+		return Admin.instantce().setAdminId(adminInfo.getInt(1)).setAdminName(adminInfo.getString(2)).setAdminRoleId(adminInfo.getInt(7));
+	} 
+	
+	/**
+	 * 添加管理员
+	 * @return
+	 * @throws SQLException 
+	 */
+	public static int addAdmin(String adminName, String adminPassword, int adminRoleId) throws SQLException {
+		AdminModel adminModel = new AdminModel();
+		// 查看有没有相同的管理员名称
+		if (adminModel.table("admin").where(Admin.instantce().setAdminName(adminName).end().getCondition()).find()) return 2;
+		// 添加管理员
+		Admin admin = Admin.instantce().setAdminName(adminName).setAdminPassword(adminPassword).setAdminRoleId(adminRoleId)
+			.setAdminStatus(1).setCreateTime(Time.getDateTime()).setUpdateTime(Time.getDateTime()).end();
+		return adminModel.table("admin").add(admin.getFields(), admin.getData());
+	}
+	
+	/**
+	 * 管理员列表
+	 * @return
+	 * @throws SQLException 
+	 */
+	public static ArrayList adminList() throws SQLException {
+		AdminModel adminModel = new AdminModel();
+		ResultSet admins = adminModel.querySelect(""
+				+ "select admin.*,admin_role.admin_role_name from admin left join admin_role "
+				+ "on admin.admin_role_id=admin_role.admin_role_id where admin.admin_role_id<>-1");
+		Admin admin = null;
+		ArrayList adminList = new ArrayList();
+		while (admins.next()) {
+			admin = Admin.instantce().setAdminId(admins.getInt(1))
+					.setAdminName(admins.getString(2))
+					.setAdminPassword(admins.getString(3))
+					.setAdminStatus(admins.getInt(4))
+					.setCreateTime(admins.getInt(5))
+					.setUpdateTime(admins.getInt(6))
+					.setAdminRoleId(admins.getInt(7))
+					.setAdminRoleName(admins.getString(8));
+			adminList.add(admin);
+		}
+		return adminList;
+	}
+	
+	/**
+	 * 改变角色状态
+	 * @param adminRoleId
+	 * @param adminRoleStatus
+	 * @return
+	 * @throws SQLException
+	 */
 	public static int changeAdminRoleStatus (int adminRoleId, int adminRoleStatus) throws SQLException {
 		AdminModel adminModel = new AdminModel();
 		if (adminRoleStatus == 1) {
@@ -227,7 +371,7 @@ public class AdminModel extends Model{
 		}
 		// 更改用户密码
 		return adminModel.table("admin").
-				where(Admin.instantce().setAdminPassword(adminName).setAdminPassword(oldPassword).end().getCondition()).
+				where(Admin.instantce().setAdminName(adminName).setAdminPassword(oldPassword).end().getCondition()).
 				update(Admin.instantce().setAdminPassword(newPassword).end().updateData());
 	}
 }

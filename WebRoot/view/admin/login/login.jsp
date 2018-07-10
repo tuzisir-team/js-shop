@@ -78,7 +78,7 @@ layui.use(['layer'], function () {
             		layer.msg(data.msg);
             		$("#validateCodeImg").click();
             	} else {
-            		window.location.href = "${pageContext.request.contextPath}/view/admin/index/index.jsp";
+            		window.location.href = "${pageContext.request.contextPath}/route?get_type=admin_main_view";
             	}	
             }
         });

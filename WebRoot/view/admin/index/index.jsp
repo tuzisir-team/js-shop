@@ -27,6 +27,7 @@
         <li class="header-bar-nav">
           <a href="javascript:;"><i class="icon-font" style="margin-left:5px;">&#xe60c;</i></a>
           <ul class="header-dropdown-menu">
+            <li><a href="#" class='edit_password'>修改密码</a></li>
             <li><a href="${pageContext.request.contextPath}/route?get_type=admin_unlogin">退出</a></li>
           </ul>
         </li>
@@ -69,6 +70,8 @@
   <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/sccl-util.js"></script>
   </body>
 </html>
+<input type="hidden" id="functionsJson" value='${requestScope.functionsJson}'/>
+<input type="hidden" id="onemenuJson" value='${requestScope.onemenuJson}'/>
 <script type="text/javascript">
 layui.use(['form', 'layedit', 'laydate'], function(){
   var form = layui.form
@@ -76,8 +79,33 @@ layui.use(['form', 'layedit', 'laydate'], function(){
   ,layedit = layui.layedit
   ,laydate = layui.laydate;
 });
+
   $(function(){
-    var menu = [{"id":"1","name":"首页","parentId":"0","url":"${pageContext.request.contextPath}/view/admin/index/main.jsp","icon":"","order":"1","isHeader":"1","childMenus":[
+	var functions = JSON.parse($("#functionsJson").val());
+	var onemenus = JSON.parse($("#onemenuJson").val());
+	var menu1 = '[{"id":"1","name":"首页","parentId":"0","url":"${pageContext.request.contextPath}/view/admin/index/main.jsp","icon":"","order":"1","isHeader":"1","childMenus":[';
+  	for (var j=0; j<onemenus.length; j++) {
+  		var flag = 0;
+ 		for (var i=0;i<functions.length;i++)
+		{
+			if (flag == 0 && onemenus[j]['admin_function_id'] == functions[i]['pid']) {
+				menu1 +='{"id":"'+onemenus[j]['admin_function_id']+'","name":"'+onemenus[j]['admin_function_name']+'","parentId":"1","url":"","icon":"&#xe609;","order":"1","isHeader":"0","childMenus":[';
+				flag = 1;
+			}
+			if (flag == 1 && onemenus[j]['admin_function_id'] == functions[i]['pid']) {
+				menu1 += '{"id":"'+functions[i]['pid']+'","name":"'+functions[i]['admin_function_name']+'","parentId":"20","url":"${pageContext.request.contextPath}/route?get_type='+functions[i]['admin_function_url']+'","icon":"","order":"1","isHeader":"0","childMenus":""},'
+			}
+		}
+		if (flag == 1) {
+			flag = 0;
+			menu1 = menu1.substr(0,menu1.length-2);
+			menu1 += "}]},";
+		}
+	} 	
+	menu1 = menu1.substr(0,menu1.length-1);
+ 	menu1 += "]}]";
+/*  	console.log(menu1);
+ */    var menu = [{"id":"1","name":"首页","parentId":"0","url":"${pageContext.request.contextPath}/view/admin/index/main.jsp","icon":"","order":"1","isHeader":"1","childMenus":[
             {"id":"10","name":"用户管理","parentId":"1","url":"","icon":"&#xe609;","order":"1","isHeader":"0","childMenus":[
             	{"id":"11","name":"用户列表","parentId":"20","url":"${pageContext.request.contextPath}/route?get_type=user_list","icon":"","order":"1","isHeader":"0","childMenus":""},
             ]},
@@ -99,14 +127,14 @@ layui.use(['form', 'layedit', 'laydate'], function(){
             {"id":"60","name":"权限管理","parentId":"1","url":"","icon":"&#xe609;","order":"1","isHeader":"0","childMenus":[
               {"id":"61","name":"功能列表","parentId":"20","url":"${pageContext.request.contextPath}/route?get_type=admin_function_list","icon":"","order":"1","isHeader":"0","childMenus":""},
               {"id":"62","name":"角色列表","parentId":"20","url":"${pageContext.request.contextPath}/route?get_type=admin_rote_list","icon":"","order":"1","isHeader":"0","childMenus":""},
-              {"id":"63","name":"管理员列表","parentId":"20","url":"./cate/book_cate.jsp","icon":"","order":"1","isHeader":"0","childMenus":""},
+              {"id":"63","name":"管理员列表","parentId":"20","url":"${pageContext.request.contextPath}/route?get_type=admin_admin_list","icon":"","order":"1","isHeader":"0","childMenus":""},
             ]},
-            {"id":"70","name":"<div style='display:inline-block;width:80%;height:100%;' class='edit_password'>修改密码</div>","parentId":"1","url":"","icon":"&#xe609;","order":"1","isHeader":"0","childMenus":[
-            ]},
+            /* {"id":"70","name":"<div style='display:inline-block;width:80%;height:100%;' class='edit_password'>修改密码</div>","parentId":"1","url":"","icon":"&#xe609;","order":"1","isHeader":"0","childMenus":[
+            ]}, */
           ]},
-        ]
-    init_menu(menu); // 初始化菜单
-    edit_password(); // 修改管理员密码
+        ] 
+     init_menu(JSON.parse(menu1)); // 初始化菜单
+      edit_password(); // 修改管理员密码
   });
   
   // 修改管理员密码
