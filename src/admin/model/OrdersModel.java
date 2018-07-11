@@ -35,7 +35,7 @@ public class OrdersModel extends Model {
 		}
 		// 成功数量，失败数量
 		ResultSet count2 = ordersModel.table("orders")
-				.fields("order_status,count(*) as order_status_num,sum('order_total') as order_total_status")
+				.fields("order_status,count(*) as order_status_num,sum(order_total) as order_total_status")
 				.group("order_status").where("order_status in (1,3)").select();
 		while (count2.next()) {
 			if (count2.getInt("order_status") == 1) {
@@ -56,14 +56,11 @@ public class OrdersModel extends Model {
 	 */
 	public static int[] weekCount() throws SQLException {
 		OrdersModel ordersModel = new OrdersModel();
-		System.out.println(Time.getWeekStartTime());
-		System.out.println(Time.getWeekEndTime());
 		ResultSet ordersRes = ordersModel.table("orders").where("order_status=1 and "
 				+ "create_time between " + Time.getWeekStartTime() +" and " + Time.getWeekEndTime()).select();
 		days = new int[7];
 		while(ordersRes.next()) {
 			int create_time = ordersRes.getInt(4);
-			System.out.println("我执行了");
 			if (create_time>=Time.getWeekDayStartTime(1) && create_time<Time.getWeekDayEndTime(1)) {
 				days[0] = days[0] + 1;
 			} else if (create_time>=Time.getWeekDayStartTime(2) && create_time<Time.getWeekDayEndTime(2)) {
