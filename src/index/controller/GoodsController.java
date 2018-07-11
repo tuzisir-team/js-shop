@@ -14,7 +14,12 @@ import common.db.model.GoodsCategory;
 
 public class GoodsController extends Controller{
 	private ArrayList goodsCategoryList;//拿到所有商品类别
-	//查找商品类别和商品
+	/**
+	 * 查找商品类别和商品
+	 * @throws ServletException
+	 * @throws IOException
+	 * @throws SQLException
+	 */
 	public void goodsIndex() throws ServletException, IOException, SQLException{
 		//查找商品类别并返回
 		this.goodsCategoryList();
@@ -24,14 +29,21 @@ public class GoodsController extends Controller{
 		request.setAttribute("goodsList", goodsList);
 		forward("/view/index/index.jsp");
 	}
-	//主页面中根据商品类别ID查找该类别下的商品
+	
+	/**
+	 * 主页面中根据商品类别ID查找该类别下的商品
+	 * @throws ServletException
+	 * @throws IOException
+	 * @throws SQLException
+	 */
 	public void categoryGoods() throws ServletException, IOException, SQLException{
-		this.goodsCategoryList();	
+		this.goodsCategoryList();
 		ArrayList goodsCategoryList = new ArrayList();
-		//根据页面传来的ID，得带商品类别ID和商品类别名并返回
+		//根据页面传来的ID，得到商品类别ID和商品类别名并返回
 		GoodsCategory v = new GoodsCategory();
 		v.setGoodsCategoryId(Integer.parseInt(request.getParameter("goods_catecory_id"))).setGoodsCategoryName(request.getParameter("goods_catecory_name"));
 		goodsCategoryList.add(v);
+		System.out.println(goodsCategoryList.get(0));
 		request.setAttribute("goodsCategory",goodsCategoryList);
 		//完成对商品类别下所有商品的查找
 		ArrayList chooseGoodsCategory=GoodsModel.
@@ -42,7 +54,13 @@ public class GoodsController extends Controller{
 		request.setAttribute("goodsList", chooseGoodsCategory);
 		forward("/view/index/index.jsp");
 	}
-	//商品详情页面
+	
+	/**
+	 * 商品详情页面
+	 * @throws ServletException
+	 * @throws IOException
+	 * @throws SQLException
+	 */
 	public void goodsIntroduce() throws ServletException, IOException, SQLException{
 		//对商品详情查找
 		ArrayList goodsInfo=GoodsModel.goodsInfo(Integer.parseInt(request.getParameter("goods_id")),Integer.parseInt(request.getParameter("goods_catecory_id")));

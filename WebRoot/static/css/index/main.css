@@ -352,6 +352,7 @@ font-weight:bold;}
 .cart_cont .t_return,
 .cart_cont .tnum,
 .cart_cont .t_subtotal{line-height:37px;}
+.zj{float:left;width:123px;}
 .cart_message{line-height:40px; text-indent:30px; margin-bottom:10px;}
 .cart_prompt{line-height:40px; padding-left:30px; color:red;}
 .cart_prompt_icon{width:12px; height:12px; display:inline-block; background:url("../images/icon/gantan.png") left top no-repeat;

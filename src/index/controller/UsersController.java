@@ -1,5 +1,6 @@
 package index.controller;
 
+import index.model.OrdersModel;
 import index.model.UsersModel;
 
 import java.io.IOException;
@@ -12,11 +13,13 @@ import javax.servlet.ServletException;
 import admin.model.LoginModel;
 
 import common.controller.Controller;
+import common.db.model.UserAddress;
 import common.db.model.Users;
+import extend.email.EmailFactory;
 import extend.log.Log;
 import extend.vertifcode.VertifCode;
 
-public class LoginController extends Controller{
+public class UsersController extends Controller{
 	private String userLoginStatus;//拿到登录状态
 	/**
 	 * 登录
@@ -69,6 +72,7 @@ public class LoginController extends Controller{
 					returnJson = this.returnJson(400, "注册信息冲突");
 					break;
 				case 1:
+					EmailFactory.instance().send(8,EmailFactory.REGISTER); // 发送邮件
 					returnJson = this.returnJson(200, "注册成功");
 					break;
 			}
@@ -88,4 +92,28 @@ public class LoginController extends Controller{
 		request.getSession().invalidate();
 		forward("/route?get_type=user_goods_index");
 	}
+	/**
+	 * 加入收货地址
+	 * @throws ServletException
+	 * @throws IOException
+	 * @throws SQLException
+	 */
+	public void addUsersAddress() throws IOException, SQLException, ServletException {
+		UsersModel usersModel = new UsersModel();
+		int userId;
+		try {
+			userId=(Integer)request.getSession().getAttribute("user_id");
+		} catch(Exception e) {
+			forward("/view/index/login.jsp");
+			return;
+		}
+		int resultCode=usersModel.addUsersAddress(userId,request.getParameter("user_address_name"));
+		if (resultCode == 1) {
+			getOut().println(returnJson(200, "加入地址成功"));return;
+		}
+		else{
+			getOut().println(returnJson(400, "加入地址失败"));return;
+		}
+	}
+	
 }

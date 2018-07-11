@@ -1,6 +1,6 @@
 package common.db.model;
 
-public class Orders {
+public class Orders extends CommonModel{
 	
 	private int orderId;
 	private int orderTotal;
@@ -89,5 +89,32 @@ public class Orders {
 		this.completeTime = completeTime;
 		return this;
 	}
-	
+	public Orders end()
+	 {
+		 if (this.getOrderTotal() > 0) {
+			 this.condition.put("order_total", this.getOrderTotal());
+		 }
+		 if (this.getOrderStatus() > -1) {
+			  this.condition.put("order_status", this.getOrderStatus());
+		 }
+		 if (this.getUserId() > 0) {
+			 this.condition.put("user_id", this.getUserId());
+		 }
+		 if (this.getUserAddressName() != null) {
+			 this.condition.put("user_address_name", "'"+this.getUserAddressName()+"'");
+		 }
+		 if (this.getOutTradeNo() != null) {
+			 this.condition.put("out_trade_no", "'"+this.getOutTradeNo()+"'");
+		 }
+		 if (this.getCreateTime() > 0) {
+			 this.condition.put("create_time", this.getCreateTime());
+		 }
+		 if (this.getUpdateTime() > 0) {
+			 this.condition.put("update_time", this.getUpdateTime());
+		 }
+		 if (this.getCompleteTime() > 0) {
+			 this.condition.put("complete_time", this.getCompleteTime());
+		 }
+		 return this;
+	 }
 }

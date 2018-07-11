@@ -4,11 +4,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import common.db.model.*;
 import extend.log.Log;
+import extend.time.Time;
 
 public class UsersModel extends Model{
-
 	protected static UsersModel myself = null;
-	
 	public static UsersModel instance() {
 		if (myself == null) {
 			myself = new UsersModel();
@@ -62,6 +61,36 @@ public class UsersModel extends Model{
 	 */
 	public Boolean exit(Users users){
 		return true;
+	}
+	/**
+	 * 加入收货地址
+	 * @return
+	 * @throws SQLException
+	 */
+	public int addUsersAddress(int userId,String usersAddress) throws SQLException {
+		UsersModel usersModel = new UsersModel();
+		UserAddress num=UserAddress.instantce()
+				.setUserAddressStatus(0)
+				.end();
+		// 开启事物
+		usersModel.startTrans();
+		try {
+			usersModel.table("user_address").where("user_id= "+ userId).update(num.updateData());
+			UserAddress get_fieldvalue = UserAddress.instantce()
+					.setUserId(userId)
+					.setUserAddressName(usersAddress)
+					.setCreateTime(Time.getDateTime())
+					.setUpdateTime(Time.getDateTime())
+					.setUserAddressStatus(1).end();
+			int insertValue=this.table("user_address").add(get_fieldvalue.getFields(),get_fieldvalue.getData());
+			usersModel.commit();
+			return insertValue;
+		} catch (Exception e) {
+			// 回滚并关闭事务
+			usersModel.rollback().endTrans();
+			Log.instance().error("添加收货地址失败。userId:"+userId+"--usersAddress:"+usersAddress);
+		}
+		return 0;
 	}
 }
 

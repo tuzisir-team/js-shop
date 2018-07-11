@@ -25,7 +25,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<c:if test="${empty sessionScope.user_name}">
 				   		<a href="${pageContext.request.contextPath}/route?get_type=user_login&user_login_status=0">[登录]</a>
 					</c:if>
-					<a href="${pageContext.request.contextPath}/view/index/register.jsp">[免费注册]</a>
+					<c:if test="${empty sessionScope.user_name}">
+						<a href="${pageContext.request.contextPath}/view/index/register.jsp">[免费注册]</a>
+					</c:if>
+
 					<c:if test="${!empty sessionScope.user_name}">
 						<a href="${pageContext.request.contextPath}/route?get_type=user_unlogin">[退出]</a>					
 					</c:if>
@@ -43,7 +46,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="shopCar fr">
 					<span class="shopText fl">购物车</span>
-					<span class="shopNum fl">10</span>
 				</div>
 			</div>
 		</div>

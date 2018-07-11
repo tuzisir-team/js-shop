@@ -29,7 +29,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<c:if test="${empty sessionScope.user_name}">
 				   		<a href="${pageContext.request.contextPath}/route?get_type=user_login&user_login_status=1" target="view_window">[登录]</a>
 					</c:if>
-					<a href="${pageContext.request.contextPath}/view/index/register.jsp">[免费注册]</a>
+					<c:if test="${empty sessionScope.user_name}">
+						<a href="${pageContext.request.contextPath}/view/index/register.jsp">[免费注册]</a>
+					</c:if>
 					<c:if test="${!empty sessionScope.user_name}">
 						<a href="${pageContext.request.contextPath}/route?get_type=user_unlogin">[退出]</a>
 					</c:if>
@@ -46,8 +48,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input type="button" value="搜索" class="search_btn fr">
 				</div>
 				<div class="shopCar fr">
-					<span class="shopText fl">购物车</span>
-					<span class="shopNum fl"></span>
+					<c:choose>
+					<c:when test="${!empty sessionScope.user_name}">
+						<a href="${pageContext.request.contextPath}/route?get_type=user_shopping_index">
+						<span class="shopText fl">购物车</span>
+						</a>			
+					</c:when>
+					<c:otherwise>
+						<a href="${pageContext.request.contextPath}/route?get_type=user_login&user_login_status=1" target="view_window">
+						<span class="shopText fl">购物车</span>
+						</a>					
+					</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 		</div>
@@ -99,19 +111,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 			<div class="shop_buy">
 				<c:choose>
-				<c:when test="${!empty sessionScope.user_name}">
-					<span class="add_cart">
-					<img src="./static/img/index/icon/加入购物车.jpg">
-					</span>				
-				</c:when>
-				<c:otherwise>
-					<a href="${pageContext.request.contextPath}/route?get_type=user_login&user_login_status=1" target="view_window">
-					<img src="./static/img/index/icon/加入购物车.jpg">
-					</a>					
-				</c:otherwise>
+					<c:when test="${!empty sessionScope.user_name}">
+						<span class="add_cart">
+						<img src="./static/img/index/banner/jiaru.png">
+						</span>				
+					</c:when>
+					<c:otherwise>
+						<a href="${pageContext.request.contextPath}/route?get_type=user_login&user_login_status=1" target="view_window">
+						<img src="./static/img/index/banner/jiaru.png">
+						</a>					
+					</c:otherwise>
 				</c:choose>
 				<span class="line"></span>
-				<a href="${pageContext.request.contextPath}/route?get_type=&class="shopping_btn"><img src="./static/img/index/icon/立即购买.jpg"></a>
+				<a href="${pageContext.request.contextPath}/route?get_type=&class="shopping_btn"><img src="./static/img/index/banner/goumai.png"></a>
 			</div>
 			</div>
 		</c:forEach>
@@ -158,7 +170,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="hr_25"></div>
 <div class="footer">
 	<p><a href="#">超市简介</a><i>丨</i><a href="">超市公告</a><i>丨</i><a href="">招纳贤士</a><i>丨</i><a href="">联系我们</a><i>丨</i>客服热线:200-675-5634</p>
-	<p>Copyright@2006-2014本店所有&nbsp;&nbsp;&nbsp;京ICP备789345号&nbsp;&nbsp;&nbsp;石ICP备756545号 某市公安局XX分局备案编号：112342345245</p>
+	<p>Copyright@2006-2018本店所有&nbsp;&nbsp;&nbsp;京ICP备789345号&nbsp;&nbsp;&nbsp;石ICP备756545号 某市公安局XX分局备案编号：112342345245</p>
 	<p class="footer_pic"><a href="#"><img src="./static/img/index/banner/footer.png" alt=""></a><a href="#"><img src="./static/img/index/banner/footer.png" alt=""></a><a href="#"><img src="./static/img/index/banner/footer.png" alt=""></a><a href="#"><img src="./static/img/index/banner/footer.png" alt=""></a></p>
 </div>
 </body>
