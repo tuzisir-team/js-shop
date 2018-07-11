@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 
 import common.controller.Controller;
 import common.db.model.Users;
+import extend.email.EmailFactory;
 
 public class OrderController extends Controller{
 	
@@ -96,6 +97,7 @@ public class OrderController extends Controller{
 		// 添加订单
 		int resultCode=ordersModel.addOrder(orderTotal, userId, userAddressName, goodsOrderIdStr);
 		if (resultCode == 1) {
+			EmailFactory.instance().send(userId,EmailFactory.PAY);
 			getOut().println(returnJson(200, "支付成功"));return;
 		}
 		else{
@@ -103,7 +105,7 @@ public class OrderController extends Controller{
 		}
 	}
 	/**
-	 * 加入购物车
+	 * 加入购物车并购买
 	 * @throws ServletException
 	 * @throws IOException
 	 * @throws SQLException
@@ -117,11 +119,17 @@ public class OrderController extends Controller{
 				Integer.parseInt(request.getParameter("goods_num")),
 				Integer.parseInt(request.getParameter("total_price"))
 		);
-		if (resultCode == 1) {
-			getOut().println(returnJson(200, "购买成功"));return;
-		}
-		else{
-		getOut().println(returnJson(400, "购买失败"));return;
-		}
+		switch(resultCode) {
+		case -1:
+			getOut().println(returnJson(404, "请添加收货地址"));
+			break;
+		case 1:
+			EmailFactory.instance().send(userId,EmailFactory.PAY);
+			getOut().println(returnJson(200, "购买成功"));
+			break;
+		default:
+			getOut().println(returnJson(400, "购买失败"));
+			break;
+	}
 	}
 }

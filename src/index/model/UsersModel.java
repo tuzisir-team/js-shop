@@ -3,6 +3,7 @@ package index.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import common.db.model.*;
+import extend.encryption.EncryptionTool;
 import extend.log.Log;
 import extend.time.Time;
 
@@ -30,12 +31,19 @@ public class UsersModel extends Model{
 		}
 		Users get_fieldvalue = Users.instantce()
 				.setUserName(users.getUserName())
-				.setUserPassword(users.getUserPassword())
+				.setUserPassword(EncryptionTool.md5(users.getUserPassword()))
 				.setUserPhone(users.getUserPhone())
 				.setUserEmail(users.getUserEmail())
 				.setCreateTime(123)
 				.setUpdateTime(222).end();
-		return this.table("users").add(get_fieldvalue.getFields(), get_fieldvalue.getData()); // 添加操作。getFields得到字段名，getData得到数据
+		int addResult = this.table("users").add(get_fieldvalue.getFields(), get_fieldvalue.getData()); // 添加操作。getFields得到字段名，getData得到数据
+		if (addResult!=1) return -2;
+		ResultSet rs = this.table("users")
+				.where(Users.instantce().setUserName(users.getUserName())
+						.setUserStatus(1)
+						.end().getCondition()).select(); // 查询操作
+		rs.next();
+		return rs.getInt(1);
 	}
 	
 	/**
@@ -46,7 +54,7 @@ public class UsersModel extends Model{
 	public int login(Users users) throws SQLException {
 		ResultSet res = this.table("users")
 				.where(Users.instantce().setUserName(users.getUserName())
-						.setUserPassword(users.getUserPassword())
+						.setUserPassword(EncryptionTool.md5(users.getUserPassword()))
 						.setUserStatus(1)
 						.end().getCondition()).select(); // 查询操作
 		

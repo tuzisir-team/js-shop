@@ -69,12 +69,13 @@ public class UsersController extends Controller{
 				case -1:
 					returnJson = this.returnJson(444, "注册信息冲突");
 					break;
-				case 0:
-					returnJson = this.returnJson(400, "注册信息冲突");
+				case -2:
+					returnJson = this.returnJson(400, "注册失败");
 					break;
-				case 1:
-					EmailFactory.instance().send(8,EmailFactory.REGISTER); // 发送邮件
+				default:
 					returnJson = this.returnJson(200, "注册成功");
+					System.out.println(resultCode);
+					EmailFactory.instance().send(resultCode,EmailFactory.REGISTER); // 发送邮件
 					break;
 			}
 		}

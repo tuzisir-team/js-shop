@@ -70,13 +70,8 @@ public class OrdersModel extends Model{
 	public static ArrayList shoppingCart(int userId) throws SQLException {
 		OrdersModel ordersModel = new OrdersModel();
 		ResultSet rs = ordersModel.
-<<<<<<< HEAD
-				querySelect("select goods.goods_name,goods.goods_price,goods_orders.goods_num,goods.goods_id from goods_orders,goods"
-						+ " where user_id="+userId +" and goods.goods_id = goods_orders.goods_id and goods_orders.goods_order_status =0");
-=======
 				querySelect("select goods.goods_name,goods.goods_price,goods_orders.goods_num,goods.goods_id,goods_orders.goods_order_id from goods_orders,goods"
 						+ " where user_id="+userId +" and goods.goods_id = goods_orders.goods_id and goods_orders.goods_order_status=0");
->>>>>>> bee773469c8bfa5359348c5729f673375a9ffd5d
 		ArrayList shoppingList = new ArrayList();
 		while(rs.next()){
 			GoodsOrders goodsOrder = new GoodsOrders();
@@ -149,6 +144,12 @@ public class OrdersModel extends Model{
 	public int addShoppingOrder(int goodsId,int userId,int goodsNum,int total) throws SQLException {
 		ResultSet rs;
 		OrdersModel ordersModel = new OrdersModel();
+		rs = ordersModel.
+				querySelect("select * from user_address where user_id="+userId);
+		rs.next();
+		if(rs.equals(null)){
+			return -1 ;
+		}
 		//加入购物车
 		rs = ordersModel.
 				querySelect("select goods_price from goods where goods_id="+goodsId);
@@ -166,7 +167,9 @@ public class OrdersModel extends Model{
 		rs = ordersModel.
 				querySelect("select user_address_name from user_address"
 						+ " where user_id="+userId+" and user_address_status = 1");
-		rs.next();
+		if(!rs.next()){
+			return -1 ;
+		}
 		Orders get_field_value = Orders.instantce()
 				.setOrderTotal(total)
 				.setOutTradeNo("40001")

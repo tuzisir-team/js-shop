@@ -50,7 +50,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="logoBar">
 		<div class="comWidth">
 			<div class="logo fl">
-				<a href="#"><img src="./static/img/index/icon/logo.png" alt="慕课网"></a>
+				<a style="color:White;font-size:30px;font-weight:bolder;font-family:'楷体';" href="${pageContext.request.contextPath}/route?get_type=user_goods_index">
+				跨洋购物广场
+				</a>
 			</div>
 			<div class="stepBox fr">
 				<ul class="step_text">

@@ -211,11 +211,11 @@ layui.use('layer', function(){
 		});
 	}
 	var addCartReturn = function (dataReturn) {
+		alert(dataReturn.msg);
 		if (dataReturn.code == 200) {
-			alert(dataReturn.msg);
 			location.reload();
-		} else {
-			alert(dataReturn.msg);
+		} else if(dataReturn.code == 404) {
+	        window.location.href = "${pageContext.request.contextPath}/route?get_type=index_address_view";
 		}
 	};
 	var num =$("#des_money");
@@ -265,4 +265,21 @@ layui.use('layer', function(){
 			}
 		});
 	}
+    function to_Order() {
+        $.ajax({
+            type: 'POST',
+            url: '${pageContext.request.contextPath}/route',
+            dataType: 'json',
+            data: $("form").serialize(),
+            success: function (data) {
+            	console.log(data);
+            	if (data.code == 200) {
+	            	window.location.href = "${pageContext.request.contextPath}/route?get_type=index_address_view";
+            	} else {
+            		layer.msg(data.msg);
+            	}
+            }
+        });
+        return false;
+    }
 </script>

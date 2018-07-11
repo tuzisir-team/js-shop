@@ -59,7 +59,6 @@ public class AddressController extends Controller{
 	 * @throws SQLException 
 	 */
 	public void addressView() throws IOException, ServletException, SQLException {
-		request.getSession().setAttribute("user_id",5);
 		String checkResult = checkParams("get_type");
 		// 验证参数
 		if (checkResult != null) {
