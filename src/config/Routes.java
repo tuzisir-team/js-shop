@@ -37,11 +37,12 @@ public class Routes {
 		Routes.getRoutes.put("admin_main_view", "admin.controller.LoginController@mainView"); // 主页面
 
 		// 老二
-		Routes.getRoutes.put("user_unlogin", "index.controller.LoginController@unlogin");
+		Routes.getRoutes.put("user_unlogin", "index.controller.UsersController@unlogin");//文件名修改
 		Routes.getRoutes.put("user_goods_index", "index.controller.GoodsController@goodsIndex");
 		Routes.getRoutes.put("index_category_goods", "index.controller.GoodsController@categoryGoods");
 		Routes.getRoutes.put("goods_info", "index.controller.GoodsController@goodsIntroduce");
-		Routes.getRoutes.put("user_login", "index.controller.LoginController@loginStatus");
+		Routes.getRoutes.put("user_login", "index.controller.UsersController@loginStatus");//文件名修改
+		Routes.getRoutes.put("user_shopping_index", "index.controller.OrderController@shoppingCart");//购物车信息
 		return Routes.getRoutes;
 	}
 
@@ -77,9 +78,11 @@ public class Routes {
 		Routes.postRoutes.put("admin_change_admin_status", "admin.controller.AdminController@changeAdminStatus"); // 改变管理员的状态
 
 		// 老二
-		Routes.postRoutes.put("user_register", "index.controller.LoginController@register");
-		Routes.postRoutes.put("user_login", "index.controller.LoginController@login");
-		Routes.postRoutes.put("index_shopping_cart", "index.controller.OrderController@shoppingCart");
+		Routes.postRoutes.put("user_register", "index.controller.UsersController@register");
+		Routes.postRoutes.put("user_login", "index.controller.UsersController@login");
+		Routes.postRoutes.put("index_shopping_cart", "index.controller.OrderController@addShoppingCart");//加入购物车
+		Routes.postRoutes.put("user_address", "index.controller.UsersController@addUsersAddress");//添加地址
+		Routes.postRoutes.put("orders", "index.controller.OrderController@addOrder");//添加订单
 		return Routes.postRoutes;
 	}
 
