@@ -64,7 +64,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 <div class="userPosition comWidth">
-	<strong></strong>
 </div>
 <div class="description_info comWidth">
 	<div class="description clearfix">

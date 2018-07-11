@@ -60,7 +60,7 @@ public class GoodsCategory extends CommonModel{
 			 this.condition.put("goods_category_status", this.getGoodsCategoryStatus());
 		 }
 		 if (this.getGoodsCategoryName() != null) {
-			 this.condition.put("goods_category_name", this.getGoodsCategoryName());
+			 this.condition.put("goods_category_name", "'"+this.getGoodsCategoryName()+"'");
 		 }
 		 if (this.getCreateTime() > 0) {
 			 this.condition.put("create_time", this.getCreateTime());

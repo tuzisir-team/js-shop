@@ -102,6 +102,9 @@ public class GoodsOrders extends CommonModel{
 	}
 	public GoodsOrders end()
 	 {
+		if (this.getOrderId() > 0) {
+			  this.condition.put("order_id", this.getOrderId());
+		 }
 		 if (this.getGoodsId() > 0) {
 			  this.condition.put("goods_id", this.getGoodsId());
 		 }

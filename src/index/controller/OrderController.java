@@ -14,6 +14,26 @@ import common.controller.Controller;
 import common.db.model.Users;
 
 public class OrderController extends Controller{
+	
+	/**
+	 * 删除购物车商品
+	 * @throws IOException 
+	 * @throws SQLException 
+	 * @throws NumberFormatException 
+	 */
+	public void delCartGoods() throws IOException, NumberFormatException, SQLException {
+		String checkResult = checkParams("post_type,goods_order_id");
+		// 验证参数
+		if (checkResult != null) {
+			getOut().println(returnJson(444, "缺少必要参数"+checkResult));return;
+		}
+		// 删除
+		if (OrdersModel.delCartGoods(Integer.parseInt(request.getParameter("goods_order_id")))==1) {
+			getOut().println(returnJson(200, "删除购物车商品成功"));return;
+		}
+		getOut().println(returnJson(400, "删除购物车商品失败"));return;
+	}
+	
 	/**
 	 * 加入购物车
 	 * @throws ServletException
@@ -63,17 +83,23 @@ public class OrderController extends Controller{
 	 * @throws SQLException
 	 */
 	public void addOrder() throws ServletException, IOException, SQLException{
+		String checkResult = checkParams("post_type,goods_order_id_str,user_address_name,order_total");
+		// 验证参数
+		if (checkResult != null) {
+			getOut().println(returnJson(444, "缺少必要参数"+checkResult));return;
+		}
 		OrdersModel ordersModel= new OrdersModel();
 		int userId=(Integer)request.getSession().getAttribute("user_id");
-		int resultCode=ordersModel.addOrder(
-				Integer.parseInt(request.getParameter("order_total"))
-				,userId,"41000",
-				request.getParameter("user_address_name"));
+		String goodsOrderIdStr = request.getParameter("goods_order_id_str");
+		String userAddressName = request.getParameter("user_address_name");
+		int orderTotal = Integer.parseInt(request.getParameter("order_total"));
+		// 添加订单
+		int resultCode=ordersModel.addOrder(orderTotal, userId, userAddressName, goodsOrderIdStr);
 		if (resultCode == 1) {
-			getOut().println(returnJson(200, "加入购物车成功"));return;
+			getOut().println(returnJson(200, "支付成功"));return;
 		}
 		else{
-		getOut().println(returnJson(400, "加入购物车失败"));return;
+		getOut().println(returnJson(400, "支付失败"));return;
 		}
 	}
 	/**

@@ -54,60 +54,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 </div>
 <div class="shoppingCart comWidth">
-	<div class="shopping_item">
-		<h3 class="shopping_tit">收货地址</h3>
-		<div class="shopping_cont padding_shop">
-			<ul class="shopping_list">
-				<li><span class="shopping_list_text"><em>*</em>详细地址:</span><input id="user_address_name" type="text"  class="input input_b"></li>
-			</ul>
-			<div class="cart_btnBox">
-				<c:choose>
-					<c:when test="${!empty sessionScope.user_name}">
-						<span class="add_cart">
-							<img src="./static/img/index/banner/jrdz.png">
-						</span>
-					</c:when>
-					<c:otherwise>
-						<a href="${pageContext.request.contextPath}/route?get_type=user_login&user_login_status=1" target="view_window">
-							<img src="./static/img/index/banner/jrdz.png">
-						</a>					
-					</c:otherwise>
-				</c:choose>
-			</div>
-		</div>
-	</div>
 	<div>
 	</div>
 	<div class="hr_25"></div>
 	<div class="shopping_item">
-		<h3 class="shopping_tit">购物车</h3>
+		<h3 class="shopping_tit">购物车<span class="cart_message" style="line-heigth:10px;">
+				<input id="allCheck" type="checkbox" value="全选" />   
+			</span></h3>
 		<div class="shopping_cont">
 			<div class="cart_inner">
 				<div class="cart_head clearfix">
-					<div class="cart_item t_name">商品名称</div>
-					<div class="cart_item t_price">单价</div>
+					<div style="margin-left:50px;" class="cart_item tnum">选中</div>
+					<div class="cart_item t_name" style="margin-left:-50px;">商品名称</div>
+					<div class="cart_item t_price" style="margin-left:-200px;">单价</div>
 					<div class="cart_item tnum">数量</div>
 					<div class="cart_item t_subtotal">总计</div>
-					<div class="cart_item tnum">购买</div>
 				</div>
 			<c:forEach items="${requestScope.shoppingList}" var="GoodsOrders">
-				<div class="cart_head clearfix">
-					<div class="cart_item t_name">${GoodsOrders.goodsName}</div>
-					<div class="cart_item t_price">${GoodsOrders.goodsPrice/100}</div>
-					<div class="cart_item tnum">${GoodsOrders.goodsNum}</div>
-					<div id="zj" class="zj">${GoodsOrders.goodsPrice * GoodsOrders.goodsNum/100}￥</div>
-					<div class="cart_item tnum">
-					<input name="check" 
-					data-totalprice="${GoodsOrders.goodsPrice * GoodsOrders.goodsNum}" 
-					data-goodsid="${GoodsOrders.goodsId}"
-					type="checkbox" class="check" value="选中" />
+				<div class="cart_head clearfix" style="margin-left:50px;">
+					<div class="cart_item tnum" style="margin-top:7px;">
+						<input name="check" 
+						data-totalprice="${GoodsOrders.goodsPrice * GoodsOrders.goodsNum}" 
+						data-goodsorderid="${GoodsOrders.goodsOrderId}"
+						type="checkbox" class="check ${GoodsOrders.goodsOrderId}" value="选中" />
 					</div>
-				</div>
+					<div style="margin-left:-50px;" class="cart_item t_name">${GoodsOrders.goodsName}</div>
+					<div style="margin-left:-200px;" class="cart_item t_price">${GoodsOrders.goodsPrice/100}</div>
+					<div class="cart_item tnum">${GoodsOrders.goodsNum}</div>
+					<div style="width:100px;" id="zj" class="cart_item tnum zj">${GoodsOrders.goodsPrice * GoodsOrders.goodsNum/100}</div>
+					<div class="cart_item tnum" style="margin-top:5px;">
+						<input type="submit" data-totalprice="${GoodsOrders.goodsPrice*GoodsOrders.goodsNum/100}" data-goodsorderid="${GoodsOrders.goodsOrderId}" id="delete-cart-goods" value="删除" />
+					</div>
+				</div>										
 			</c:forEach>
-			<div class="cart_message">
-				<input id="allCheck" type="checkbox" value="全选" />全选     
-				<input type="submit" id="delete" value="删除" />
-			</div>
 			</div>
 		</div>
 	</div>
@@ -115,23 +94,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="shopping_item">
 		<h3 class="shopping_tit">订单结算</h3>
 		<div class="shopping_cont padding_shop clearfix">
-			<div class="leftArea">
-				请选择送货地址：
-				<select name="schoolId" id="schoolId" style="width: 100%">
-					<option value="0">==请选择==</option>
-					<c:forEach items="${requestScope.userAddress}" var="UserAddress">
-					    <option value="">${UserAddress.userAddressName}</option>
-					</c:forEach>
-                </select>
+			<div class="leftArea" style="width:500px;font-size:20px;padding-top:20px;">
+				<a href="${pageContext.request.contextPath}/route?get_type=index_address_view"><span>收货地址：</span></a>
+				<div style="display:inline-block;">
+					<select name="address-select" id="address-select" style="width: 100%">
+						<c:forEach items="${requestScope.userAddress}" var="UserAddress">
+							<c:choose>
+								<c:when test="${UserAddress.userAddressStatus == 1}">
+								    <option selected="selected" value="">${UserAddress.userAddressName}</option>						
+								</c:when>
+								<c:otherwise>
+								    <option value="">${UserAddress.userAddressName}</option>						
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+	                </select>
+				</div>
 			</div>
 			<div class="rightArea">
 				<div class="cart_count fr">
 					<div class="cart_rmb">
-						<i>总计:</i><span id="total_price">0￥</span>
+						<i>总计:</i><span id="total_price">0</span>
 					</div>
 					<div class="cart_btnBox">
 						<span class="tj">
-							<input type="button" class="cart_btn" value="提交订单"/>
+							<input type="button" class="cart_btn submit-order" value="提交订单"/>
 						</span>
 					</div>
 				</div>
@@ -149,30 +136,87 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </html>
 <script type="text/javascript">
 var total_price=0;
-var good_id_list="";
+var checkGoodsOrderId={};
+var totalGoodsOrderNum=0;
 layui.use('layer', function(){
       var layer = layui.layer;      
     });
 	$(function() {
 		addCart();
-		addAddress();
-		console.log($("#schoolId").val());
+		delCartGoods(); // 删除购物车里面的商品
+		submitOrder(); // 提交订单
 	});
-	var addCart = function () {
-		$(".add_cart").click(function(){
-			var data = {users_id:$(".users_id").val(),user_address_name:$("#user_address_name").val(),post_type:"user_address"};
+	// 提交订单
+	var submitOrder = function () {
+		$(".submit-order").click(function () {
+			var goodsOrderIdStr="";
+			// 获取商品订单id
+			var goodsOrderIds = checkGoodsOrderId;
+			if (goodsOrderIds == {}) {
+				alert("请选中商品");return;
+			}
+			for (var item in goodsOrderIds) {
+			     goodsOrderIdStr += item+",";
+			}
+			if (goodsOrderIdStr.length != 0) {
+				goodsOrderIdStr = goodsOrderIdStr.substring(0,goodsOrderIdStr.length-1);
+			}
+			// 获取地址
+			var address = $('#address-select option:selected').text();
+			if (address.length == 0) {
+				alert("地址不能为空");return;
+			}
+			// 获取订单总数
+			if (totalGoodsOrderNum == 0) {
+				alert("请选中商品");return;
+			}
+			// 获取总价格
+			if ( $("#total_price").text() <= 0) {
+				alert("请选中商品");return;
+			}
+			var data = {"post_type":"index_add_order","goods_order_id_str":goodsOrderIdStr,"user_address_name":address,"order_total":$("#total_price").html()};
 			console.log(data);
-			is_ok("${pageContext.request.contextPath}/route",data,"addCartReturn");
+			is_ok("${pageContext.request.contextPath}/route",data,"addOrderReturn");
 		});
 	}
-	var addAddress = function () {
-		$(".tj").click(function(){
-			var data = {order_total:total_price,users_id:$(".users_id").val(),user_address_name:$("#user_address_name").val(),post_type:"orders"};
+	var addOrderReturn = function (returnData) {
+		alert(returnData.msg);
+		if (returnData.code == 200) {
+		window.location.href = "${pageContext.request.contextPath}/route?get_type=user_goods_index";return;	
+		}
+		location.reload();
+	}
+	// 删除购物车商品
+	var delCartGoods = function () {
+		$("#delete-cart-goods").click(function () {
+			var data = {goods_order_id:$(this).data('goodsorderid'),post_type:"index_del_cart_goods"};
+			is_ok("${pageContext.request.contextPath}/route",data,"delCartGoodsReturn");
+		});
+	}
+	// 删除购物车商品回调函数
+	var delCartGoodsReturn = function(returnData) {
+		if (returnData.code == 200) {
+			// 判断此商品是否被选中，如果被选中减掉总支付价格
+			if ($("."+$(this).data('goodsorderid')).is(':checked')) {
+				total_price -= $(this).data('totalprice');
+				$("#total_price").text(total_price);
+				delete checkGoodsOrderId[$(this).data("goodsorderid")]
+			}
+			alert(returnData.msg);
+	        location.reload();			
+		} else {
+			alert(returnData.msg);
+		}
+	}
+	var addCart = function () {
+		$(".add_cart").click(function(){
+			var data = {user_address_name:$("#user_address_name").val(),post_type:"user_address"};
 			console.log(data);
 			is_ok("${pageContext.request.contextPath}/route",data,"addCartReturn");
 		});
 	}
 	$("#allCheck").click(function(){
+		checkGoodsOrderId = {};
 		var a = document.getElementById("allCheck");
 		var b = document.getElementsByName("check");
 		total=0;
@@ -182,27 +226,37 @@ layui.use('layer', function(){
 			}
 			$("input[name='check']").each(function(j,item){
 			    total += $(this).data("totalprice");
-			    good_id_list += $(this).data("totalprice") +",";
+			    var goodsOrderId = $(this).data("goodsorderid");
+			    checkGoodsOrderId[goodsOrderId] = goodsOrderId;
+			    totalGoodsOrderNum ++;
 			 });
+			 console.log(checkGoodsOrderId);
 			 total = total/100;			
 		}else{
 			for(var i = 0; i < b.length; i++){
 				b[i].checked = false;
 			}
+			totalGoodsOrderNum = 0;
 			total = 0;
 		}
-		$("#total_price").text(total+"￥");
+		$("#total_price").text(total);
 	});
+	
 	$(".check").click(function() {
+		goodsOrderId = $(this).data('goodsorderid');
 		total_price=parseFloat($("#total_price").text());
 		var price=$(this).data("totalprice")/100;
 		if($(this).is(':checked')){
 			total_price+=price;
-			good_id_list += $(this).data("totalprice") +",";
+			checkGoodsOrderId[goodsOrderId] = goodsOrderId;
+			totalGoodsOrderNum++;
 		}else{
+			delete checkGoodsOrderId[goodsOrderId]
+			totalGoodsOrderNum--;
 			total_price-=price;
 		}
-		$("#total_price").text(total_price+"￥");
+		console.log(checkGoodsOrderId);
+		$("#total_price").text(total_price);
 	});
 	$(".price").each(function(){
 		$(this).attr("checked",false);

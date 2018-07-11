@@ -100,8 +100,9 @@
     
     // 发送添加商品分类的数据
     function addGoodsCategorySend(data) {
-		if (!data.goods_category_name) {
+		if (data.goods_category_name == "") {
         	layer.msg("商品类别名称不能为空");
+        	return;
 		}
  	  	is_ok("${pageContext.request.contextPath}/route", data, 'delGoodsCategoryReturn');
     }

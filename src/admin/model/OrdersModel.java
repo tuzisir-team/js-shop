@@ -56,11 +56,14 @@ public class OrdersModel extends Model {
 	 */
 	public static int[] weekCount() throws SQLException {
 		OrdersModel ordersModel = new OrdersModel();
+		System.out.println(Time.getWeekStartTime());
+		System.out.println(Time.getWeekEndTime());
 		ResultSet ordersRes = ordersModel.table("orders").where("order_status=1 and "
 				+ "create_time between " + Time.getWeekStartTime() +" and " + Time.getWeekEndTime()).select();
 		days = new int[7];
 		while(ordersRes.next()) {
 			int create_time = ordersRes.getInt(4);
+			System.out.println("我执行了");
 			if (create_time>=Time.getWeekDayStartTime(1) && create_time<Time.getWeekDayEndTime(1)) {
 				days[0] = days[0] + 1;
 			} else if (create_time>=Time.getWeekDayStartTime(2) && create_time<Time.getWeekDayEndTime(2)) {

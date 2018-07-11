@@ -53,7 +53,7 @@ public class UsersModel extends Model{
 		if (!res.next()) {
 			return 0;
 		}
-			return res.getInt(1);
+		return res.getInt(1);
 	}
 	/**
 	 * 用户注销
