@@ -35,7 +35,14 @@ public class LoginController extends Controller{
 		}
 		// 获取此管理员的功能列表
 		LoginModel loginModel = new LoginModel(null);
-		int adminId = Integer.parseInt(request.getSession().getAttribute("admin_id").toString());
+		int adminId = 0;
+		try {
+			adminId = Integer.parseInt(request.getSession().getAttribute("admin_id").toString());
+		} catch(Exception e) {
+			forward("./view/admin/common/404.jsp");
+			Log.instance().error("session失效");
+			return;
+		}
 		String functionsJson = loginModel.getFunctions(adminId);
 		// 获取所有一级菜单
 		String onemenuJson = AdminModel.getOnemenuJson();

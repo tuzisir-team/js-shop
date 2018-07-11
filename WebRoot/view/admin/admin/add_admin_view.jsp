@@ -45,7 +45,7 @@
 	  <div class="layui-form-item">
 	      <div class="layui-input-block">
 	        <button class="layui-btn submit" lay-submit="" lay-filter="demo1">确认添加</button>
-	          <a href="${pageContext.request.contextPath}/route?get_type=admin_rote_list"><span type="reset" class="layui-btn layui-btn-primary">返回</span></a>
+	          <a href="${pageContext.request.contextPath}/route?get_type=admin_admin_list"><span type="reset" class="layui-btn layui-btn-primary">返回</span></a>
 	      </div>
 	 </div>
    </form>
