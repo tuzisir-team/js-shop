@@ -17,7 +17,7 @@
        		<td>${shoppingCart.goodsOrderId}</td>
   		    <td>${shoppingCart.goodsName}</td>
   		    <td>${shoppingCart.goodsNum}</td>
-  		    <td>${shoppingCart.goodsPrice}</td>
+  		    <td>${shoppingCart.goodsPrice/100}</td>
   		    <td class="create-time">${shoppingCart.createTime}</td>
 			</td>
 	    </tr>

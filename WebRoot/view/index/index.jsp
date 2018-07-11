@@ -12,13 +12,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css"href="${pageContext.request.contextPath}/static/css/index/reset.css">
 	<link rel="stylesheet" type="text/css"href="${pageContext.request.contextPath}/static/css/index/main.css">
 	<link rel="stylesheet" type="text/css"href="${pageContext.request.contextPath}/static/css/index/common.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
+	<script src="${pageContext.request.contextPath}/static/layui/layui.js" charset="utf-8"></script>
 </head>
 <body>
 	<div class="headerBar">
 		<div class="topBar">
 			<div class="comWidth">
 				<div class="leftArea">
-					<a href="" class="collection">收藏本页</a>
+					<a class="collection"  href="javascript:void(0);" onclick="shoucang('我的网站',location.href)">
+					 <span>收藏本页</span></a>
 				</div>
 				<div class="rightArea">
 					欢迎来到跨洋购物！${sessionScope.user_name}
@@ -93,13 +96,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	<div class="rightArea">
 		<div class="banner_bar banner_big">
-			<ul class="imgBox">
-				<li><a href="#"><img src="./static/img/index/banner/banner.01.png" alt="banner"></a></li>
-				<li><a href="#"><img src="./static/img/index/banner/banner.02.png" alt="banner"></a></li>
-			</ul>
-			<div class="imgNum">
-				<a href="#" class="active"></a> <a href="#"></a> <a href="#"></a> <a href="#"></a>
-			</div>
+				<!-- <li><a href="#"><img src="./static/img/index/banner/banner.01.png" alt="banner"></a></li>
+				<li><a href="#"><img src="./static/img/index/banner/banner.02.png" alt="banner"></a></li> -->
+				<div class="layui-carousel" id="test10">
+				<div carousel-item="">
+				    <div><img src="./static/img/index/banner/banner.01.png"></div>				
+				    <div><img src="//res.layui.com/images/layui/demo/1.png"></div>
+				    <div><img src="//res.layui.com/images/layui/demo/5.png"></div>
+				  </div>
+				</div>
 		</div>
 		<div class="hr_7"></div>
 		<c:forEach items="${requestScope.goodsCategory}" var="GoodsCategory">
@@ -152,7 +157,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </body>
 </html>
 <script>
+		function shoucang(sTitle,sURL) 
+{ 
+try 
+{ 
+window.external.addFavorite(sURL, sTitle); 
+} 
+catch (e) 
+{ 
+try 
+{ 
+window.sidebar.addPanel(sTitle, sURL, ""); 
+} 
+catch (e) 
+{ 
+alert("加入收藏失败，请使用Ctrl+D进行添加"); 
+} 
+} 
+} 
     function to_login() {
+    $('.layui-carousel').css('height',345+'px');
+	$('.layui-carousel').css('width',810+'px');
         $.ajax({
             type: 'POST',
             url: '${pageContext.request.contextPath}/route',
@@ -170,4 +195,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         return false;
     }
 
+</script>
+<script>
+layui.use(['carousel', 'form'], function(){
+  var carousel = layui.carousel
+  ,form = layui.form;
+  
+  //常规轮播
+  carousel.render({
+    elem: '#test1'
+    ,arrow: 'always'
+  });
+  
+  //改变下时间间隔、动画类型、高度
+  carousel.render({
+    elem: '#test2'
+    ,interval: 1800
+    ,anim: 'fade'
+    ,height: '120px'
+  });
+  
+  //设定各种参数
+  var ins3 = carousel.render({
+    elem: '#test3'
+  });
+  //图片轮播
+  carousel.render({
+    elem: '#test10'
+    ,width: '778px'
+    ,height: '440px'
+    ,interval: 5000
+  });
+});
 </script>

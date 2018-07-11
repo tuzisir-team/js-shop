@@ -70,13 +70,8 @@ public class OrdersModel extends Model{
 	public static ArrayList shoppingCart(int userId) throws SQLException {
 		OrdersModel ordersModel = new OrdersModel();
 		ResultSet rs = ordersModel.
-<<<<<<< HEAD
-				querySelect("select goods.goods_name,goods.goods_price,goods_orders.goods_num,goods.goods_id from goods_orders,goods"
-						+ " where user_id="+userId +" and goods.goods_id = goods_orders.goods_id and goods_orders.goods_order_status =0");
-=======
-				querySelect("select goods.goods_name,goods.goods_price,goods_orders.goods_num,goods.goods_id,goods_orders.goods_order_id from goods_orders,goods"
+		querySelect("select goods.goods_name,goods.goods_price,goods_orders.goods_num,goods.goods_id,goods_orders.goods_order_id from goods_orders,goods"
 						+ " where user_id="+userId +" and goods.goods_id = goods_orders.goods_id and goods_orders.goods_order_status=0");
->>>>>>> bee773469c8bfa5359348c5729f673375a9ffd5d
 		ArrayList shoppingList = new ArrayList();
 		while(rs.next()){
 			GoodsOrders goodsOrder = new GoodsOrders();

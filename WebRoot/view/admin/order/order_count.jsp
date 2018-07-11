@@ -21,8 +21,8 @@
       <th>订单总量</th>
       <th>成功数量</th>
       <th>退款数量</th>
-      <th>实收总额</th>
       <th>退款总额</th>
+      <th>实收总额</th>
     </tr>
     </thead>
     <tbody>

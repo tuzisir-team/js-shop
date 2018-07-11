@@ -36,7 +36,8 @@ public class Time {
 		Calendar cal = Calendar.getInstance(); 
 		cal.set(cal.get(Calendar.YEAR),cal.get(Calendar.MONDAY), cal.get(Calendar.DAY_OF_MONTH), 0, 0,0); 
 		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY); 
-		return (int) ((cal.getTime().getTime() - (7 * 24 * 60 * 60 * 1000))/1000); 
+		//return (int) ((cal.getTime().getTime() - (7 * 24 * 60 * 60 * 1000))/1000); 
+		return (int) ((cal.getTime().getTime())/1000); 
 	} 
 	
 	/**
@@ -59,10 +60,11 @@ public class Time {
 	
 	//获得本周日24点时间 
 	public static int getWeekEndTime(){ 
-		Calendar cal = Calendar.getInstance(); 
-		cal.set(cal.get(Calendar.YEAR),cal.get(Calendar.MONDAY), cal.get(Calendar.DAY_OF_MONTH), 0, 0,0); 
-		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY); 
-		return (int) (cal.getTimeInMillis()/1000);
+//		Calendar cal = Calendar.getInstance(); 
+//		cal.set(cal.get(Calendar.YEAR),cal.get(Calendar.MONDAY), cal.get(Calendar.DAY_OF_MONTH), 0, 0,0); 
+//		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY); 
+//		return (int) (cal.getTimeInMillis()/1000);
+		return getWeekStartTime() + 7*86400;
 	} 
 	
 	/* 
