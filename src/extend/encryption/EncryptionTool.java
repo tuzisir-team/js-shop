@@ -3,6 +3,7 @@ package extend.encryption;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.UUID;
 
 public class EncryptionTool {
 	
@@ -38,4 +39,20 @@ public class EncryptionTool {
 	    }
 	    return strBuilder.toString();
 	}
+	
+	/**
+	 * 生成唯一订单号
+	 * @return
+	 */
+	public static String outTradeNo() {
+        int machineId = 1;//最大支持1-9个集群机器部署
+        int hashCodeV = UUID.randomUUID().toString().hashCode();
+        if(hashCodeV < 0) {//有可能是负数
+            hashCodeV = - hashCodeV;
+        }
+//         0 代表前面补充0     
+//         4 代表长度为4     
+//         d 代表参数为正数型
+        return  machineId+ String.format("%015d", hashCodeV);
+    }
 }

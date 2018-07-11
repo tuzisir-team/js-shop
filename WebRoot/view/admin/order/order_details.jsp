@@ -16,7 +16,7 @@
     	<tr>
       		<td>${ordersDetails.goodsOrderId}</td>
    			<td>${ordersDetails.goodsName}</td>
-   			<td>${ordersDetails.goodsPrice}</td>
+   			<td>${ordersDetails.goodsPrice / 100}</td>
    			<td>${ordersDetails.goodsNum}</td>
    		</tr>
     </c:forEach>

@@ -42,7 +42,8 @@ public class Routes {
 		Routes.getRoutes.put("index_category_goods", "index.controller.GoodsController@categoryGoods");
 		Routes.getRoutes.put("goods_info", "index.controller.GoodsController@goodsIntroduce");
 		Routes.getRoutes.put("user_login", "index.controller.UsersController@loginStatus");//文件名修改
-		Routes.getRoutes.put("user_shopping_index", "index.controller.OrderController@shoppingCart");//购物车信息
+		Routes.getRoutes.put("user_shopping_index", "index.controller.OrderController@shoppingCart"); // 购物车信息
+		Routes.getRoutes.put("index_address_view", "index.controller.AddressController@addressView"); // 收货地址页面
 		return Routes.getRoutes;
 	}
 
@@ -82,7 +83,10 @@ public class Routes {
 		Routes.postRoutes.put("user_login", "index.controller.UsersController@login");
 		Routes.postRoutes.put("index_shopping_cart", "index.controller.OrderController@addShoppingCart");//加入购物车
 		Routes.postRoutes.put("user_address", "index.controller.UsersController@addUsersAddress");//添加地址
-		Routes.postRoutes.put("orders", "index.controller.OrderController@addOrder");//添加订单
+		Routes.postRoutes.put("index_add_order", "index.controller.OrderController@addOrder"); // 添加订单
+		Routes.postRoutes.put("index_del_cart_goods", "index.controller.OrderController@delCartGoods"); // 删除购物车商品
+		Routes.postRoutes.put("index_set_address", "index.controller.AddressController@setAddress"); // 设置默认地址
+		Routes.postRoutes.put("index_del_address", "index.controller.AddressController@delAddress"); // 删除地址
 		return Routes.postRoutes;
 	}
 

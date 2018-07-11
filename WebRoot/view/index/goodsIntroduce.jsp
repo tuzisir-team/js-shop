@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="logoBar">
 			<div class="comWidth">
 				<div class="logo fl">
-					<a href="#"><img src="./static/img/index/icon/logo.png" alt="慕课网"></a>
+					<a href="#"><img src="./static/img/index/icon/logo.png" alt="tuzisir"></a>
 				</div>
 				<div class="search_box fl">
 					<input type="text" class="search_text fl">
@@ -66,12 +66,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 <div class="userPosition comWidth">
 	<strong><a href="#">首页</a></strong>
-	<span>&nbsp;&gt;&nbsp;</span>
-	<a href="#">平板电脑</a>
-	<span>&nbsp;&gt;&nbsp;</span>
-	<a href="#">Apple苹果</a>
-	<span>&nbsp;&gt;&nbsp;</span>
-	<em>MD531CH/A</em>
 </div>
 <div class="description_info comWidth">
 	<div class="description clearfix">
@@ -80,7 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="leftArea">
 				<div class="description_imgs">
 				<div class="big">
-					<img src="${Goods.goodsPic}">
+					<img style="width:100%;heigth:100%;" src="${Goods.goodsPic}">
 				</div>
 				</div>
 			</div>
@@ -139,7 +133,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="item_cont">
 						<div class="img_item">
 						<a href="${pageContext.request.contextPath}/route?get_type=goods_info&goods_catecory_id=${Goods.goodsCategoryId}&goods_id=${Goods.goodsId}">
-						<img src="${Goods.goodsPic}"></a>
+						<img style="width:100%;heigth:100%;" src="${Goods.goodsPic}"></a>
 						</div>
 						<p>${Goods.goodsDescribe}</p>
 						<p><em>￥</em>${Goods.goodsPrice/100}</p>
