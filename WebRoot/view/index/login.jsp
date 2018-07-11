@@ -13,11 +13,23 @@
 </head>
 <body>
 <div class="headerBar">
+	<div class="topBar">
+		<div class="comWidth">
+			<div class="leftArea">
+			</div>
+			<div class="rightArea">
+				免费注册请来这里——>${sessionScope.user_name}
+				<c:if test="${empty sessionScope.user_name}">
+					<a href="${pageContext.request.contextPath}/view/index/register.jsp">[免费注册]</a>
+				</c:if>
+				<c:if test="${!empty sessionScope.user_name}">
+					<a href="${pageContext.request.contextPath}/route?get_type=user_unlogin">[退出]</a>
+				</c:if>
+			</div>
+		</div>
+	</div>
 	<div class="logoBar login_logo">
 		<div class="comWidth">
-			<div class="logo fl">
-				<a href="#"><img src="../../static/img/index/icon/logo.png" alt="慕课网"></a>
-			</div>
 			<h3 class="welcome_title">欢迎登录</h3>
 		</div>
 	</div>
@@ -52,9 +64,9 @@
 </div>
 <div class="moddle_25px"></div>
 <div class="footer">
-	<p><a href="#">慕课简介</a><i>丨</i><a href="">慕课公告</a><i>丨</i><a href="">招纳贤士</a><i>丨</i><a href="">联系我们</a><i>丨</i>客服热线:400-675-1234</p>
-	<p>Copyright@2006-2014慕课版权所有&nbsp;&nbsp;&nbsp;京ICP备789345号&nbsp;&nbsp;&nbsp;京ICP备789345号 某市公安局XX分局备案编号：112342345245</p>
-	<p class="footer_pic"><a href="#"><img src="../../static/img/index/banner/footer.png" alt=""></a><a href="#"><img src="../../static/img/index/banner/footer.png" alt=""></a><a href="#"><img src="../../static/img/index/banner/footer.png" alt=""></a><a href="#"><img src="../../static/img/index/banner/footer.png" alt=""></a></p>
+	<p><a href="#">超市简介</a><i>丨</i><a href="">超市公告</a><i>丨</i><a href="">招纳贤士</a><i>丨</i><a href="">联系我们</a><i>丨</i>客服热线:200-675-5634</p>
+	<p>Copyright@2006-2018本店所有&nbsp;&nbsp;&nbsp;京ICP备789345号&nbsp;&nbsp;&nbsp;石ICP备756545号 某市公安局XX分局备案编号：112342345245</p>
+	<p class="footer_pic"><a href="#"><img src="./static/img/index/banner/footer.png" alt=""></a><a href="#"><img src="./static/img/index/banner/footer.png" alt=""></a><a href="#"><img src="./static/img/index/banner/footer.png" alt=""></a><a href="#"><img src="./static/img/index/banner/footer.png" alt=""></a></p>
 </div>
 </body>
 </html>
@@ -75,13 +87,7 @@ layui.use(['layer'], function () {
             success: function (data) {
             	console.log(data);
             	if (data.code == 200) {
-	            	if(${requestScope.user_login_status} == 0){
-	            		window.location.href = "${pageContext.request.contextPath}/route?get_type=user_goods_index";
-	            	}
-	            	else{
-	            		window.close();
-	            		window.opener.location.reload();
-	            	}
+	            	window.location.href = "${pageContext.request.contextPath}/route?get_type=user_goods_index";
             	} else {
             		layer.msg(data.msg);
             	}

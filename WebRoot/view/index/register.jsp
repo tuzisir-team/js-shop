@@ -11,12 +11,13 @@
 </head>
 <body>
 <div class="headerBar">
+	<div class="topBar">
+		<div class="comWidth">
+		</div>
+	</div>
 	<div class="logoBar red_logo">
 		<div class="comWidth">
-			<div class="logo fl">
-				<a href="#"><img src="./static/img/index/icon/logo.png" alt="慕课网"></a>
-			</div>
-			<h3 class="welcome_title">欢迎注册</h3>
+			<h3 class="welcome_title">欢迎免费注册新用户</h3>
 		</div>
 	</div>
 </div>
@@ -31,16 +32,15 @@
 				<li class="mb_10"><span class="reg_item"><i>*</i>确认密码</span><div class="input_item"><input required name="password_again" type="password" class="login_input user_icon"></div></li>
 				<li class="mb_10"><span class="reg_item"><i>*</i>电话</span><div class="input_item"><input required name="user_phone" type="tel" class="login_input user_icon"></div></li>
 				<li class="mb_10"><span class="reg_item"><i>*</i>邮箱地址</span><div class="input_item"><input required name="user_email" type="email" class="login_input user_icon"></div></li>
-				<li><span class="reg_item">&nbsp;</span></li>
 			</ul>
-			<input type="submit" value="注册">
+			<input type="submit" value="注册" class="login_btn2">
 		</form>
 	</div>
 </div>
 <div class="moddle_25px"></div>
 <div class="footer">
-	<p><a href="#">商家简介</a><i>丨</i><a href="#">商家介绍</a><i>丨</i><a href="#">招纳贤士</a><i>丨</i><a href="#">联系我们</a><i>丨</i>客服热线:400-3245-1234</p>
-	<p>Copyright@2006-2014商家版权所有&nbsp;&nbsp;&nbsp;石ICP备789345号&nbsp;&nbsp;&nbsp;石ICP备789345号 某市公安局XX分局备案编号：112发2434545534</p>
+	<p><a href="#">超市简介</a><i>丨</i><a href="">超市公告</a><i>丨</i><a href="">招纳贤士</a><i>丨</i><a href="">联系我们</a><i>丨</i>客服热线:200-675-5634</p>
+	<p>Copyright@2006-2018本店所有&nbsp;&nbsp;&nbsp;京ICP备789345号&nbsp;&nbsp;&nbsp;石ICP备756545号 某市公安局XX分局备案编号：112342345245</p>
 	<p class="footer_pic"><a href="#"><img src="./static/img/index/banner/footer.png" alt=""></a><a href="#"><img src="./static/img/index/banner/footer.png" alt=""></a><a href="#"><img src="./static/img/index/banner/footer.png" alt=""></a><a href="#"><img src="./static/img/index/banner/footer.png" alt=""></a></p>
 </div>
 </body>

@@ -83,6 +83,8 @@ public class Routes {
 		Routes.postRoutes.put("index_shopping_cart", "index.controller.OrderController@addShoppingCart");//加入购物车
 		Routes.postRoutes.put("user_address", "index.controller.UsersController@addUsersAddress");//添加地址
 		Routes.postRoutes.put("orders", "index.controller.OrderController@addOrder");//添加订单
+		Routes.postRoutes.put("add_shopping_order", "index.controller.OrderController@addShoppingOrder");//加入购物车
+		Routes.postRoutes.put("find_shop", "index.controller.GoodsController@findShop");
 		return Routes.postRoutes;
 	}
 

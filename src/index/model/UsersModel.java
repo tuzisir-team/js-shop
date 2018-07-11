@@ -44,8 +44,9 @@ public class UsersModel extends Model{
 	 * @throws SQLException 
 	 */
 	public int login(Users users) throws SQLException {
-		ResultSet res = this.table("users").
-				where(Users.instantce().setUserName(users.getUserName()).setUserPassword(users.getUserPassword())
+		ResultSet res = this.table("users")
+				.where(Users.instantce().setUserName(users.getUserName())
+						.setUserPassword(users.getUserPassword())
 						.setUserStatus(1)
 						.end().getCondition()).select(); // 查询操作
 		

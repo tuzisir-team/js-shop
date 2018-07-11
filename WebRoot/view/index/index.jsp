@@ -38,14 +38,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="logoBar">
 			<div class="comWidth">
 				<div class="logo fl">
-					<a href="#"><img src="./static/img/index/icon/logo.png" alt="慕课网"></a>
+					<a style="color:White;font-size:30px;font-weight:bolder;font-family:'楷体';" href="${pageContext.request.contextPath}/route?get_type=user_goods_index">
+					跨洋购物广场
+					</a>
 				</div>
 				<div class="search_box fl">
-					<input type="text" class="search_text fl">
-					<input type="button" value="搜索" class="search_btn fr">
+				<form action="${pageContext.request.contextPath}/route">
+					<input type="hidden" value="find_shop" name="post_type">
+					<input name="shop_name" type="text" class="search_text fl">
+					<input type="submit" value="搜索" class="search_btn fr">
+				</form>
 				</div>
 				<div class="shopCar fr">
-					<span class="shopText fl">购物车</span>
+					<c:choose>
+					<c:when test="${!empty sessionScope.user_name}">
+						<a href="${pageContext.request.contextPath}/route?get_type=user_shopping_index">
+						<span class="shopText fl">购物车</span>
+						</a>			
+					</c:when>
+					<c:otherwise>
+						<a href="${pageContext.request.contextPath}/route?get_type=user_login">
+						<span class="shopText fl">购物车</span>
+						</a>					
+					</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 		</div>
@@ -99,8 +115,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="img_item">
 								<img src="${Goods.goodsPic}" alt="">
 							</div>
+							<p>商品名称：${Goods.goodsName}</p>
 							<p>商品简介：${Goods.goodsDescribe}</p>
-							<p class="money">零售价：${Goods.goodsPrice}</p>
+							<p class="money">零售价：${Goods.goodsPrice/100}<em>￥</em></p>
 							<p class="money">剩余数量：${Goods.goodsNum}</p>
 						</div>
 					</div>
@@ -109,12 +126,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</c:forEach>
 			</div>
 		</c:forEach>
+		<c:forEach items="${requestScope.findGoods}" var="Goods">
+			<a href="${pageContext.request.contextPath}/route?get_type=goods_info&goods_catecory_id=${Goods.goodsCategoryId}&goods_id=${Goods.goodsId}">
+			<div class="item">
+				<div class="item_cont">
+					<div class="img_item">
+						<img src="${Goods.goodsPic}" alt="">
+					</div>
+					<p>商品名称：${Goods.goodsName}</p>
+					<p>商品简介：${Goods.goodsDescribe}</p>
+					<p class="money">零售价：${Goods.goodsPrice/100}<em>￥</em></p>
+					<p class="money">剩余数量：${Goods.goodsNum}</p>
+				</div>
+			</div>
+			</a>
+		</c:forEach>
 	</div>
 </div>
 <div class="hr_25"></div>
 <div class="footer">
 	<p><a href="#">超市简介</a><i>丨</i><a href="">超市公告</a><i>丨</i><a href="">招纳贤士</a><i>丨</i><a href="">联系我们</a><i>丨</i>客服热线:200-675-5634</p>
-	<p>Copyright@2006-2014本店所有&nbsp;&nbsp;&nbsp;京ICP备789345号&nbsp;&nbsp;&nbsp;石ICP备756545号 某市公安局XX分局备案编号：112342345245</p>
+	<p>Copyright@2006-2018本店所有&nbsp;&nbsp;&nbsp;京ICP备789345号&nbsp;&nbsp;&nbsp;石ICP备756545号 某市公安局XX分局备案编号：112342345245</p>
 	<p class="footer_pic"><a href="#"><img src="./static/img/index/banner/footer.png" alt=""></a><a href="#"><img src="./static/img/index/banner/footer.png" alt=""></a><a href="#"><img src="./static/img/index/banner/footer.png" alt=""></a><a href="#"><img src="./static/img/index/banner/footer.png" alt=""></a></p>
 </div>
 </body>
@@ -137,4 +169,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         });
         return false;
     }
+
 </script>

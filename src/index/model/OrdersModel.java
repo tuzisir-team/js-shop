@@ -15,6 +15,7 @@ public class OrdersModel extends Model{
 	 * @throws SQLException
 	 */
 	public int addShoppingCart(int goodsId,int userId,int goodsNum) throws SQLException {
+		int insertValue;
 		OrdersModel ordersModel = new OrdersModel();
 		ResultSet res = ordersModel.table("goods_orders")
 				.where("goods_id= " + goodsId + " and user_id="+userId)
@@ -32,17 +33,17 @@ public class OrdersModel extends Model{
 					.setCreateTime(123)
 					.setUpdateTime(222)
 					.setGoodsOrderStatus(0).end();
-			int insertValue=this.table("goods_orders").add(get_fieldvalue.getFields(),get_fieldvalue.getData());
+			insertValue=this.table("goods_orders").add(get_fieldvalue.getFields(),get_fieldvalue.getData());
 			return insertValue;
 		}
 		else{
 			GoodsOrders num=GoodsOrders.instantce()
 					.setGoodsNum(res.getInt(4)+goodsNum)
 					.end();
-			int updateValue=ordersModel.table("goods_orders")
+			insertValue=ordersModel.table("goods_orders")
 					.where("goods_id= " + goodsId + " and user_id= "+ userId)
 					.update(num.updateData());
-			return updateValue;
+			return insertValue;
 		}
 	}
 	/**
@@ -57,7 +58,7 @@ public class OrdersModel extends Model{
 		OrdersModel ordersModel = new OrdersModel();
 		ResultSet rs = ordersModel.
 				querySelect("select goods.goods_name,goods.goods_price,goods_orders.goods_num,goods.goods_id from goods_orders,goods"
-						+ " where user_id="+userId +" and goods.goods_id = goods_orders.goods_id");
+						+ " where user_id="+userId +" and goods.goods_id = goods_orders.goods_id and goods_orders.goods_order_status =0");
 		ArrayList shoppingList = new ArrayList();
 		while(rs.next()){
 			GoodsOrders goodsOrder = new GoodsOrders();
@@ -66,6 +67,12 @@ public class OrdersModel extends Model{
         }
 		return shoppingList;
 	}
+/**
+ * 添加地址
+ * @param userId
+ * @return
+ * @throws SQLException
+ */
 	public static ArrayList userAddress(int userId) throws SQLException {
 		OrdersModel ordersModel = new OrdersModel();
 		ResultSet res = ordersModel.
@@ -94,6 +101,58 @@ public class OrdersModel extends Model{
 				.setUpdateTime(Time.getDateTime())
 				.setCompleteTime(Time.getDateTime()).end();
 		int insertValue=this.table("orders").add(get_fieldvalue.getFields(),get_fieldvalue.getData());
+		return insertValue;
+	}
+	/**
+	 * 购买商品
+	 * @param goodsId
+	 * @param userId
+	 * @param goodsNum
+	 * @param total
+	 * @return
+	 * @throws SQLException
+	 */
+	public int addShoppingOrder(int goodsId,int userId,int goodsNum,int total) throws SQLException {
+		ResultSet rs;
+		OrdersModel ordersModel = new OrdersModel();
+		//加入购物车
+		rs = ordersModel.
+				querySelect("select goods_price from goods where goods_id="+goodsId);
+		rs.next();
+		GoodsOrders get_fieldvalue = GoodsOrders.instantce()
+				.setGoodsId(goodsId)
+				.setGoodsNum(goodsNum)
+				.setGoodsPrice(rs.getInt(1))
+				.setUserId(userId)
+				.setCreateTime(Time.getDateTime())
+				.setUpdateTime(Time.getDateTime())
+				.setGoodsOrderStatus(1).end();
+		this.table("goods_orders").add(get_fieldvalue.getFields(),get_fieldvalue.getData());
+		//下单支付
+		rs = ordersModel.
+				querySelect("select user_address_name from user_address"
+						+ " where user_id="+userId+" and user_address_status = 1");
+		rs.next();
+		Orders get_field_value = Orders.instantce()
+				.setOrderTotal(total)
+				.setOutTradeNo("40001")
+				.setUserId(userId)
+				.setUserAddressName(rs.getString(1))
+				.setCreateTime(Time.getDateTime())
+				.setUpdateTime(Time.getDateTime())
+				.setCompleteTime(Time.getDateTime())
+				.setOrderStatus(1).end();
+		int insertValue=this.table("orders").add(get_field_value.getFields(),get_field_value.getData());
+		//更新数量
+		rs = ordersModel.
+				querySelect("select goods_num from goods where goods_id="+goodsId);
+		rs.next();
+		Goods num=Goods.instantce()
+				.setGoodsNum(rs.getInt(1)-goodsNum)
+				.end();
+		int updateValue=ordersModel.table("goods")
+				.where("goods_id= " + goodsId)
+				.update(num.updateData());
 		return insertValue;
 	}
 }

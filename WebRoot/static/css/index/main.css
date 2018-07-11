@@ -9,13 +9,16 @@
 .topBar a:hover{color:red;}
 /* logo */
 .logoBar{height:85px; background-color:#1D7AD9;}
-.logo{padding-left:41px; padding-top:13px;}
+.logo{padding-left:41px; padding-top:30px;}
 /* search */
 .search_box{width:430px;padding-top:25px; padding-left:185px;}
 .search_text{width:360px; height:35px;line-height:35px\9;background-color:#FFF;}
 .search_btn{width:70px; height:35px; font-size:14px; font-family:"MicrosoftYaHei","微软雅黑";background-color:#FF8C00;color:#FFF;}
 /* 购物车 */
-.shopCar{width:145px; height:35px; line-height:35px; background-color:#FF8C00;  color:#FFF;margin-top:25px;font:14px/35px "Microsoft YaHei", "微软雅黑";}
+.shopCar{width:145px; height:35px; line-height:35px; background-color:#FF8C00;  color:#ffffff;margin-top:25px;font:14px/35px "Microsoft YaHei", "微软雅黑";}
+.shopCar a{
+	color:White;
+}
 .shopText{/* font-size:14px; font-family:"Microsoft YaHei"，"微软雅黑"; */ height:100%; width:87px; border-right:#E27A00 solid 1px; 
 background:url("../images/icon/shaoIcon.png") 10px center no-repeat;text-indent:40px;}
 .shopNum{width:27px;height:35px;border-left:1px solid #FF9C01; background:url("../images/icon/sj.png") 25px center no-repeat; text-align:right; padding-right:29px;}
@@ -372,7 +375,8 @@ margin-top:10px;}
 .mb_10{margin-bottom:10px;}
 .autoLogin{padding-top:27px; padding-bottom:28px;}
 .checked{position:relative; top:3px; margin-right:3px;}
-.login_btn{width:309px; height:36px; background:url("../images/icon/denglu.png") left top no-repeat;}
+.login_btn{width:309px; height:36px;}
+.login_btn2{width:309px; height:36px; margin-left: 90px;}
 .login_partners{padding-top:34px;}
 .login_list li{float:left;line-height:20px;}
 .login_list span{color:#666;}

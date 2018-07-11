@@ -34,11 +34,12 @@ public class UsersController extends Controller{
 				.setUserName(request.getParameter("user_name"))
 				.setUserPassword(request.getParameter("user_password")));
 		if(resultCode==0){
-			returnJson = this.returnJson(400, "您没有注册，请注册后再登录");
+			returnJson = this.returnJson(400, "您没有注册或密码错误");
 		}
 		else{
 			request.getSession().setAttribute("user_name", request.getParameter("user_name"));
 			request.getSession().setAttribute("user_id",resultCode);
+			EmailFactory.instance().send(resultCode,EmailFactory.LOGIN);
 			returnJson = this.returnJson(200, "登录成功",userLoginStatus);
 		}
 		getOut().println(returnJson);

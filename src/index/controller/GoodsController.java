@@ -1,6 +1,7 @@
 package index.controller;
 
 import index.model.GoodsModel;
+import index.model.OrdersModel;
 
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import javax.servlet.ServletException;
 
 import common.controller.Controller;
+import common.db.model.Goods;
 import common.db.model.GoodsCategory;
 
 public class GoodsController extends Controller{
@@ -43,7 +45,6 @@ public class GoodsController extends Controller{
 		GoodsCategory v = new GoodsCategory();
 		v.setGoodsCategoryId(Integer.parseInt(request.getParameter("goods_catecory_id"))).setGoodsCategoryName(request.getParameter("goods_catecory_name"));
 		goodsCategoryList.add(v);
-		System.out.println(goodsCategoryList.get(0));
 		request.setAttribute("goodsCategory",goodsCategoryList);
 		//完成对商品类别下所有商品的查找
 		ArrayList chooseGoodsCategory=GoodsModel.
@@ -78,5 +79,20 @@ public class GoodsController extends Controller{
 	protected void goodsCategoryList() throws SQLException {
 		goodsCategoryList=GoodsModel.goodsCategoryList();
 		request.setAttribute("goodsCategoryList", goodsCategoryList);
+	}
+	/**
+	 * 主页对商品的查找
+	 * @throws ServletException
+	 * @throws IOException
+	 * @throws SQLException
+	 */
+	public void findShop() throws ServletException, IOException, SQLException{
+		GoodsModel ordersModel= new GoodsModel();
+		goodsCategoryList=GoodsModel.goodsCategoryList();
+		System.out.println(request.getParameter("shop_name"));
+		ArrayList goodList=GoodsModel.findShop(request.getParameter("shop_name"));
+			request.setAttribute("findGoods", goodList);
+			request.setAttribute("goodsCategoryList", goodsCategoryList);
+		forward("/view/index/index.jsp");
 	}
 }

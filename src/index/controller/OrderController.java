@@ -32,7 +32,7 @@ public class OrderController extends Controller{
 			getOut().println(returnJson(200, "加入购物车成功"));return;
 		}
 		else{
-		getOut().println(returnJson(400, "加入购物车失败"));return;
+			getOut().println(returnJson(400, "加入购物车失败"));return;
 		}
 	}
 	/**
@@ -74,6 +74,28 @@ public class OrderController extends Controller{
 		}
 		else{
 		getOut().println(returnJson(400, "加入购物车失败"));return;
+		}
+	}
+	/**
+	 * 加入购物车
+	 * @throws ServletException
+	 * @throws IOException
+	 * @throws SQLException
+	 */
+	public void addShoppingOrder() throws ServletException, IOException, SQLException{
+		OrdersModel ordersModel= new OrdersModel();
+		int userId=(Integer)request.getSession().getAttribute("user_id");
+		int resultCode=ordersModel.addShoppingOrder(
+				Integer.parseInt(request.getParameter("goods_id")),
+				userId,
+				Integer.parseInt(request.getParameter("goods_num")),
+				Integer.parseInt(request.getParameter("total_price"))
+		);
+		if (resultCode == 1) {
+			getOut().println(returnJson(200, "购买成功"));return;
+		}
+		else{
+		getOut().println(returnJson(400, "购买失败"));return;
 		}
 	}
 }

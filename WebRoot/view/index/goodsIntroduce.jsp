@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="topBar">
 			<div class="comWidth">
 				<div class="leftArea">
-					<a href="" class="collection">收藏本页</a>
+					<a href="${pageContext.request.contextPath}/route?get_type=user_goods_index" class="collection">首页</a>
 				</div>
 				<div class="rightArea">
 					欢迎来到跨洋购物！${sessionScope.user_name}
@@ -41,23 +41,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="logoBar">
 			<div class="comWidth">
 				<div class="logo fl">
-					<a href="#"><img src="./static/img/index/icon/logo.png" alt="慕课网"></a>
+					<a style="color:White;font-size:30px;font-weight:bolder;font-family:'楷体';" href="${pageContext.request.contextPath}/route?get_type=user_goods_index">
+					跨洋购物广场
+					</a>
 				</div>
-				<div class="search_box fl">
-					<input type="text" class="search_text fl">
-					<input type="button" value="搜索" class="search_btn fr">
-				</div>
+
 				<div class="shopCar fr">
 					<c:choose>
 					<c:when test="${!empty sessionScope.user_name}">
 						<a href="${pageContext.request.contextPath}/route?get_type=user_shopping_index">
 						<span class="shopText fl">购物车</span>
-						</a>			
+						</a>
 					</c:when>
 					<c:otherwise>
-						<a href="${pageContext.request.contextPath}/route?get_type=user_login&user_login_status=1" target="view_window">
+						<a href="${pageContext.request.contextPath}/route?get_type=user_login">
 						<span class="shopText fl">购物车</span>
-						</a>					
+						</a>
 					</c:otherwise>
 					</c:choose>
 				</div>
@@ -65,13 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 <div class="userPosition comWidth">
-	<strong><a href="#">首页</a></strong>
-	<span>&nbsp;&gt;&nbsp;</span>
-	<a href="#">平板电脑</a>
-	<span>&nbsp;&gt;&nbsp;</span>
-	<a href="#">Apple苹果</a>
-	<span>&nbsp;&gt;&nbsp;</span>
-	<em>MD531CH/A</em>
+	<strong></strong>
 </div>
 <div class="description_info comWidth">
 	<div class="description clearfix">
@@ -80,15 +73,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="leftArea">
 				<div class="description_imgs">
 				<div class="big">
-					<img src="${Goods.goodsPic}">
+					<img style="width:100%;heigth:100%;" src="${Goods.goodsPic}">
 				</div>
 				</div>
 			</div>
 			<div class="rightArea">
 				<div class="des_content" style="padding-top:5%;">
 					<div class="dl clearfix">
+						<div class="dt">商品名称:</div>
+						<div class="dd"><span class="des_money">${Goods.goodsName}</span></div>
+					</div>
+					<div class="dl clearfix">
 						<div class="dt">商品售价:</div>
-						<div class="dd"><span class="des_money"><em>￥</em>${Goods.goodsPrice/100}</span></div>
+						<div class="dd"><span class="des_money goods_price">${Goods.goodsPrice/100}<em>￥</em></span></div>
 					</div>
 					<div class="dl clearfix">
 						<div class="dt">剩余数量:</div>
@@ -117,13 +114,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</span>				
 					</c:when>
 					<c:otherwise>
-						<a href="${pageContext.request.contextPath}/route?get_type=user_login&user_login_status=1" target="view_window">
+						<a href="${pageContext.request.contextPath}/route?get_type=user_login">
 						<img src="./static/img/index/banner/jiaru.png">
 						</a>					
 					</c:otherwise>
 				</c:choose>
 				<span class="line"></span>
-				<a href="${pageContext.request.contextPath}/route?get_type=&class="shopping_btn"><img src="./static/img/index/banner/goumai.png"></a>
+				<c:choose>
+					<c:when test="${!empty sessionScope.user_name}">
+						<span class="add_order">
+							<img src="./static/img/index/banner/goumai.png">
+						</span>				
+					</c:when>
+					<c:otherwise>
+						<a href="${pageContext.request.contextPath}/route?get_type=user_login&user_login_status=1" target="view_window">
+							<img src="./static/img/index/banner/goumai.png">
+						</a>					
+					</c:otherwise>
+				</c:choose>
 			</div>
 			</div>
 		</c:forEach>
@@ -139,7 +147,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="item_cont">
 						<div class="img_item">
 						<a href="${pageContext.request.contextPath}/route?get_type=goods_info&goods_catecory_id=${Goods.goodsCategoryId}&goods_id=${Goods.goodsId}">
-						<img src="${Goods.goodsPic}"></a>
+						<img style="width:100%;heigth:100%;" src="${Goods.goodsPic}"></a>
 						</div>
 						<p>${Goods.goodsDescribe}</p>
 						<p><em>￥</em>${Goods.goodsPrice/100}</p>
@@ -175,15 +183,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 </body>
 </html>
-<script type="text/javascript">  
+<script type="text/javascript">
 layui.use('layer', function(){
       var layer = layui.layer;      
     });
+    
 	$(function() {
 		addNum();
 		reduceNum();
 		allNum();
 		addCart();
+		addOrder();
 	});
 	var addCart = function () {
 		$(".add_cart").click(function(){
@@ -192,9 +202,19 @@ layui.use('layer', function(){
 			is_ok("${pageContext.request.contextPath}/route",data,"addCartReturn");
 		});
 	}
+	var addOrder = function () {
+		$(".add_order").click(function(){
+			var data = {goods_id:$(".goods_id").val(),
+			goods_num:$(".num").val(),total_price:parseInt($(".num").val()) * parseInt($(".goods_price").text()),
+			post_type:"add_shopping_order"};
+			console.log(data);
+			is_ok("${pageContext.request.contextPath}/route",data,"addCartReturn");
+		});
+	}
 	var addCartReturn = function (dataReturn) {
 		if (dataReturn.code == 200) {
 			alert(dataReturn.msg);
+			location.reload();
 		} else {
 			alert(dataReturn.msg);
 		}
@@ -222,7 +242,7 @@ layui.use('layer', function(){
 		$(".num").val(numVal);
 	}).bind('input propertychange', function() {  
 		if($(".num").val() > Number(num.text())){
-			$(".num").val(100);
+			$(".num").val(Number(num.text()));
 		}
 	});
     }

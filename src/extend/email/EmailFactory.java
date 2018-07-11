@@ -72,8 +72,10 @@ public class EmailFactory extends Model{
 		if (!this.getUserInfo(userId)) return false;
 		// 查找对应的邮件模板
 		if (!this.getEmailTemplate(emailType)) return false;
+		System.out.println("执行2");
 		// 保存邮件进库
 		if (!this.addEmail()) return false;
+		System.out.println("执行3");
 		SendEmail sendEmail = new SendEmail(emailInfo);
 		sendEmail.setEmailTitle(emailTemplate.getString(2))
 			.setEmailContent(emailTemplate.getString(3))
