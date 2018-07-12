@@ -90,7 +90,7 @@ public class GoodsController extends Controller{
 		GoodsModel ordersModel= new GoodsModel();
 		goodsCategoryList=GoodsModel.goodsCategoryList();
 		System.out.println(request.getParameter("shop_name"));
-		ArrayList goodList=GoodsModel.findShop(request.getParameter("shop_name"));
+		ArrayList goodList=GoodsModel.findShop(request.getParameter("shop_name"),true);
 			request.setAttribute("findGoods", goodList);
 			request.setAttribute("goodsCategoryList", goodsCategoryList);
 		forward("/view/index/index.jsp");

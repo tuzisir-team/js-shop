@@ -17,7 +17,7 @@ public class UsersModel extends Model{
 		UsersModel usersModel = new UsersModel();
 		ResultSet rs = usersModel.table("goods_orders").
 				fields("goods_name, goods_orders.*").
-				hasOne("goods", "goods_id", "goods_id").where("goods_orders.user_id="+user_id).select();
+				hasOne("goods", "goods_id", "goods_id").where("goods_orders.user_id="+user_id+" and goods_orders.goods_order_status=0").select();
 		ArrayList shoppingCartList = new ArrayList();
 		while(rs.next()){
 			GoodsOrders v = new GoodsOrders();

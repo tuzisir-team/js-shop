@@ -14,7 +14,7 @@
  <form method="post" action="${pageContext.request.contextPath}/route" class="layui-form" style="margin-bottom: 20px;">
  <div class="layui-input-inline">
  	<input type="hidden" name="post_type" value="admin_find_email">
-     <input type="text" name="user_id" class="layui-input" style="width:20rem;" placeholder="请输入用户ID" required>
+     <input type="text" name="user_id" class="layui-input" style="width:20rem;" placeholder="请输入邮件ID" required>
  </div>
  <button type="submit" class="layui-btn">搜索</button>
  <c:if test="${isPage == 0}">

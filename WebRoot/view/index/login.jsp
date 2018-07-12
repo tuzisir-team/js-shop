@@ -44,19 +44,13 @@
 			<li class="l_tit">密码</li>
 			<li class="mb_10"><input required type="password" name="user_password" class="login_input user_icon"></li>
 		</ul>
-		<input type="submit"  value="登录" class="login_btn">
+		<div style="border:1px solid #ccc;background-color:#1D7AD9;">
+			<input type="submit" style="color:#fff;"  value="登录" class="login_btn"/>
+		</div>
 	</form>
 		<div class="login_partners">
-			<p class="l_tit">使用合作方账号登录网站</p>
 			<ul class="login_list clearfix">
-				<li><a href="#">QQ</a></li>
-				<li><span>丨</span></li>
-				<li><a href="#">网易</a></li>
-				<li><span>丨</span></li>
-				<li><a href="#">腾讯微博</a></li>
-				<li><span>丨</span></li>
-				<li><a href="#">新浪微博</a></li>
-				<li><span>丨</span></li>
+				
 			</ul>
 		</div>
 	</div>

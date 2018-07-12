@@ -361,7 +361,12 @@ public class AdminController extends Controller{
 		if (checkResult != null) {
 			getOut().println(returnJson(444, "缺少必要参数"+checkResult));return;
 		}
-		Page viewPage = Page.createPage(AdminModel.roleList(), strcurpage).setRoute("admin_rote_list"); // 获取请求页面对象
+		ArrayList roleList = AdminModel.roleList();
+		if (roleList.isEmpty()) {
+			forward("./view/admin/admin/rote_list.jsp");
+			return;
+		}
+		Page viewPage = Page.createPage(roleList, strcurpage).setRoute("admin_rote_list"); // 获取请求页面对象
 		request.setAttribute("viewpage", viewPage);
 		forward("./view/admin/admin/rote_list.jsp");
 	}

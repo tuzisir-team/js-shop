@@ -63,7 +63,11 @@ public class UsersController extends BaseController{
 	 */
 	public void userList() throws ServletException, IOException, SQLException {
 		String strcurpage = request.getParameter("currentpage");//接收当前页面值
-        Page viewPage = Page.createPage(UsersModel.userList(), strcurpage).setRoute("user_list");;//获取请求页面对象
+		ArrayList userList = UsersModel.userList();
+		if (userList.isEmpty()) {
+			forward("/view/admin/user/user_list.jsp");return;
+		}
+        Page viewPage = Page.createPage(userList, strcurpage).setRoute("user_list");//获取请求页面对象
         request.setAttribute("viewpage", viewPage);//将页面对象放入request中
 		forward("/view/admin/user/user_list.jsp");
 	}

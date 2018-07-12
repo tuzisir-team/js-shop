@@ -43,8 +43,8 @@ public class OrdersModel extends Model{
 					.setGoodsNum(goodsNum)
 					.setGoodsPrice(rs.getInt(10))
 					.setUserId(userId)
-					.setCreateTime(123)
-					.setUpdateTime(222)
+					.setCreateTime(Time.getDateTime())
+					.setUpdateTime(Time.getDateTime())
 					.setGoodsOrderStatus(0).end();
 			insertValue=this.table("goods_orders").add(get_fieldvalue.getFields(),get_fieldvalue.getData());
 			return insertValue;

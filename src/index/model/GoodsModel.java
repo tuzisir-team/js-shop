@@ -20,7 +20,7 @@ public class GoodsModel extends Model{
 	 */
 	public static ArrayList goodsCategoryList() throws SQLException {
 		GoodsModel usersModel = new GoodsModel();
-		ResultSet rs = usersModel.table("goods_category").select();
+		ResultSet rs = usersModel.table("goods_category").where("goods_category_status=1").limit(8).select();
 		ArrayList goodsCategoryList = new ArrayList();
 		while(rs.next()){
 			GoodsCategory v = new GoodsCategory();
@@ -47,7 +47,7 @@ public class GoodsModel extends Model{
 		while (rs.next()){
 			Goods v=new Goods();
 			v.setGoodsId(rs.getInt(1)).setGoodsName(rs.getString(2))
-			.setGoodsPic(rs.getString(3)).setGoodsDescribe(rs.getString(5))
+			.setGoodsPic(rs.getString(3)).setGoodsDescribe(rs.getString(5).substring(0,20))
 			.setGoodsNum(rs.getInt(7)).setGoodsCategoryId(rs.getInt(9))
 			.setGoodsPrice(rs.getInt(10));
 			goodsList.add(v);
@@ -73,7 +73,7 @@ public class GoodsModel extends Model{
 		while (rs.next()){
 			Goods v=new Goods();
 			v.setGoodsId(rs.getInt(1)).setGoodsName(rs.getString(2))
-			.setGoodsPic(rs.getString(3)).setGoodsDescribe(rs.getString(5))
+			.setGoodsPic(rs.getString(3)).setGoodsDescribe(rs.getString(5).substring(0,20))
 			.setGoodsNum(rs.getInt(7)).setGoodsCategoryId(rs.getInt(9))
 			.setGoodsPrice(rs.getInt(10));
 			chooseGoodsCategory.add(v);
@@ -103,18 +103,29 @@ public class GoodsModel extends Model{
 		}
 		return goodsInfo;
 	}
-	public static ArrayList findShop(String shopName) throws SQLException{
+	public static ArrayList findShop(String shopName,Boolean ...isSub) throws SQLException{
 		GoodsModel goodsmodel=new GoodsModel();
 		ResultSet rs = goodsmodel.
 				querySelect("select * from goods where goods_name like '%"+shopName+"%'");
 		ArrayList goodsList=new ArrayList();
-		while (rs.next()){
-			Goods v=new Goods();
-			v.setGoodsId(rs.getInt(1)).setGoodsName(rs.getString(2))
-			.setGoodsPic(rs.getString(3)).setGoodsDescribe(rs.getString(5))
-			.setGoodsNum(rs.getInt(7)).setGoodsCategoryId(rs.getInt(9))
-			.setGoodsPrice(rs.getInt(10));
-			goodsList.add(v);
+		if (isSub.length == 1) {
+			while (rs.next()){
+				Goods v=new Goods();
+				v.setGoodsId(rs.getInt(1)).setGoodsName(rs.getString(2))
+				.setGoodsPic(rs.getString(3)).setGoodsDescribe(rs.getString(5).substring(0,20))
+				.setGoodsNum(rs.getInt(7)).setGoodsCategoryId(rs.getInt(9))
+				.setGoodsPrice(rs.getInt(10));
+				goodsList.add(v);
+			}
+		} else {
+			while (rs.next()){
+				Goods v=new Goods();
+				v.setGoodsId(rs.getInt(1)).setGoodsName(rs.getString(2))
+				.setGoodsPic(rs.getString(3)).setGoodsDescribe(rs.getString(5))
+				.setGoodsNum(rs.getInt(7)).setGoodsCategoryId(rs.getInt(9))
+				.setGoodsPrice(rs.getInt(10));
+				goodsList.add(v);
+			}
 		}
 		return goodsList;
 	}

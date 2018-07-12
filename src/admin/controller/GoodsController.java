@@ -276,7 +276,10 @@ public class GoodsController extends Controller {
 		}
 		String strcurpage = request.getParameter("currentpage");//接收当前页面值
 		ArrayList goodsCategoryList = GoodsModel.goodsCategoryList();
-        Page viewPage = Page.createPage(goodsCategoryList, strcurpage).setRoute("admin_goods_category_list");;//获取请求页面对象
+		if (goodsCategoryList.isEmpty()) {
+			forward("/view/admin/goods/goods_category_list.jsp");return;
+		}
+        Page viewPage = Page.createPage(goodsCategoryList, strcurpage).setRoute("admin_goods_category_list");//获取请求页面对象
 		request.setAttribute("viewpage", viewPage);
 		forward("/view/admin/goods/goods_category_list.jsp");
 	}
